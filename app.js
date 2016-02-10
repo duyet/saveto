@@ -22,6 +22,10 @@ app.use(middlewares.favicon());
 app.use(middlewares.rt());
 app.use(middlewares.logger());
 app.use(middlewares.bodyParser());
+app.use(middlewares.session({
+	store: middlewares.RedisStore()
+}));
+middlewares.onerror(app);
 
 app.context.viewpath = path.join(__dirname, 'views');
 app.context.assetspath = path.join(__dirname, 'public');
@@ -31,6 +35,7 @@ app.use(staticCache(app.context.assetspath, {
 }));
 
 // View
+require('./app/hbs');
 app.use(hbs.middleware({
   viewPath: app.context.viewpath,
   partialsPath: app.context.viewpath + '/partials',
@@ -39,7 +44,7 @@ app.use(hbs.middleware({
 }));
 
 // passport 
-require('./app/passport');
+var passport = require('./app/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 

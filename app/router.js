@@ -19,13 +19,16 @@ root_router
 	.get('/faq', controller.faq)
 
 	// Auth
+	.get('/auth/github', controller.github)
+	.get('/auth/github/callback', controller.githubCallback)
+
 	.get('/login', controller.login)
 	.post('/login', controller.loginAction)
 	
 	.get('/register', controller.register)
 	.get('/logout', controller.logout)
 	.get('/forgot', controller.forgot)
-	.get('/me', controller.me)
+	.get('/me', controller.authed, controller.me)
 
 	// Helper 
 	.get('/click', controller.click)

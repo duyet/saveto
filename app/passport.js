@@ -23,6 +23,24 @@ passport.use(new LocalStrategy(function(username, password, done) {
     }
 }))
 
+
+var GitHubStrategy = require('passport-github').Strategy
+passport.use(new GitHubStrategy({
+        clientID: 'cc029092e4a9ef007b37',
+        clientSecret: '456b1e1f3de91c70401e967dfdc497d3d97a9c47',
+        callbackURL: "http://localhost:6969/auth/github/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+        console.log(profile)
+        done(null, profile);
+        // User.findOrCreate({
+        //     githubId: profile.id
+        // }, function(err, user) {
+        //     return done(err, user);
+        // });
+    }
+));
+
 // var FacebookStrategy = require('passport-facebook').Strategy
 // passport.use(new FacebookStrategy({
 //         clientID: 'your-client-id',
@@ -58,3 +76,5 @@ passport.use(new LocalStrategy(function(username, password, done) {
 //         done(null, user)
 //     }
 // ))
+
+module.exports = passport;
