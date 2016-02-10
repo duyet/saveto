@@ -5,8 +5,10 @@ var koa = require('koa');
 var middlewares = require('koa-middlewares');
 var staticCache = require('koa-static-cache');
 var serve = require('koa-static-folder');
+var passport = require('koa-passport');
 
 var config = require('./config');
+var router = require('./router');
 
 var app = koa(); // initial koa application
 
@@ -20,6 +22,10 @@ app.use(middlewares.rt());
 app.use(middlewares.logger());
 app.use(middlewares.bodyParser());
 
+// passport 
+app.use(passport.initialize());
+app.use(passport.session());
+
 var viewpath = path.join(__dirname, 'views');
 var assetspath = path.join(__dirname, 'public');
 app.use(serve('./public'));
@@ -27,6 +33,9 @@ app.use(staticCache(assetspath, {
 	maxAge: 365 * 24 * 60 * 60
 }));
 
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
 
 // Start application
 app = module.exports = http.createServer(app.callback());
