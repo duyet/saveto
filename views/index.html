@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>{{#if title}}{{title}}{{else}}Quick{{/if}}</title>
+    <title>{{#if config.title}}{{config.title}}{{else}}Quick{{/if}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" type="text/css" href="public/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="public/css/app.css" />
@@ -20,6 +20,7 @@
     <div class="container">
         {{{body}}}
     </div>
-</body>
 
+    <!-- build version {{config.version}} -->
+</body>
 </html>

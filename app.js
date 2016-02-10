@@ -49,7 +49,9 @@ var passport = require('./app/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function *(next) {
+	this.state.config = config.view;
 	this.state.user = this.req.user;
+
 	yield next;
 });
 
