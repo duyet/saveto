@@ -17,11 +17,16 @@
   "license": "MIT",
   "dependencies": {
     "koa": "^1.1.2",
+    "koa-hbs": "^0.7.0",
     "koa-middlewares": "^4.1.0",
     "koa-passport": "^1.2.0",
     "koa-router": "^5.3.0",
     "koa-static-cache": "^3.1.4",
     "koa-static-folder": "^0.1.6",
-    "mongoose": "^4.4.0"
+    "mongoose": "^4.4.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
   }
 }

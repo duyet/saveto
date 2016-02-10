@@ -1,0 +1,27 @@
+{
+  "name": "quick",
+  "description": "Save link, by quick collection, quick access",
+  "main": "index.js",
+  "authors": [
+    "Van-Duyet Le <me@duyetdev.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "quick",
+    "nodejs",
+    "link"
+  ],
+  "homepage": "https://github.com/duyetdev/quick",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.2"
+  }
+}

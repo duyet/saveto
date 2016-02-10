@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{#if title}}{{title}}{{else}}Quick{{/if}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="public/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="public/css/app.css" />
+</head>
+
+<body>
+    <!-- <div id="loading-state" class="loading-state">Loading...</div> -->
+    <div class="container">
+        <div class="header clearfix">
+            {{> menu}}
+            <h3 class="text-muted" id="quick-logo">Quick</h3>
+        </div>
+    </div>
+
+    <div class="container">
+        {{{body}}}
+    </div>
+</body>
+
+</html>
