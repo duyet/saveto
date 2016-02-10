@@ -1,6 +1,5 @@
 var http = require('http');
 var path = require('path');
-var mongoose = require('mongoose');
 var koa = require('koa');
 var middlewares = require('koa-middlewares');
 var staticCache = require('koa-static-cache');
@@ -10,11 +9,12 @@ var hbs = require('koa-hbs');
 
 var config = require('./app/config');
 var router = require('./app/router');
+var db = require('./app/db');
 
 var app = koa(); // initial koa application
 
 app.keys = ['duyetdev-quick', 'i like a boss']; // Key server
-app.context.db = mongoose.connect(config.db); // Database
+app.context.db = db; // Database
 
 // Middlewares
 app.use(middlewares.compress());

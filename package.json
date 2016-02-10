@@ -16,6 +16,7 @@
   "author": "Van-Duyet Le <me@duyetdev.com>",
   "license": "MIT",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "koa": "^1.1.2",
     "koa-hbs": "^0.7.0",
     "koa-middlewares": "^4.1.0",

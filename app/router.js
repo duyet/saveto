@@ -26,6 +26,8 @@ root_router
 	.post('/login', controller.loginAction)
 	
 	.get('/register', controller.register)
+	.post('/register', controller.registerAction)
+	
 	.get('/logout', controller.logout)
 	.get('/forgot', controller.forgot)
 	.get('/me', controller.authed, controller.me)
