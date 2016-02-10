@@ -43,10 +43,15 @@ app.use(hbs.middleware({
   defaultLayout: 'index'
 }));
 
+
 // passport 
 var passport = require('./app/passport');
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function *(next) {
+	this.state.user = this.req.user;
+	yield next;
+});
 
 // Router
 app

@@ -62,17 +62,6 @@ exports.loginAction = function*(next) {
     })
 };
 
-//Middleware: authed
-exports.authed = function*(next) {
-    if (this.req.isAuthenticated()) {
-        yield next;
-    } else {
-        //Set redirect path in session
-        this.session.returnTo = this.session.returnTo || this.req.url;
-        this.redirect('/login');
-    }
-};
-
 exports.register = function*(next) {
     var success = (this.request.query.hasOwnProperty('success') && this.request.query.success == '1') ? true : false;
     if (success) {
@@ -119,9 +108,21 @@ exports.logout = function*(next) {
     this.redirect('/');
 };
 
+
+// Middleware: authed
+exports.authed = function*(next) {
+    if (this.req.isAuthenticated()) {
+        yield next;
+    } else {
+        //Set redirect path in session
+        this.session.returnTo = this.session.returnTo || this.req.url;
+        this.redirect('/login');
+    }
+};
+
 exports.me = function*(next) {
     yield this.render('page/me', {
-        user: this.req.user
+        me: this.req.user
     });
 };
 

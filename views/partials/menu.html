@@ -7,9 +7,10 @@
             <a class="nav-link" href="/about">about</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/me">me</a>
+            <a class="nav-link" href="/me">{{#if user}}@{{user.username}}{{else}}me{{/if}}</a>
         </li>
-        <li class="nav-item" id="login-button">
+        <li class="nav-item">
+            
         </li>
     </ul>
 </nav>

@@ -1,24 +1,13 @@
 var process = require('process');
-var bcrypt = require('bcrypt-nodejs');
 var passport = require('koa-passport');
 var model = require('./model');
-
-// Password check
-var isValidPassword = function(user, password) {
-    return bcrypt.compareSync(password, user.password);
-}
-
-// Generates hash using bCrypt
-var createHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-}
+var utils = require('./utils');
 
 passport.serializeUser(function(user, done) {
     done(null, user.id)
 })
 
 passport.deserializeUser(function(id, done) {
-    console.log(id)
     model.User.findById(id, function(err, user) {
         done(err, user);
     });
@@ -39,7 +28,7 @@ passport.use('login', new LocalStrategy(function(username, password, done) {
             }
 
             // Wrong password
-            if (!isValidPassword(user, password)) {
+            if (!utils.isValidPassword(user, password)) {
                 console.log('Invalid Password');
                 return done(null, false);
             }
@@ -70,7 +59,7 @@ passport.use('register', new LocalStrategy(function(username, password, done) {
                 var newUser = new model.User();
                 // set the user's local credentials
                 newUser.username = username;
-                newUser.password = createHash(password);
+                newUser.password = utils.createHash(password);
 
                 // newUser.email = req.param('email');
                 // newUser.firstName = req.param('firstName');
