@@ -20,6 +20,8 @@ exports.faq = function*(next) {
 };
 
 exports.explore = function*(next) {
+    // var q = (this.request.query.hasOwnProperty('q')) ? this.request.query.q : '';
+    
     yield this.render('page/explore');
 };
 
