@@ -8,7 +8,9 @@ var utils = require('./utils');
 // ================================
 // Page
 exports.home = function*(next) {
-    yield this.render('page/home');
+    yield this.render('page/home', {
+        custom_script: 'home'
+    });
 };
 
 exports.about = function*(next) {
@@ -19,10 +21,41 @@ exports.faq = function*(next) {
     yield this.render('page/faq');
 };
 
+exports.help = function*(next) {
+    yield this.render('page/help');
+};
+
+exports.contact = function*(next) {
+    yield this.render('page/contact');
+};
+
+exports.changelog = function*(next) {
+    yield this.render('page/changelog');
+};
+
+exports.apiDeveloper = function*(next) {
+    yield this.render('page/apiDeveloper');
+};
+
+exports.more = function*(next) {
+    var lists = [
+        { url: '/about', title: 'about quick project' },
+        { url: '/faq', title: 'faq' },
+        { url: '/api', title: 'api access' },
+        { url: '/help', title: 'help' },
+        { url: '/contact', title: 'contact us' },
+        { url: '/changelog', title: 'changelog' },
+    ];
+    yield this.render('page/more', {lists: lists});
+};
+
 exports.explore = function*(next) {
-    // var q = (this.request.query.hasOwnProperty('q')) ? this.request.query.q : '';
-    
-    yield this.render('page/explore');
+    var q = (this.request.query.hasOwnProperty('q')) ? this.request.query.q : '';
+    var collections = yield model.Collection.find({}).exec();
+
+    yield this.render('page/explore', {
+        collections: collections
+    });
 };
 
 // ================================
@@ -117,6 +150,7 @@ exports.forgot = function*(next) {
 };
 
 exports.logout = function*(next) {
+    utils.userLog(this.req.user, this.request, 'user_logout');
     this.logout();
     this.redirect('/');
 };
@@ -134,8 +168,12 @@ exports.authed = function*(next) {
 };
 
 exports.me = function*(next) {
+    var me = this.req.user || {};
+    if (me.email) me.md5_mail = utils.md5(me.mail);
+
     yield this.render('page/me', {
-        me: this.req.user
+        me: me,
+        custom_script: ['me']
     });
 };
 
@@ -150,6 +188,7 @@ exports.mePasswordAction = function*(next) {
     var error_message = null;
     var success_message = null;
 
+    var request = this.request;
     var req = this.request.body || {};
     var auth_user = this.req.user;
 
@@ -165,6 +204,7 @@ exports.mePasswordAction = function*(next) {
         var newPassword = utils.createHash(req.new_password);
         model.User.update({'username': auth_user.username}, {password: newPassword}, function (err, doc) {
             console.log('Update password', err, doc);
+            utils.userLog(auth_user, request, 'change_password');
         });
         success_message = 'success';
     }
@@ -175,9 +215,45 @@ exports.mePasswordAction = function*(next) {
     });
 };
 
+exports.accessTokenReset = function * (next) {
+    var accessToken = utils.accessTokenGenerator();
+    var that = this;
+    model.User.update(
+        {'username': this.req.user.username}, 
+        {access_token: accessToken}, function (err, doc) {
+            console.log('Update access_token', err, doc);
+            utils.userLog(that.req.user, that.request, 'reset_access_token');
+    });
+
+    this.req.user.access_token = accessToken;
+    this.body = { access_token: accessToken };
+}
+
 exports.meInfo = function * (next) {
     yield this.render('page/meInfo', {
         me: this.req.user
+    });
+}
+
+exports.meLog = function * (next) {
+    var perPage = 50
+    , page = Math.max(0, parseInt(this.request.query.page) || 0)
+
+    var skip = this.request.query.skip || '';
+
+    var builder = model.UserLog.find({user_id: this.req.user._id})
+        .sort({created: -1})
+        .limit(perPage)
+        .skip(perPage * page)
+
+    var logs = yield builder.exec();
+
+    yield this.render('page/meLog', {
+        me: this.req.user,
+        page: page,
+        prePageNumber: (page - 1 >= 0 ? page - 1 : 0),
+        nextPageNumber: page + 1,
+        logs: logs
     });
 }
 
@@ -191,5 +267,33 @@ exports.setting = function * (next) {
 // ================================
 // Helper
 exports.click = function*(next) {
+    var url = this.request.query.u || '';
+    var url_id = this.request.query.url_id || '';
 
+    if (!url || !url_id) return this.body = 'ops!';
+    var collection = yield model.Collection.findOne({_id: url_id}).exec();
+    if (!collection) return this.body = 'Not found.';
+
+    // Update click couter 
+    collection.click += 1;
+    collection.save();
+
+    this.redirect(url);
+};
+
+exports.shortenUrl = function*(next) {
+    alias = this.params.alias || '';
+
+    console.log('alas: ', alias)
+
+    var collection = yield model.Collection.findOne({alias: alias}).exec();
+    if (!collection) return this.body = 'Not found.';
+
+    console.log(collection)
+
+    // Update click couter 
+    collection.click += 1;
+    collection.save();
+
+    this.redirect(collection.url);
 };

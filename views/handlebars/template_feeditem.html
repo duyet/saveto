@@ -1,0 +1,21 @@
+{{{{raw}}}}
+<script id="feeditem" type="text/x-handlebars-template">
+{{#each urls}}
+	<div class="url-item" data-url-id="{{_id}}" data-url-alias="{{alias}}">
+		<div class="link-text">
+			<a href="{{tracker_link url _id}}" onHover="this.href='{{url}}'">
+				{{#unless title}}{{url}}{{else}}{{title}}{{/unless}}</a>
+
+			<span class="alias">
+				{{shorten_url alias}}
+			</span>
+		</div>
+		<div class="link-meta">
+			<span class="click">{{click}} click(s)</span>
+			<span class="created" title="{{created}}">{{fromNow created}}</span>
+
+		</div>
+	</div>
+{{/each}}
+</script>
+{{{{/raw}}}}

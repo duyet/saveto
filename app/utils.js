@@ -1,4 +1,10 @@
+var url = require('url');
 var bcrypt = require('bcrypt-nodejs');
+var md5 = require('md5');
+var randomstring = require('randomstring');
+var validator = require('validator');
+
+var model = require('./model');
 
 // Password check
 exports.isValidPassword = function(user, password) {
@@ -8,4 +14,50 @@ exports.isValidPassword = function(user, password) {
 // Generates hash using bCrypt
 exports.createHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+}
+
+exports.md5 = function(s) {
+    return md5(s);
+}
+
+exports.isURL = function(s) {
+    return validator.isURL(s, {require_protocol: true});
+}
+
+exports.isUserID = function(s) {
+    return validator.isMongoId(s);
+}
+
+exports.accessTokenGenerator = function() {
+    return randomstring.generate({
+        length: 32,
+        charset: 'alphabetic'
+    });
+}
+
+exports.parseURL = function(u, parseQueryString, slashesDenoteHost) {
+    return url.parse(u, parseQueryString, slashesDenoteHost);
+}
+
+exports.aliasGenerator = function(len) {
+    len = len || 5;
+    return randomstring.generate({
+        length: len,
+        charset: 'alphabetic'
+    });
+}
+
+// Userlog
+exports.userLog = function(user, req, event_name) {
+    if (!user || !user._id) return false;
+    if (!req) return false;
+
+    var log = new model.UserLog();
+    log.user_id = user._id;
+    log.created = new Date();
+    log.event = event_name;
+    log.ip = req.ip || '';
+    log.path = req.path || '';
+
+    log.save();
 }

@@ -36,6 +36,7 @@ passport.use('login', new LocalStrategy({passReqToCallback : true}, function(req
             }
 
             // Ok
+            utils.userLog(user, req, 'user_login');
             return done(null, user);
         })
 }));
@@ -69,6 +70,8 @@ passport.use('register', new LocalStrategy({passReqToCallback : true}, function(
 
                 newUser.email = req.body.email || '';
                 newUser.firstName = username;
+                newUser.created = new Date();
+                newUser.access_token = utils.accessTokenGenerator();
 
                 // save the user
                 newUser.save(function(err) {
@@ -76,7 +79,9 @@ passport.use('register', new LocalStrategy({passReqToCallback : true}, function(
                         console.log('Error in Saving user: ' + err);
                         throw err;
                     }
+
                     console.log('User Registration succesful');
+                    utils.userLog(newUser, req, 'user_register');
                     return done(null, newUser);
                 });
             }

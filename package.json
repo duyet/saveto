@@ -17,18 +17,24 @@
   "license": "MIT",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "co": "^4.6.0",
+    "handlebars-intl": "^1.1.2",
     "koa": "^1.1.2",
     "koa-flash": "^1.0.0",
     "koa-hbs": "^0.7.0",
+    "koa-helmet": "^1.0.0",
     "koa-middlewares": "^4.1.0",
     "koa-passport": "^1.2.0",
     "koa-router": "^5.3.0",
     "koa-session": "^3.3.1",
     "koa-static-cache": "^3.1.4",
     "koa-static-folder": "^0.1.6",
+    "md5": "^2.0.0",
     "mongoose": "^4.4.0",
     "passport-github": "^1.1.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "randomstring": "^1.1.4",
+    "validator": "^4.8.0"
   },
   "devDependencies": {
     "nodemon": "^1.8.1"

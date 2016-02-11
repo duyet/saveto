@@ -7,6 +7,7 @@ var serve = require('koa-static-folder');
 var passport = require('koa-passport');
 var hbs = require('koa-hbs');
 var flash = require('koa-flash');
+var helmet = require('koa-helmet');
 
 var config = require('./app/config');
 var router = require('./app/router');
@@ -14,7 +15,7 @@ var db = require('./app/db');
 
 var app = koa(); // initial koa application
 
-app.keys = ['duyetdev-quick', 'i like a boss']; // Key server
+app.keys = [config.secret_key, 'i like a boss']; // Key server
 app.context.db = db; // Database
 
 // Middlewares
@@ -27,7 +28,8 @@ app.use(middlewares.session({
 	store: middlewares.RedisStore()
 }));
 middlewares.onerror(app);
-app.use(flash({ key: '-duyetdev-quick-' }));
+app.use(flash({ key: config.secret_key }));
+app.use(helmet());
 
 app.context.viewpath = path.join(__dirname, 'views');
 app.context.assetspath = path.join(__dirname, 'public');
@@ -40,7 +42,7 @@ app.use(staticCache(app.context.assetspath, {
 require('./app/hbs');
 app.use(hbs.middleware({
   viewPath: app.context.viewpath,
-  partialsPath: app.context.viewpath + '/partials',
+  partialsPath: [ app.context.viewpath + '/partials', app.context.viewpath + '/handlebars' ],
   extname: '.html',
   defaultLayout: 'index'
 }));
@@ -52,7 +54,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(function *(next) {
 	this.state.config = config.view;
-	this.state.user = this.req.user;
+	this.state.request = this.request;
+
+	var user = this.req.user; 
+	user.password = '';
+	this.state.user = user;
 
 	yield next;
 });

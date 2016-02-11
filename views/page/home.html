@@ -1,7 +1,15 @@
-<form action="/add" method="POST" class="form-horizontal" role="form" id="quickForm">
-	<div class="form-group quick-url-input">
-		<div class="col-sm-12">
-			<input type="text" name="url" id="quick-url" class="form-control" value="" required="required" placeholder="http://">
-		</div>
-	</div>
-</form>
+<div class="row">
+    <div class="col-md-12">
+        <form action="/add" method="POST" class="form-horizontal" role="form" id="quickForm">
+            <div class="form-group quick-url-input">
+             	<input type="text" name="url" id="quick-url" class="form-control" value="" required="required" placeholder="http://">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="row m-t-2">
+    {{> feed}}
+</div>
+{{> template_feeditem}}

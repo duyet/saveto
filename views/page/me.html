@@ -1,16 +1,21 @@
 <div>
-	Hi, <strong>{{me.username}}</strong>!
-	<br />
-	<br />
-
-	Email: <a href="#">{{me.email}}</a>
-	<br />
-	<br />
-	Change: <a href="/me/password">password</a>, 
-	<a href="/me/info">information</a>
-	<br />
-	<hr />
-	
-	<a href="/setting">setting</a> | 
-	<a href="/logout">logout</a>
+    <div class="list-group">
+        <div class="list-group-item">
+            <!-- <img src="http://www.gravatar.com/avatar/{{me.md5_email}}?r=x&s=100" width="50"> -->
+            Hi, <strong>{{me.username}}</strong>!
+        </div>
+        <div class="list-group-item">
+            Email: <a href="#">{{me.email}}</a><br /> 
+            Access token: <strong id="access_token_value">{{me.access_token}}</strong> (<a href="javascript:void(0)" id="reset_accesstoken">reset</a>)<br /> 
+            Password: <strong>*****</strong> (<a href="/me/password">change</a>)<br />
+            <br />
+            <a href="/me/log">/log</a><br />
+            <a href="/me/info">/dump</a><br />
+            
+        </div>
+    </div>
+    <br />
+    <br />
+    <a href="/setting">setting</a> |
+    <a href="/logout">logout</a>
 </div>

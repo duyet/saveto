@@ -11,11 +11,16 @@ var config = {
     version: version,
     debug: process.env.NODE_ENV !== 'production',
     port: process.env.PORT || 6969,
-    
+    secret_key: '-duyetdev-quick-',
+
     view: {
     	title: 'Quick',
     	ga: 'UAxxxx',
-    	version: version
+    	version: version,
+    	js_config: {
+    		base_url: '/',
+    		api_endpoint: '/api/v1'
+    	}
     }
 };
 

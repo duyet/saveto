@@ -1,0 +1,35 @@
+<div class="row m-b-2">
+    <form action="/explore" method="POST" class="form-horizontal" role="form">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" name="q" id="input" class="form-control" value="" required="required" placeholder="Search ...">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="feed">
+            <div class="feed-items">
+                {{#each collections}}
+                <div class="link" data-link-id="{{_id}}" data-title="{{title}}">
+                    <div class="content">
+                        <div class="title">
+                            {{url_tracker title url}}
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="tags"></div>
+                        <div class="host-last-saved-at">
+                            <div class="host">{{user_id}}</div>
+                            <div class="last-saved-at">
+                            	<a href="/i/link/853545">{{last_update}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

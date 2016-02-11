@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" type="text/css" href="/public/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/public/css/app.css" />
+
+    {{> header_script}}
 </head>
 
 <body>
@@ -15,7 +17,7 @@
             &#9776;
             </button>
             <div class="collapse navbar-toggleable-xs" id="quicknavbar">
-                <a class="navbar-brand" href="#" id="quick-logo">Quick</a>
+                <a class="navbar-brand" href="/" id="quick-logo">Quick</a>
                 {{> menu}}
             </div>
         </nav>
@@ -25,7 +27,18 @@
         {{{body}}}
     </div>
 
+    <script type="text/javascript">
+        window.app = window.app || {{{json config.js_config}}};
+        window.app.user = {{{json user}}} || {};
+        window.app.basepath = '{{request.origin}}';
+    </script>
+
     <script type="text/javascript" src="/public/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/lib/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/public/lib/handlebars/handlebars.min.js"></script>
     <script type="text/javascript" src="/public/js/main.js"></script>
+    {{custom_script_by_page custom_script}}
+
+    {{> footer_script}}
 </body>
 </html>

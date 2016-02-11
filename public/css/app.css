@@ -145,3 +145,45 @@ body {
 .page.about .logo {
     font-size: 80px
 }
+
+.feed {
+    font-family: -apple-system, '.SFNSText-Regular', 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif;
+}
+
+.feed .url-item {
+    display: block;
+    padding: 16px 0;
+    border-bottom: 1px solid #ddd
+}
+
+.feed .url-item .alias a {
+    color: #949494;
+    font-weight: 700;
+}
+
+
+.feed .url-item .link-text a {
+    font-size: 18px;
+    color: #333;
+}
+.feed .url-item .link-text a:hover {
+    color: #1492ef;
+    text-decoration: none;
+}
+.feed .url-item .link-meta {
+    font-size: 0.85em;
+    color: #666;
+}
+.feed .url-item .alias a {
+    font-size: 0.7em;
+    color: #ddd;
+}
+
+.feed .url-item .link-meta span {
+    display: inline-block;
+}
+.feed .url-item .link-meta .click {}
+.feed .url-item .link-meta .created {
+    margin-left: 1em;
+    font-style: italic;
+}

@@ -1,0 +1,19 @@
+<div class="row">
+    <h5>/me/log</h5>
+    
+    <br />
+    
+    <table class="table ">
+        {{#each logs}}
+        <tr>
+            <td>{{created}}</td>
+            <td>{{event}}</td>
+            <td>{{path}}</td>
+            <td>{{ip}}</td>
+        </tr>
+        {{/each}}
+    </table>
+
+    <a href="/me/log?page={{prePageNumber}}">pre</a> |
+    {{#if logs}}<a href="/me/log?page={{nextPageNumber}}">next</a>{{else}}next{{/if}}
+</div>
