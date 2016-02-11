@@ -49,7 +49,8 @@ exports.login = function*(next) {
 
     var error = (this.request.query.hasOwnProperty('error') && this.request.query.error == '1') ? true : false;
     yield this.render('page/login', {
-        error: error
+        error: error,
+        error_message: this.flash.error 
     });
 };
 
@@ -78,7 +79,8 @@ exports.register = function*(next) {
 
     var error = (this.request.query.hasOwnProperty('error') && this.request.query.error == '1') ? true : false;
     yield this.render('page/register', {
-        error, error
+        error: error,
+        error_message: this.flash.error
     });
 };
 

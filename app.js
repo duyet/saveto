@@ -6,6 +6,7 @@ var staticCache = require('koa-static-cache');
 var serve = require('koa-static-folder');
 var passport = require('koa-passport');
 var hbs = require('koa-hbs');
+var flash = require('koa-flash');
 
 var config = require('./app/config');
 var router = require('./app/router');
@@ -26,6 +27,7 @@ app.use(middlewares.session({
 	store: middlewares.RedisStore()
 }));
 middlewares.onerror(app);
+app.use(flash({ key: '-duyetdev-quick-' }));
 
 app.context.viewpath = path.join(__dirname, 'views');
 app.context.assetspath = path.join(__dirname, 'public');

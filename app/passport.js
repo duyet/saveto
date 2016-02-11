@@ -14,7 +14,8 @@ passport.deserializeUser(function(id, done) {
 })
 
 var LocalStrategy = require('passport-local').Strategy
-passport.use('login', new LocalStrategy(function(username, password, done) {
+passport.use('login', new LocalStrategy({passReqToCallback : true}, function(req, username, password, done) {
+    
     model.User.findOne({
             'username': username
         },
@@ -23,13 +24,14 @@ passport.use('login', new LocalStrategy(function(username, password, done) {
 
             // User not found
             if (!user) {
-                console.log('User Not Found with username ' + username);
+                req.flash.error = 'user not found with username = ' + username;
                 return done(null, false);
             }
 
             // Wrong password
             if (!utils.isValidPassword(user, password)) {
                 console.log('Invalid Password');
+                req.flash.error = 'invalid password';
                 return done(null, false);
             }
 
@@ -38,8 +40,11 @@ passport.use('login', new LocalStrategy(function(username, password, done) {
         })
 }));
 
-passport.use('register', new LocalStrategy(function(username, password, done) {
+passport.use('register', new LocalStrategy({passReqToCallback : true}, function(req, username, password, done) {
+    console.log(req);
+        
     findOrCreateUser = function() {
+
         // find a user in Mongo with provided username
         model.User.findOne({
             'username': username
@@ -47,12 +52,14 @@ passport.use('register', new LocalStrategy(function(username, password, done) {
             // In case of any error return
             if (err) {
                 console.log('Error in SignUp: ' + err);
-                return done(err);
+                req.flash.error = err;
+                return done(err, false);
             }
             // already exists
             if (user) {
                 console.log('User already exists');
-                return done(null, false); // req.flash('message','User Already Exists')
+                req.flash.error = 'user already exists';
+                return done(null, false);  
             } else {
                 // if there is no user with that email
                 // create the user
@@ -61,9 +68,8 @@ passport.use('register', new LocalStrategy(function(username, password, done) {
                 newUser.username = username;
                 newUser.password = utils.createHash(password);
 
-                // newUser.email = req.param('email');
-                // newUser.firstName = req.param('firstName');
-                // newUser.lastName = req.param('lastName');
+                newUser.email = req.body.email || '';
+                newUser.firstName = username;
 
                 // save the user
                 newUser.save(function(err) {

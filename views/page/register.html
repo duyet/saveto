@@ -5,15 +5,22 @@
 
     <div class="form-group">
     	{{#if error}}
-    		<div class="alert alert-danger" role="alert">
-			  <strong>Oh snap!</strong> try again.
-			</div>
+    		{{#if error_message}}
+                <div class="alert alert-danger" role="alert">
+                  {{error_message}}.
+                </div>
+            {{/if}}
     	{{/if}}
     </div>
 
     <fieldset class="form-group">
         <label for="username">username</label>
         <input type="text" class="form-control" id="username" name="username" placeholder="username">
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label for="email">email</label>
+        <input type="text" class="form-control" id="email" name="email" placeholder="email">
     </fieldset>
     
     <fieldset class="form-group">
@@ -27,9 +34,8 @@
     </fieldset>
 
     <div class="form-group">
-        <div class="col-sm-10 col-sm-offset-2">
-            <button type="submit" class="btn btn-primary">Login</button>
-            
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Register</button>
         </div>
     </div>
 </form>
