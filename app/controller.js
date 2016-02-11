@@ -19,6 +19,10 @@ exports.faq = function*(next) {
     yield this.render('page/faq');
 };
 
+exports.explore = function*(next) {
+    yield this.render('page/explore');
+};
+
 // ================================
 // Auth
 exports.github = function*(next) {
@@ -168,6 +172,18 @@ exports.mePasswordAction = function*(next) {
         success_message: success_message
     });
 };
+
+exports.meInfo = function * (next) {
+    yield this.render('page/meInfo', {
+        me: this.req.user
+    });
+}
+
+exports.setting = function * (next) {
+    yield this.render('page/setting', {
+        me: this.req.user
+    });
+}
 
 
 // ================================

@@ -115,6 +115,16 @@ body {
     }
 }
 
+@media screen and (max-width: 48em) {
+    body {
+        padding-top: 0;
+    }
+    .header {
+        margin-bottom: 1.5rem;
+        padding: 0;
+    }
+}
+
 .quick-collection {
   margin-top: 30px;
 }

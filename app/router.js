@@ -16,6 +16,7 @@ root_router
 	
 	.get('/', controller.home)
 	.get('/about', controller.about)
+	.get('/explore', controller.explore)
 	.get('/faq', controller.faq)
 
 	// Auth
@@ -35,6 +36,9 @@ root_router
 	.get('/me', controller.authed, controller.me)
 	.get('/me/password', controller.authed, controller.mePassword)
 	.post('/me/password', controller.authed, controller.mePasswordAction)
+	
+	.get('/me/info', controller.authed, controller.meInfo)
+	.get('/setting', controller.authed, controller.setting)
 
 	// Helper 
 	.get('/click', controller.click)

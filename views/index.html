@@ -9,18 +9,22 @@
 </head>
 
 <body>
-    <!-- <div id="loading-state" class="loading-state">Loading...</div> -->
-    <div class="container">
-        <div class="header clearfix">
-            {{> menu}}
-            <h3 class="text-muted" id="quick-logo">Quick</h3>
-        </div>
-    </div>
+    <header class="container header">
+        <nav class="navbar navbar-light">
+            <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#quicknavbar">
+            &#9776;
+            </button>
+            <div class="collapse navbar-toggleable-xs" id="quicknavbar">
+                <a class="navbar-brand" href="#" id="quick-logo">Quick</a>
+                {{> menu}}
+            </div>
+        </nav>
+    </header>
 
     <div class="container">
         {{{body}}}
     </div>
 
-    <!-- build version {{config.version}} -->
+    <script type="text/javascript" src="/public/lib/jquery/dist/jquery.min.js"></script>
 </body>
 </html>
