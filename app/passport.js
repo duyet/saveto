@@ -17,7 +17,7 @@ var LocalStrategy = require('passport-local').Strategy
 passport.use('login', new LocalStrategy({passReqToCallback : true}, function(req, username, password, done) {
     
     model.User.findOne({
-            'username': username
+            $or: [ {'username': username} , { 'email': username }]
         },
         function(err, user) {
             if (err) return done(err);
@@ -41,13 +41,12 @@ passport.use('login', new LocalStrategy({passReqToCallback : true}, function(req
 }));
 
 passport.use('register', new LocalStrategy({passReqToCallback : true}, function(req, username, password, done) {
-    console.log(req);
-        
-    findOrCreateUser = function() {
+    var email = req.body.email;
 
+    findOrCreateUser = function() {
         // find a user in Mongo with provided username
         model.User.findOne({
-            'username': username
+            $or: [ {'username': username} , { 'email': email }]
         }, function(err, user) {
             // In case of any error return
             if (err) {

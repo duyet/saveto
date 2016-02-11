@@ -30,7 +30,11 @@ root_router
 	
 	.get('/logout', controller.logout)
 	.get('/forgot', controller.forgot)
+	.get('/forgot', controller.forgot)
+
 	.get('/me', controller.authed, controller.me)
+	.get('/me/password', controller.authed, controller.mePassword)
+	.post('/me/password', controller.authed, controller.mePasswordAction)
 
 	// Helper 
 	.get('/click', controller.click)
