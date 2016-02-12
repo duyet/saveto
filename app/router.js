@@ -42,14 +42,17 @@ root_router
 	.get('/forgot', controller.forgot)
 	.get('/forgot', controller.forgot)
 
+	.get('/u', function*() { this.redirect('/') })
+	.get('/u/:username', controller.authed, controller.userPage)
+
 	.get('/me', controller.authed, controller.me)
 	.get('/me/reset_access_token', controller.authed, controller.accessTokenReset)
 	.get('/me/password', controller.authed, controller.mePassword)
 	.post('/me/password', controller.authed, controller.mePasswordAction)
-	
 	.get('/me/info', controller.authed, controller.meInfo)
 	.get('/me/log', controller.authed, controller.meLog)
 	.get('/setting', controller.authed, controller.setting)
+
 
 	// Helper 
 	.get('/click', controller.click)

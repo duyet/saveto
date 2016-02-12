@@ -9,18 +9,17 @@ var utils = require('./utils');
 // Page
 exports.home = function*(next) {
     yield this.render('page/home', {
-        custom_script: [
-            '@tether/dist/js/tether.min', 
-            '@bootstrap/dist/js/bootstrap', 
+        custom_script: [ 
             '@moment/min/moment.min',
             '@clipboard/dist/clipboard.min',
             '@handlebars/handlebars.min',
             '@AlertifyJS/build/alertify.min',
+            'hbs',
             'home'
         ],
         custom_css: [
             '@AlertifyJS/build/css/alertify.min',
-            '@AlertifyJS/build/css/themes/bootstrap.min'
+            '@AlertifyJS/build/css/themes/default.min'
         ]
     });
 };
@@ -100,6 +99,9 @@ exports.login = function*(next) {
         });
         return;
     }
+
+    var next = (this.request.query.hasOwnProperty('next')) ? this.request.query.next : this.req.headers['referer'] || '/';
+    this.session.returnTo = next;
 
     var error = (this.request.query.hasOwnProperty('error') && this.request.query.error == '1') ? true : false;
     yield this.render('page/login', {
@@ -270,10 +272,39 @@ exports.meLog = function * (next) {
 }
 
 exports.setting = function * (next) {
-    yield this.render('page/setting', {
+    this.render('page/setting', {
         me: this.req.user
     });
 }
+
+exports.userPage = function * (next) {
+    var username = this.params.username || '';
+    console.log(username)
+    var user_data = yield model.User.findOne({username: username}).exec();
+
+    console.log(user_data)
+
+    if (!user_data) return yield this.render('page/404', {
+        message: 'user not found!'
+    });
+
+    yield this.render('page/user', {
+        user_data: user_data,
+        custom_script: [
+            '@moment/min/moment.min',
+            '@clipboard/dist/clipboard.min',
+            '@handlebars/handlebars.min',
+            '@AlertifyJS/build/alertify.min',
+            'hbs',
+            'home'
+        ],
+        custom_css: [
+            '@AlertifyJS/build/css/alertify.min',
+            '@AlertifyJS/build/css/themes/default.min'
+        ]
+    });
+}
+
 
 
 // ================================

@@ -9,7 +9,12 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
     model.User.findById(id, function(err, user) {
-        done(err, user);
+        if (err) done(err, null);
+
+        model.Setting.find({user_id: user._id}, function(err, data) {
+            user.setting = data;
+            done(err, user);
+        });
     });
 })
 
@@ -79,6 +84,11 @@ passport.use('register', new LocalStrategy({passReqToCallback : true}, function(
                         console.log('Error in Saving user: ' + err);
                         throw err;
                     }
+
+                    var setting = new model.Setting(utils.userDefaultSetting());
+                    setting.user_id = newUser._id;
+                    setting.last_update = new Date();
+                    setting.save();
 
                     console.log('User Registration succesful');
                     utils.userLog(newUser, req, 'user_register');

@@ -11,15 +11,20 @@
 			</span>
 		</div>
 		<div class="link-meta">
-			<span class="click">{{click}} <i class="fa fa-hand-pointer-o"></i></span>
+			<span class="click">{{click}} click</span>
 
 			{{#is_of user_id ../user}}
-				<span class="edit"><i class="fa fa-edit"></i></span>
+				<span class="edit">
+					<a href="javascript:;" class="editBtn" data-item="{{json this}}">
+						<i class="fa fa-edit"></i>
+					</a>
+				</span>
 			{{/is_of}}
 			<span class="created" title="{{created}}">{{fromNow created}}</span>
 
 		</div>
 	</div>
 {{/each}}
+
 </script>
 {{{{/raw}}}}

@@ -61,3 +61,12 @@ exports.userLog = function(user, req, event_name) {
 
     log.save();
 }
+
+exports.userDefaultSetting = function() {
+    return {
+        language: 'en',
+        reset_access_token: 'every_login',
+        timezone: '7',
+        offline: false
+    };
+}

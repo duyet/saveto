@@ -1,0 +1,22 @@
+<div class="text-xs-center">
+	<h3>{{user_data.username}}</h3>
+	{{message}}
+</div>
+
+<div class="row">
+    {{> feed}}
+
+    <div class="col-xs-12 m-t-1">
+    		<div class="text-xs-center">
+				<a class="load-more" href="javascript:;">more ...</a>
+			</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	window.is_user_feed_only = true;
+	window.force_userid = '{{user_data._id}}';
+</script>
+
+{{> template_feeditem}}
+{{> template_edititem}}

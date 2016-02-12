@@ -1,7 +1,6 @@
 /* Space out content a bit */
 
 body {
-    padding-top: 1.5rem;
     padding-bottom: 1.5rem;
 }
 
@@ -19,10 +18,21 @@ body {
 /* Custom page header */
 
 .header {
-    padding-bottom: 1rem;
-    border-bottom: .05rem solid #e5e5e5;
 }
 
+.color-header {
+    padding-top: 1.5rem;
+    background-color: #FFCC00;
+    /*border-bottom: .05rem solid #e5e5e5;*/
+    /*margin-bottom: 1rem;*/
+}
+
+.color-header .navbar-brand {
+    color: #FFF;
+}
+.color-header .nav-link {
+    color: #FFF !important;
+}
 
 /* Make the masthead heading the same height as the navigation */
 
@@ -123,6 +133,14 @@ body {
         margin-bottom: 1.5rem;
         padding: 0;
     }
+    .navbar-nav .nav-item+.nav-item {
+        margin-left: 0;
+    }
+}
+
+.menu-btn-mobile {
+    color: #0A0A0A !important;
+    text-decoration: none !important;
 }
 
 .quick-collection {
@@ -136,6 +154,11 @@ body {
 /* Table page log */
 .table-log {
     font-size: 13px;
+}
+
+/* Global message */
+.global-message {
+    margin-bottom: 1em;
 }
 
 /* Page */
@@ -177,8 +200,12 @@ body {
 }
 .feed .url-item .link-meta {
     font-size: 0.85em;
-    color: #666;
 }
+.feed .url-item .link-meta, 
+.feed .url-item .link-meta a {
+    color: #6B6A6A;
+}
+
 .feed .url-item .alias a {
     font-size: 0.7em;
     color: #ddd;

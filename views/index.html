@@ -13,21 +13,21 @@
 </head>
 
 <body>
-    <header class="container header">
-        <nav class="navbar navbar-light">
-            <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#quicknavbar">
-            &#9776;
-            </button>
-            <div class="collapse navbar-toggleable-xs" id="quicknavbar">
-                <a class="navbar-brand" href="/" id="quick-logo">Quick</a>
-                {{> menu}}
-            </div>
-        </nav>
-    </header>
-
-    <div class="container">
-        {{{body}}}
+    <div class="container-fluid color-header m-b-1">
+        <header class="container header">
+            <nav class="navbar navbar-light">
+                <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#quicknavbar">
+                    <a href="/" class="menu-btn-mobile">&#9776;</a>
+                </button>
+                <div class="collapse navbar-toggleable-xs" id="quicknavbar">
+                    <a class="navbar-brand" href="/" id="quick-logo">Quick</a>
+                    {{> menu}}
+                </div>
+            </nav>
+        </header>
     </div>
+
+    <div class="container">{{{body}}}</div>
 
     <script type="text/javascript">
         window.app = window.app || {{{json config.js_config}}};
@@ -36,6 +36,8 @@
     </script>
 
     <script type="text/javascript" src="/public/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/public/lib/tether/dist/js/tether.min.js"></script>
+    <script type="text/javascript" src="/public/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="/public/js/main.js"></script>
     {{custom_script_by_page custom_script}}
 

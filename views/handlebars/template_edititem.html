@@ -1,0 +1,28 @@
+{{{{raw}}}}
+<script id="edititem" type="text/x-handlebars-template">
+<form action="#" method="POST" role="form">
+	<legend>edit</legend>
+
+	<div class="form-group">
+		<label for="url">title</label>
+		<input type="url" class="form-control" id="url" name="url" value="{{item.title}}" placeholder="title">
+	</div>
+
+	<div class="form-group">
+		<label for="alias">alias shorten (Ex: /tuideptrai)</label>
+		<input type="text" class="form-control" id="alias" value="{{item.alias}}" placeholder="URL">
+	</div>
+
+	<div class="form-group">
+		<label for="alias">tags</label>
+		<input type="text" class="form-control" id="tags" value="{{item.tags}}" placeholder="separate by comma (,)">
+	</div>
+
+	<div class="form-group">
+		<a href="#" >delete</a>
+	</div>
+</form>
+	
+
+</script>
+{{{{/raw}}}}

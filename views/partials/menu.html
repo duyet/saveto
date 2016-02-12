@@ -1,16 +1,20 @@
 <ul class="nav navbar-nav nav-pills pull-xs-right">
     <li class="nav-item ">
-        <a class="nav-link" href="/">home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/"><i class="fa fa-home"></i> <span class="sr-only">(current)</span></a>
     </li>
+    {{#if user.username}}
     <li class="nav-item ">
-        <a class="nav-link" href="/explore">explore</a>
+        <a class="nav-link" href="/u/{{user.username}}">my</a>
     </li>
+    {{/if}}
     <li class="nav-item">
-        <a class="nav-link" href="/me">{{#if user}}@{{user.username}}{{else}}me{{/if}}</a>
+        <a class="nav-link" href="/me">{{#if user.username}}@{{user.username}}{{else}}me{{/if}}</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="/more" title="more">...</a>
+        <a class="nav-link" href="/more" title="more">
+            <i class="fa fa-ellipsis-h"></i>
+        </a>
     </li>
 
     <li class="nav-item">

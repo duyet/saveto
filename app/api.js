@@ -68,26 +68,27 @@ exports.newURL = function * (next) {
 	this.body = collection;
 }
 
-exports.collectionItem = function *(id, next) {
-	if(id === "" + parseInt(id, 10)){
-		var collection = yield model.Collection.find({}, {
-			'skip': id - 1,
-			'limit': 1
-		});
-
-		if (collection.length === 0) {
-			this.throw(404, 'book with id = ' + id + ' was not found');
-		}
-
-		this.body = yield collection;
+exports.collectionItem = function *(next) {
+	var id = this.params.id || '';
+	if (!id.length || !utils.isUserID(id)) {
+		return api_error(this, 'not found', 404);
 	}
+
+	var collection = yield model.Collection.find({_id: id})
+
+	if (collection.length === 0) {
+		return api_error(this, 'not found', 404);
+	}
+
+	this.body = yield collection;
+	
 }
 
 exports.ping = function *() {
 	this.body = 'pong';
 }
 
-function api_error (ctx, message) {
-	ctx.status = 400;
-	ctx.body = { message: message };
+function api_error (ctx, message, code) {
+	ctx.status = code || 400;
+	ctx.body = { message: message, code: code || 400 };
 }

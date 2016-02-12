@@ -23,6 +23,15 @@ exports.Collection = mongoose.model('Collection', {
     is_public: { type: Boolean, default: true }
 });
 
+exports.Setting = mongoose.model('Setting', {
+    user_id: String,
+    last_change: Date,
+    language: String,
+    reset_access_token: String,
+    timezone: String,
+    offline: Boolean
+})
+
 exports.UserLog = mongoose.model('UserLog', {
     user_id: String,
     created: Date,
