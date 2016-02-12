@@ -1,0 +1,50 @@
+<div class="row">
+	<div class="col-xs-12 col-md-8">
+		<form action="" method="POST" role="form">
+			<legend>Edit URL</legend>
+		
+			{{#if success}}
+				<span class="text-success">{{success}}</span>
+			{{/if}}
+
+			<input type="hidden" name="_id" value="{{item._id}}">
+			<input type="hidden" name="access_token" value="{{user.access_token}}">
+			<input type="hidden" name="user_id" value="{{user._id}}">
+
+			<div class="form-group">
+				<label for="title">title</label>
+				<div class="input-group">
+					<input type="text" class="form-control" id="title" name="title" value="{{item.title}}" placeholder="title">
+					<span class="input-group-btn">
+						<button class="btn btn-default btn-secondary" type="button">
+							<i class="fa fa-refresh"></i>
+						</button>
+					</span>
+				</div>
+				URL: <span class="text-success">{{item.url}}</span>
+				<a href="{{item.url}}" target="_blank" class="text-muted"><i class="fa fa-external-link"></i></a>
+			</div>
+		
+			<div class="form-group">
+				<label for="alias">alias <span class="value"></span></label>
+				<div class="input-group">
+					<span class="input-group-addon address-box">{{request.origin}}/</span>
+					<input type="text" class="form-control" id="alias" name="alias" value="{{item.alias}}" placeholder="alias">
+				</div>
+			</div>	
+
+			<div class="form-group">
+				<label class="c-input c-checkbox">
+				  <input type="checkbox" name="public" value="1" {{#if item.is_public}}checked{{/if}}>
+				  <span class="c-indicator"></span>
+				  is public
+				</label>
+			</div>
+		
+			
+			<button type="submit" class="btn btn-dd btn-dd-outline">save</button>
+			
+			<div class="text-xs-right"><a href="#">delete</a></div>
+		</form>
+	</div>
+</div>

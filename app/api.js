@@ -92,6 +92,8 @@ exports.collectionItem = function *(next) {
 					data_update[key] = body[key];
 				}
 			});
+			// Last update
+			data_update.last_update = new Date();
 
 			var result = yield model.Collection.update(
 					{_id: id, user_id: user_id}, 
