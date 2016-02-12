@@ -12,10 +12,11 @@ Build with Koajs
 	cd quick
 	```
 
-2. Install `npm` and `bower` package 
+2. Install `npm`, `bower`, `mongodb` package 
 	```sh
 	npm install 
 	bower install 
+	sudo apt-get install mongodb
 	```
 
 3. Change database config in `app/config.js`
