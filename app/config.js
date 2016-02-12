@@ -15,6 +15,7 @@ var config = {
 
     view: {
     	title: 'Quick',
+        appName: 'Quick',
     	ga: 'UAxxxx',
     	version: version,
     	js_config: {
