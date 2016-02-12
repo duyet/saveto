@@ -24,6 +24,10 @@
   "dependencies": {
     "bootstrap": "v4.0.0-alpha.2",
     "handlebars": "~4.0.5",
-    "moment": "~2.11.2"
+    "moment": "~2.11.2",
+    "font-awesome": "fontawesome#~4.5.0",
+    "tether": "~1.1.1",
+    "clipboard": "~1.5.8",
+    "AlertifyJS": "duyetdev/AlertifyJS#~1.6.1"
   }
 }

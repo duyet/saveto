@@ -133,6 +133,11 @@ body {
   float: right;
 }
 
+/* Table page log */
+.table-log {
+    font-size: 13px;
+}
+
 /* Page */
 .page {}
 
@@ -183,7 +188,12 @@ body {
     display: inline-block;
 }
 .feed .url-item .link-meta .click {}
+
+.feed .url-item .link-meta .edit,
 .feed .url-item .link-meta .created {
     margin-left: 1em;
+}
+
+.feed .url-item .link-meta .created {
     font-style: italic;
 }

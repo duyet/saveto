@@ -3,7 +3,7 @@
 {{#each urls}}
 	<div class="url-item" data-url-id="{{_id}}" data-url-alias="{{alias}}">
 		<div class="link-text">
-			<a href="{{tracker_link url _id}}" onHover="this.href='{{url}}'">
+			<a href="{{tracker_link url _id}}" onHover="window.status='{{url}}'; return true;">
 				{{#unless title}}{{url}}{{else}}{{title}}{{/unless}}</a>
 
 			<span class="alias">
@@ -11,7 +11,11 @@
 			</span>
 		</div>
 		<div class="link-meta">
-			<span class="click">{{click}} click(s)</span>
+			<span class="click">{{click}} <i class="fa fa-hand-pointer-o"></i></span>
+
+			{{#is_of user_id ../user}}
+				<span class="edit"><i class="fa fa-edit"></i></span>
+			{{/is_of}}
 			<span class="created" title="{{created}}">{{fromNow created}}</span>
 
 		</div>

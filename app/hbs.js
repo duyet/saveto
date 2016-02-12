@@ -45,7 +45,35 @@ hbs.registerHelper('custom_script_by_page', function(page) {
 
     var result = [];
     for (var i in page) {
-        result.push('<script type="text/javascript" src="/public/js/' + page[i] + '.js"></script>');
+        var jspath = '';
+        if (page[i].substr(0, 1) == '@') {
+            // is lib
+            jspath = 'lib/' + page[i].substr(1);
+        } else {
+            jspath = 'js/' + page[i];
+        }
+
+        result.push('<script type="text/javascript" src="/public/' + jspath + '.js"></script>');
+    }
+
+    return new hbs.SafeString(result.join('\n'));
+});
+
+hbs.registerHelper('custom_css_by_page', function(page) {
+    if (!page) return '';
+    if (!Array.isArray(page)) page = [page];
+
+    var result = [];
+    for (var i in page) {
+        var jspath = '';
+        if (page[i].substr(0, 1) == '@') {
+            // is lib
+            jspath = 'lib/' + page[i].substr(1);
+        } else {
+            jspath = 'css/' + page[i];
+        }
+
+        result.push('<link rel="stylesheet" type="text/css" href="/public/' + jspath + '.css" />');
     }
 
     return new hbs.SafeString(result.join('\n'));

@@ -9,7 +9,19 @@ var utils = require('./utils');
 // Page
 exports.home = function*(next) {
     yield this.render('page/home', {
-        custom_script: 'home'
+        custom_script: [
+            '@tether/dist/js/tether.min', 
+            '@bootstrap/dist/js/bootstrap', 
+            '@moment/min/moment.min',
+            '@clipboard/dist/clipboard.min',
+            '@handlebars/handlebars.min',
+            '@AlertifyJS/build/alertify.min',
+            'home'
+        ],
+        custom_css: [
+            '@AlertifyJS/build/css/alertify.min',
+            '@AlertifyJS/build/css/themes/bootstrap.min'
+        ]
     });
 };
 
