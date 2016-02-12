@@ -1,13 +1,14 @@
 {{{{raw}}}}
 <script id="feeditem" type="text/x-handlebars-template">
 {{#each urls}}
-	<div class="url-item" data-url-id="{{_id}}" data-url-alias="{{alias}}">
+	<div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}" data-url-alias="{{alias}}">
 		<div class="link-text">
 			<a href="{{tracker_link url _id}}" onHover="window.status='{{url}}'; return true;">
 				{{#unless title}}{{url}}{{else}}{{title}}{{/unless}}</a>
 
 			<span class="alias">
 				{{shorten_url alias}}
+				<a href="{{tracker_link url _id}}" target="_blank" class="text-muted"><i class="fa fa-external-link"></i></a>
 			</span>
 		</div>
 		<div class="link-meta">
@@ -15,7 +16,7 @@
 
 			{{#is_of user_id ../user}}
 				<span class="edit">
-					<a href="javascript:;" class="editBtn" data-item="{{json this}}">
+					<a href="/{{_id}}/edit" class="editBtn" data-item="{{json this}}">
 						<i class="fa fa-edit"></i>
 					</a>
 				</span>

@@ -1,12 +1,12 @@
 <form action="/register" method="POST" class="form-horizontal" role="form">
     <div class="form-group">
-    	<a href="/login">login</a>
+    	go <a href="/login">login</a>
     </div>
 
     <div class="form-group">
     	{{#if error}}
     		{{#if error_message}}
-                <div class="alert alert-danger" role="alert">
+                <div class="text-danger" role="alert">
                   {{error_message}}.
                 </div>
             {{/if}}
@@ -34,6 +34,6 @@
     </fieldset>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary-outline">Register</button>
+        <button type="submit" class="btn btn-dd btn-dd-outline">Register</button>
     </div>
 </form>

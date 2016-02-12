@@ -69,6 +69,52 @@ exports.explore = function*(next) {
     });
 };
 
+// ===============================
+// Collection 
+exports.editURL = function * (next) {
+    if (this.method === 'POST') {
+        var _id = this.request.body._id || '';
+        
+        var collection = yield model.Collection.findById('' + _id).exec();
+        if (!collection) return this.body = 'something went wrong.';
+
+        if (collection.user_id != this.req.user._id) 
+            return this.body = 'access deny';
+
+        var data = this.request.body;
+        console.log(data);
+
+        if (data.title) collection.title = data.title;
+        if (data.alias) collection.alias = data.alias;
+        if (data.is_public) collection.is_public = data.is_public;
+
+        collection.save();
+
+        return yield this.render('page/editURL', {
+            success: 'update success',
+            user: this.req.user,
+            item: collection,
+            request: this.request
+        })
+    }
+
+    var collection_id = this.params.collection || '';
+    if (!utils.isUserID(collection_id)) return e404(this, 'not found');
+
+    var collection = yield model.Collection.findById(collection_id).exec();
+    if (!collection) return e404(this, 'not found');
+
+    yield this.render('page/editURL', {
+        user: this.req.user,
+        item: collection
+    })
+}
+
+exports.viewURL = function *(next) {
+    yield next;
+}
+
+
 // ================================
 // Auth
 exports.github = function*(next) {
@@ -87,6 +133,11 @@ exports.githubCallback = function*(next) {
 };
 
 exports.login = function*(next) {
+    if (this.req.isAuthenticated()) {
+        // Authenticated, why still here?
+        return this.redirect('/');
+    }
+
     var success = (this.request.query.hasOwnProperty('success') && this.request.query.success == '1') ? true : false;
     if (success) {
         var next = this.session.returnTo || '/';
@@ -120,6 +171,11 @@ exports.loginAction = function*(next) {
 };
 
 exports.register = function*(next) {
+    if (this.req.isAuthenticated()) {
+        // Authenticated, why still here?
+        return this.redirect('/');
+    }
+
     var success = (this.request.query.hasOwnProperty('success') && this.request.query.success == '1') ? true : false;
     if (success) {
         var next = this.session.returnTo || '/';
@@ -284,9 +340,7 @@ exports.userPage = function * (next) {
 
     console.log(user_data)
 
-    if (!user_data) return yield this.render('page/404', {
-        message: 'user not found!'
-    });
+    if (!user_data) return yield e404(this, 'user not found');
 
     yield this.render('page/user', {
         user_data: user_data,
@@ -340,3 +394,9 @@ exports.shortenUrl = function*(next) {
 
     this.redirect(collection.url);
 };
+
+function e404 (ctx, message) {
+    return ctx.render('page/404', {
+        message: 'user not found!'
+    });    
+}

@@ -18,6 +18,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "co": "^4.6.0",
+    "co-event": "^0.1.0",
     "handlebars-intl": "^1.1.2",
     "koa": "^1.1.2",
     "koa-flash": "^1.0.0",
@@ -31,6 +32,7 @@
     "koa-static-folder": "^0.1.6",
     "md5": "^2.0.0",
     "mongoose": "^4.4.0",
+    "node-metainspector": "^1.2.0",
     "passport-github": "^1.1.0",
     "passport-local": "^1.0.0",
     "randomstring": "^1.1.4",

@@ -4,6 +4,88 @@ body {
     padding-bottom: 1.5rem;
 }
 
+/* Custom application button */
+.btn {
+    
+}
+
+.btn-dd {
+  border-width: 2px;
+  color: #fff;
+  background-color: #FFCC00;
+  border-color: #FFCC00;
+}
+
+.btn-dd:hover {
+  color: #fff;
+  background-color: #31b0d5;
+  border-color: #2aabd2;
+}
+
+.btn-dd:focus, .btn-dd.focus {
+  color: #fff;
+  background-color: #31b0d5;
+  border-color: #2aabd2;
+}
+
+.btn-dd:active, .btn-dd.active,
+.open > .btn-dd.dropdown-toggle {
+  color: #fff;
+  background-color: #31b0d5;
+  background-image: none;
+  border-color: #2aabd2;
+}
+
+.btn-dd:active:hover, .btn-dd:active:focus, .btn-dd:active.focus, .btn-dd.active:hover, .btn-dd.active:focus, .btn-dd.active.focus,
+.open > .btn-dd.dropdown-toggle:hover,
+.open > .btn-dd.dropdown-toggle:focus,
+.open > .btn-dd.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #269abc;
+  border-color: #1f7e9a;
+}
+
+.btn-dd.disabled:focus, .btn-dd.disabled.focus, .btn-dd:disabled:focus, .btn-dd:disabled.focus {
+  background-color: #FFCC00;
+  border-color: #FFCC00;
+}
+
+.btn-dd.disabled:hover, .btn-dd:disabled:hover {
+  background-color: #FFCC00;
+  border-color: #FFCC00;
+}
+.btn-dd-outline {
+  color: #FFCC00;
+  background-color: transparent;
+  background-image: none;
+  border-color: #FFCC00;
+}
+
+.btn-dd-outline:focus, .btn-dd-outline.focus, .btn-dd-outline:active, .btn-dd-outline.active,
+.open > .btn-dd-outline.dropdown-toggle {
+  color: #fff;
+  background-color: #FFCC00;
+  border-color: #FFCC00;
+}
+
+.btn-dd-outline:hover {
+  color: #fff;
+  background-color: #FFCC00;
+  border-color: #FFCC00;
+}
+
+.btn-dd-outline.disabled:focus, .btn-dd-outline.disabled.focus, .btn-dd-outline:disabled:focus, .btn-dd-outline:disabled.focus {
+  border-color: #b0e1ef;
+}
+
+.btn-dd-outline.disabled:hover, .btn-dd-outline:disabled:hover {
+  border-color: #b0e1ef;
+}
+
+.card-dd {
+    background-color: #F5C400;
+    border-color: #FFCC00;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 
@@ -149,6 +231,14 @@ body {
 .quick-collection .url-time {
   font-size: 0.9em;
   float: right;
+}
+
+.input-group-addon.address-box {
+    background: #FFF;
+}
+
+.text-black {
+    color: #DDD;
 }
 
 /* Table page log */

@@ -1,12 +1,13 @@
 <form action="/login" method="POST" class="form-horizontal" role="form">
     <div class="form-group">
-    	<a href="/register">register</a> or <a href="/auth/github">login with github</a>
+    	go <a href="/register">register</a>
+        <!-- or <a href="/auth/github">login with github</a> -->
     </div>
 
     <div class="form-group">
     	{{#if error}}
             {{#if error_message}}
-        		<div class="alert alert-danger" role="alert">
+        		<div class="text-danger" role="alert">
     			  {{error_message}}.
     			</div>
             {{/if}}
@@ -25,7 +26,7 @@
     
     <div class="form-group">
         <div class="text-center">
-            <button type="submit" class="btn btn-primary-outline">Login</button>
+            <button type="submit" class="btn btn-dd btn-dd-outline">Login</button>
         </div>
     </div>
 </form>

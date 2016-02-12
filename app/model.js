@@ -13,6 +13,8 @@ exports.User = mongoose.model('User', {
 exports.Collection = mongoose.model('Collection', {
     url: String,
     title: String,
+    host: String,
+    meta: Object,
     user_id: String,
     alias: String, // Shorten
     meta: Object,
@@ -20,6 +22,7 @@ exports.Collection = mongoose.model('Collection', {
     vote: Number,
     tags: Array,
     created: { type: Date, default: new Date() },
+    last_update: { type: Date, default: new Date() },
     is_public: { type: Boolean, default: true }
 });
 

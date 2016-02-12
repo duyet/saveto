@@ -5,10 +5,12 @@ $(document).ready(function() {
     var feedItemTemplate = Handlebars.compile(feedItemSource);
     var editItemTemplate = Handlebars.compile(editItemSource);
 
+    var updateFormDialog = null;
+
     var isInitial = false;
-    $(".feed").bind("DOMSubtreeModified", function() {
-        initial();
-    });
+    // $(".feed").bind("DOMSubtreeModified", function() {
+    //     initial();
+    // });
 
 
     var lasted_url_item = null;
@@ -16,8 +18,12 @@ $(document).ready(function() {
     // Load timeline
     function loadFeed(start_at, limit) {
         var conditions = {};
-        if (window['is_user_feed_only'] != void 0)
+
+        conditions.is_public = 1;
+
+        if (window['is_user_feed_only'] != void 0) {
             conditions = {user_id: force_userid || app.user._id || ''};
+        }
 
         if (start_at) 
             conditions = $.extend(conditions, {
@@ -36,6 +42,7 @@ $(document).ready(function() {
                 urls: data,
                 user: app.user
             }));
+            initialFeedScript();
             $('.load-more').text('more');
         });
     }
@@ -72,6 +79,7 @@ $(document).ready(function() {
             access_token: app.user.access_token
         };
 
+
         $.post(app.api_endpoint + '/collection', data, function(data) {
             if (data) {
                 $('#quick-url').val('');
@@ -79,13 +87,56 @@ $(document).ready(function() {
                     urls: [data],
                     user: app.user
                 }));
+
+                fetchUrlData(url, function(err, data_fetched) {
+                    if (err) return;
+                    
+                    // Update data
+                    data = $.extend(data, data_fetched);
+                    
+                    // Sync back server
+                    updateUrlItem(data);
+
+                    var newrender = feedItemTemplate({
+                        urls: [data],
+                        user: app.user
+                    });
+                    $('#item-' + data._id).html($(newrender).html());
+                });
             }
         }).fail(function() {
-            alert('ops, try again.')
+            alertify.error('ops, try again.');
+            if (!app.user || !app.user._id) alertify.error('please login');
         });
     });
 
-    function initial() {
+    function fetchUrlData (url, cb) {
+        $.get(app.base_url + 'helper/v1/parser', {url: url}, function(data) {
+            url_fetched = data;
+            if (cb) cb(null, data);
+        }).error(function() {
+            console.log('error parse ', url)
+            if (cb) cb('error parser', {});
+            url_fetched = {};
+        })
+    }
+
+    function updateUrlItem(item) {
+        if (!item) return false;
+
+        var data = $.extend(item, {
+            user_id: app.user._id,
+            access_token: app.user.access_token
+        });
+
+        $.post(app.api_endpoint + '/collection/' + item._id, data, function(result) {
+            console.log(result);
+        }).error(function() {
+            alert('Can not sync')
+        });
+    }
+
+    function initialFeedScript() {
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -97,18 +148,6 @@ $(document).ready(function() {
             ctrlPressed = false;
         });
         var ctrlPressed = false;
-
-        // Edit form 
-        $('.url-item .editBtn').click(function(e) {
-            var data = $(this).data('item');
-            if (data) alertify.itemEditBox(data);
-            else alertify.message('Ops, error!');
-        });
-
-        // ======================
-        // Break 
-        if (isInitial) return;
-        isInitial = true;
 
         // Clipboard 
         var clipboard = new Clipboard('.short_url_item');
@@ -123,18 +162,34 @@ $(document).ready(function() {
         clipboard.on('error', function(e) {
             alertify.message("ops, using right click > copy.");
         });
+
+        // Edit form 
+        $('.url-item .editBtn').click(function(e) {
+            // TODO: Open modal to edit 
+
+            // var data = $(this).data('item');
+            // if (data) {
+            //     updateFormDialog = alertify.itemEditBox(data, app.user, function(box) {
+            //         var root = $(box.elements.body);
+            //         console.log('xx', $(root).children('#itemUpdateForm'))
+            //     });
+            // }
+            // else alertify.message('Ops, error!');
+        });
     }
 
     if (!alertify.itemEditBox) {
         //define a new dialog
         alertify.dialog('itemEditBox', function() {
             return {
-                main: function(data) {
+                main: function(data, user, callback) {
                     this.set('title', 'edit');
                     this.setting('item', data);
                     this.setting('frameless', true);
+
+                    if (callback) callback(this);
                     
-                    this.setContent(editItemTemplate({item: data}))
+                    this.setContent(editItemTemplate({item: data, user: user}))
                 },
                 setup: function() {
                     return {
@@ -146,29 +201,19 @@ $(document).ready(function() {
                                 attrs:{attribute:'value'},
                             
                             }, 
-                            // {
-                            //     text: 'Cancel',
-                            //     key: 27,
-                            //     invokeOnClose: true,
-                            //     className: alertify.defaults.theme.cancel
-                            // }
                         ],
                         focus: {
                             element: 0
                         },
                         options: {
                             resizable: true,
-                            modal: false
-                        },
-                        padding : !1,
-                     overflow: !1,
+                            modal: false,
+                            transition:'flipx'
+                        }
                     };
                 },
                 build: function() {
-                    this.elements.body.style.minHeight = '500px';
-                },
-                callback: function(e) {
-                    console.log(e)
+                    this.elements.body.style.minHeight = '400px';
                 }
             }
         });

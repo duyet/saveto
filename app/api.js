@@ -15,7 +15,7 @@ exports.collection = function *(next) {
 			}
 			var builder = model.Collection.find(conditions);
 			
-			['limit', 'skip', 'sort'].forEach(function(key){
+			['limit', 'skip', 'sort'].forEach(function(key) {
 				// hack for limit 
 				query['limit'] = query['limit'] || max_result;
 
@@ -74,14 +74,45 @@ exports.collectionItem = function *(next) {
 		return api_error(this, 'not found', 404);
 	}
 
-	var collection = yield model.Collection.find({_id: id})
+	switch (this.method) {
+		case 'POST':
+		case 'PUT':
+			// TODO: poor security, JWT instead of
+			var user_id = this.request.body.user_id || '';
+			var access_token = this.request.body.access_token || '';
+			if (!user_id || !utils.isUserID(user_id) || !access_token) return api_error(this, 'access deny');
 
-	if (collection.length === 0) {
-		return api_error(this, 'not found', 404);
+			var user = yield model.User.find({_id: user_id, access_token: access_token}).exec();
+			if (!user) return api_error(this, 'access deny');
+
+			var data_update = {};
+			var body = this.request.body;
+			['url', 'alias', 'title', 'host', 'meta'].forEach(function (key) {
+				if (body.hasOwnProperty(key)) {
+					data_update[key] = body[key];
+				}
+			});
+
+			var result = yield model.Collection.update(
+					{_id: id, user_id: user_id}, 
+					{ $set: data_update})
+				.exec();
+
+        	if (!result) return api_error(this, 'error, try again');
+
+        	this.body = result;
+			break;
+
+		case 'GET':
+		default:
+			var collection = yield model.Collection.find({_id: id})
+			if (collection.length === 0) {
+				return api_error(this, 'not found', 404);
+			}
+
+			this.body = yield collection;
+			break;
 	}
-
-	this.body = yield collection;
-	
 }
 
 exports.ping = function *() {
