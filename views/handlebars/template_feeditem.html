@@ -13,7 +13,14 @@
 				<a href="{{tracker_link url _id}}" target="_blank" class="text-muted"><i class="fa fa-external-link"></i></a>
 			</span>
 		</div>
+		<div class="link-host-url">
+			<span>{{host}}</span>
+		</div>
 		<div class="link-meta">
+			{{#unless is_public}}
+				<span class="text-danger">not published</span>
+			{{/unless}}
+			
 			<span class="click">{{click}} click</span>
 
 			{{#is_of user_id ../user}}

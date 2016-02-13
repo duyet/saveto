@@ -13,12 +13,12 @@ $(document).ready(function() {
     // Load timeline
     function loadFeed(start_at, limit) {
         var conditions = {};
+
         conditions.is_public = 1;
 
         if (window['is_user_feed_only'] != void 0) {
             conditions = {
-                user_id: force_userid || app.user._id || '',
-                is_public: { $in : [0, 1] }
+                user_id: force_userid || app.user._id || ''
             };
         }
 
@@ -186,50 +186,4 @@ $(document).ready(function() {
             // else alertify.message('Ops, error!');
         });
     }
-
-    if (!alertify.itemEditBox) {
-        //define a new dialog
-        alertify.dialog('itemEditBox', function() {
-            return {
-                main: function(data, user, callback) {
-                    this.set('title', 'edit');
-                    this.setting('item', data);
-                    this.setting('frameless', true);
-
-                    if (callback) callback(this);
-
-                    this.setContent(editItemTemplate({
-                        item: data,
-                        user: user
-                    }))
-                },
-                setup: function() {
-                    return {
-                        buttons: [{
-                            text: 'Save',
-                            className: alertify.defaults.theme.ok,
-                            key: 9,
-                            attrs: {
-                                attribute: 'value'
-                            },
-
-                        }, ],
-                        focus: {
-                            element: 0
-                        },
-                        options: {
-                            resizable: true,
-                            modal: false,
-                            transition: 'flipx'
-                        }
-                    };
-                },
-                build: function() {
-                    this.elements.body.style.minHeight = '400px';
-                }
-            }
-        });
-    }
-
-
 });

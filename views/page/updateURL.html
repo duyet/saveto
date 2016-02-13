@@ -1,8 +1,6 @@
 <div class="row">
 	<div class="col-xs-12 col-md-8">
 		<form action="" method="POST" role="form">
-			<legend>Edit URL</legend>
-		
 			{{#if success}}
 				<span class="text-success">{{success}}</span>
 			{{/if}}
@@ -10,6 +8,8 @@
 				<span class="text-warning">{{error}}</span>
 			{{/if}}
 
+			<legend>Edit URL</legend>
+		
 			<input type="hidden" name="_id" value="{{item._id}}">
 			<input type="hidden" name="access_token" value="{{user.access_token}}">
 			<input type="hidden" name="user_id" value="{{user._id}}">
@@ -39,11 +39,13 @@
 						</a>
 					</span>
 				</div>
+				Shorten: <span class="text-success">{{request.origin}}/{{item.alias}}</span>
+				<a href="{{request.origin}}/{{item.alias}}" target="_blank" class="text-muted"><i class="fa fa-external-link"></i></a>
 			</div>	
 
 			<div class="form-group">
-				<label class="c-input c-checkbox">
-				  <input type="checkbox" name="public" value="1" {{#if item.is_public}}checked{{/if}}>
+				<label class="c-input c-checkbox" >
+				  <input type="checkbox" name="is_public" id="is_public" value="true" {{#if item.is_public}}checked{{/if}}>
 				  <span class="c-indicator"></span>
 				  is public
 				</label>

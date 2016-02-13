@@ -314,12 +314,16 @@ body {
 }
 
 .feed .url-item .link-text a:hover {
-    color: #1492ef;
+    color: #FFCC00;
     text-decoration: none;
 }
 
 .feed .url-item .link-meta {
     font-size: 0.85em;
+}
+
+.feed .url-item .link-meta > span {
+    margin-right: 0.5rem;
 }
 
 .feed .url-item .link-meta,
@@ -329,7 +333,7 @@ body {
 
 .feed .url-item .alias a {
     font-size: 0.7em;
-    color: #ddd;
+    color: #6D6D6D;
 }
 
 .feed .url-item .link-meta span {
@@ -340,7 +344,18 @@ body {
 
 .feed .url-item .link-meta .edit,
 .feed .url-item .link-meta .created {
-    margin-left: 1em;
+    
+}
+
+.feed .url-item .link-host-url {
+    margin: 0;
+    padding: 0;
+    line-height: 1rem;
+    margin-bottom: 0.25rem;
+}
+.feed .url-item .link-host-url span {
+    color: #FFCC00;
+    font-size: 0.9rem;
 }
 
 .feed .url-item .link-meta .created {

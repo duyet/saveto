@@ -37,6 +37,7 @@ root_router
 	.get('/more', controller.more)
 
 	// Collection
+	.all('/add', controller.addURL)
 	.get('/:collection/view', controller.viewURL)
 	.all('/:collection/edit', controller.authed, controller.updateURL)
 	.all('/:collection/delete', controller.authed, controller.deleteURL)
