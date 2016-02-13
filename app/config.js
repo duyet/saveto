@@ -12,6 +12,8 @@ var config = {
     debug: process.env.NODE_ENV !== 'production',
     port: process.env.PORT || 6969,
     secret_key: '-duyetdev-quick-',
+    alias_min: 3,
+    alias_length: 6,
 
     view: {
         title: 'Quick',

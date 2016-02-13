@@ -4,6 +4,7 @@ var md5 = require('md5');
 var randomstring = require('randomstring');
 var validator = require('validator');
 
+var config = require('./config');
 var model = require('./model');
 
 // Password check
@@ -42,7 +43,7 @@ exports.parseURL = function(u, parseQueryString, slashesDenoteHost) {
 }
 
 exports.aliasGenerator = function(len) {
-    len = len || 5;
+    len = len || config.alias_length;
     return randomstring.generate({
         length: len,
         charset: 'alphabetic'
@@ -65,7 +66,7 @@ exports.userLog = function(user, req, event_name) {
 }
 
 exports.checkURLAlias = function(alias) {
-    var min_length = 3;
+    var min_length = config.alias_min || 3;
     var test = /^[0-9A-Z_-]+$/i;
     var black_list = [
         'me', 'admin', 'system', 'mod', 'login', 'register',
@@ -75,7 +76,7 @@ exports.checkURLAlias = function(alias) {
 
     alias = '' + (alias || '');
     alias = alias.trim();
-    if (alias.length <= min_length) return false;
+    if (alias.length < min_length) return false;
 
     if (!test.test(alias)) return false;
     if (black_list.indexOf(alias) > -1) return false;
