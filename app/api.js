@@ -24,10 +24,13 @@ exports.collection = function*(next) {
             var max_result = 30;
 
             var conditions = {};
+            conditions.is_public = true;
+
             var query = this.request.query;
             if (query.conditions) {
                 conditions = JSON.parse(query.conditions);
             }
+
             var builder = model.Collection.find(conditions);
 
             ['limit', 'skip', 'sort'].forEach(function(key) {
@@ -70,10 +73,9 @@ exports.newURL = function*(next) {
     var collection = new model.Collection();
     collection.url = url;
     collection.title = (parser && parser.host) ? parser.host : url;
+    collection.host = (parser && parser.host) ? parser.host : '';
     collection.alias = utils.aliasGenerator();
     collection.user_id = user_id || '';
-    collection.click = 0;
-    collection.vote = 0;
     collection.tags = [];
     collection.created = new Date();
 
