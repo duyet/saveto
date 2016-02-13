@@ -38,7 +38,8 @@ root_router
 
 	// Collection
 	.get('/:collection/view', controller.viewURL)
-	.all('/:collection/edit', controller.authed, controller.editURL)
+	.all('/:collection/edit', controller.authed, controller.updateURL)
+	.all('/:collection/delete', controller.authed, controller.deleteURL)
 
 	// Auth
 	.get('/auth/github', controller.github)

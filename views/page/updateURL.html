@@ -6,6 +6,9 @@
 			{{#if success}}
 				<span class="text-success">{{success}}</span>
 			{{/if}}
+			{{#if error}}
+				<span class="text-warning">{{error}}</span>
+			{{/if}}
 
 			<input type="hidden" name="_id" value="{{item._id}}">
 			<input type="hidden" name="access_token" value="{{user.access_token}}">
@@ -30,6 +33,11 @@
 				<div class="input-group">
 					<span class="input-group-addon address-box">{{request.origin}}/</span>
 					<input type="text" class="form-control" id="alias" name="alias" value="{{item.alias}}" placeholder="alias">
+					<span class="input-group-addon">
+						<a href="{{request.origin}}/{{item.alias}}" target="_blank">
+							<i class="fa fa-external-link"></i>
+						</a>
+					</span>
 				</div>
 			</div>	
 
@@ -44,7 +52,7 @@
 			
 			<button type="submit" class="btn btn-dd btn-dd-outline">save</button>
 			
-			<div class="text-xs-right"><a href="#">delete</a></div>
+			<div class="text-xs-right"><a href="/{{item._id}}/delete" onclick="return confirm('are you sure?')">delete</a></div>
 		</form>
 	</div>
 </div>

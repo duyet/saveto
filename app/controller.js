@@ -9,7 +9,7 @@ var utils = require('./utils');
 // Page
 exports.home = function*(next) {
     yield this.render('page/home', {
-        custom_script: [ 
+        custom_script: [
             '@moment/min/moment.min',
             '@clipboard/dist/clipboard.min',
             '@handlebars/handlebars.min',
@@ -49,15 +49,28 @@ exports.apiDeveloper = function*(next) {
 };
 
 exports.more = function*(next) {
-    var lists = [
-        { url: '/about', title: 'about quick project' },
-        { url: '/faq', title: 'faq' },
-        { url: '/api', title: 'api access' },
-        { url: '/help', title: 'help' },
-        { url: '/contact', title: 'contact us' },
-        { url: '/changelog', title: 'changelog' },
-    ];
-    yield this.render('page/more', {lists: lists});
+    var lists = [{
+        url: '/about',
+        title: 'about quick project'
+    }, {
+        url: '/faq',
+        title: 'faq'
+    }, {
+        url: '/api',
+        title: 'api access'
+    }, {
+        url: '/help',
+        title: 'help'
+    }, {
+        url: '/contact',
+        title: 'contact us'
+    }, {
+        url: '/changelog',
+        title: 'changelog'
+    }, ];
+    yield this.render('page/more', {
+        lists: lists
+    });
 };
 
 exports.explore = function*(next) {
@@ -71,27 +84,43 @@ exports.explore = function*(next) {
 
 // ===============================
 // Collection 
-exports.editURL = function * (next) {
+exports.updateURL = function*(next) {
     if (this.method === 'POST') {
         var _id = this.request.body._id || '';
-        
+
         var collection = yield model.Collection.findById('' + _id).exec();
         if (!collection) return this.body = 'something went wrong.';
 
-        if (collection.user_id != this.req.user._id) 
+        if (collection.user_id != this.req.user._id)
             return this.body = 'access deny';
 
         var data = this.request.body;
-        console.log(data);
+        var error = null;
 
         if (data.title) collection.title = data.title;
-        if (data.alias) collection.alias = data.alias;
         if (data.is_public) collection.is_public = data.is_public;
 
+        if (!error && data.alias && !utils.checkURLAlias(data.alias))
+            error = 'alias not accept';
+
+        if (!error) {
+            var query = yield model.Collection.findOne({
+                _id: {
+                    $ne: _id
+                },
+                alias: data.alias
+            }).exec();
+            if (query) error = 'alias already exist.';
+        }
+
+        if (!error) {
+            collection.alias = data.alias;
+        }
         collection.save();
 
-        return yield this.render('page/editURL', {
-            success: 'update success',
+        return yield this.render('page/updateURL', {
+            success: !error ? 'update success' : null,
+            error: error,
             user: this.req.user,
             item: collection,
             request: this.request
@@ -104,13 +133,31 @@ exports.editURL = function * (next) {
     var collection = yield model.Collection.findById(collection_id).exec();
     if (!collection) return e404(this, 'not found');
 
-    yield this.render('page/editURL', {
+    yield this.render('page/updateURL', {
         user: this.req.user,
         item: collection
     })
 }
 
-exports.viewURL = function *(next) {
+exports.deleteURL = function*(next) {
+    var remove = null;
+    if (utils.isUserID('' + this.params.collection)) {
+        remove = yield model.Collection.remove({
+            _id: '' + this.params.collection
+        }).exec();
+    }
+
+    var message = remove ? 'delete success' : 'delete fail';
+    if (this.is('application/*')) return yield this.body = message;
+
+    return yield this.render('utils/message', {
+        message: message,
+        header: '',
+        hide_home_link: false
+    });
+}
+
+exports.viewURL = function*(next) {
     yield next;
 }
 
@@ -145,7 +192,7 @@ exports.login = function*(next) {
             next = this.request.query.next;
         }
 
-        yield this.render('page/redirect', {
+        yield this.render('utils/redirect', {
             next: next
         });
         return;
@@ -157,7 +204,7 @@ exports.login = function*(next) {
     var error = (this.request.query.hasOwnProperty('error') && this.request.query.error == '1') ? true : false;
     yield this.render('page/login', {
         error: error,
-        error_message: this.flash.error 
+        error_message: this.flash.error
     });
 };
 
@@ -199,7 +246,7 @@ exports.register = function*(next) {
 exports.registerAction = function*(next) {
     var returnTo = this.session.returnTo || '/';
 
-   	var err = false;
+    var err = false;
     if (!this.request.body['username']) this.flash.error = 'username is required';
     else if (!this.request.body['email']) this.flash.error = 'email is required';
     else if (!this.request.body['password'] || this.request.body['password'].length < 6) this.flash.error = 'password is required (len > 5)';
@@ -265,54 +312,66 @@ exports.mePasswordAction = function*(next) {
     if (!req || !auth_user) error_message = 'error, try again';
     else if (!req.current_password) error_message = 'require current password';
     else if (!req.new_password) error_message = 'require new password';
-    else if (!req.re_password || req.re_password != req.new_password) 
+    else if (!req.re_password || req.re_password != req.new_password)
         error_message = 're-password not match new password';
     else if (!utils.isValidPassword(auth_user, req.current_password))
         error_message = 'current password was wrong';
-    
+
     if (!error_message) {
         var newPassword = utils.createHash(req.new_password);
-        model.User.update({'username': auth_user.username}, {password: newPassword}, function (err, doc) {
+        model.User.update({
+            'username': auth_user.username
+        }, {
+            password: newPassword
+        }, function(err, doc) {
             console.log('Update password', err, doc);
             utils.userLog(auth_user, request, 'change_password');
         });
         success_message = 'success';
     }
-    
+
     yield this.render('page/mePassword', {
         error_message: error_message,
         success_message: success_message
     });
 };
 
-exports.accessTokenReset = function * (next) {
+exports.accessTokenReset = function*(next) {
     var accessToken = utils.accessTokenGenerator();
     var that = this;
-    model.User.update(
-        {'username': this.req.user.username}, 
-        {access_token: accessToken}, function (err, doc) {
-            console.log('Update access_token', err, doc);
-            utils.userLog(that.req.user, that.request, 'reset_access_token');
+    model.User.update({
+        'username': this.req.user.username
+    }, {
+        access_token: accessToken
+    }, function(err, doc) {
+        console.log('Update access_token', err, doc);
+        utils.userLog(that.req.user, that.request, 'reset_access_token');
     });
 
     this.req.user.access_token = accessToken;
-    this.body = { access_token: accessToken };
+    this.body = {
+        access_token: accessToken
+    };
 }
 
-exports.meInfo = function * (next) {
+exports.meInfo = function*(next) {
     yield this.render('page/meInfo', {
         me: this.req.user
     });
 }
 
-exports.meLog = function * (next) {
-    var perPage = 50
-    , page = Math.max(0, parseInt(this.request.query.page) || 0)
+exports.meLog = function*(next) {
+    var perPage = 50,
+        page = Math.max(0, parseInt(this.request.query.page) || 0)
 
     var skip = this.request.query.skip || '';
 
-    var builder = model.UserLog.find({user_id: this.req.user._id})
-        .sort({created: -1})
+    var builder = model.UserLog.find({
+            user_id: this.req.user._id
+        })
+        .sort({
+            created: -1
+        })
         .limit(perPage)
         .skip(perPage * page)
 
@@ -323,22 +382,26 @@ exports.meLog = function * (next) {
         page: page,
         prePageNumber: (page - 1 >= 0 ? page - 1 : 0),
         nextPageNumber: page + 1,
-        logs: logs
+        logs: logs,
+
+        custom_script: [
+            '@moment/min/moment.min',
+            'melog'
+        ]
     });
 }
 
-exports.setting = function * (next) {
+exports.setting = function*(next) {
     this.render('page/setting', {
         me: this.req.user
     });
 }
 
-exports.userPage = function * (next) {
+exports.userPage = function*(next) {
     var username = this.params.username || '';
-    console.log(username)
-    var user_data = yield model.User.findOne({username: username}).exec();
-
-    console.log(user_data)
+    var user_data = yield model.User.findOne({
+        username: username
+    }).exec();
 
     if (!user_data) return yield e404(this, 'user not found');
 
@@ -368,7 +431,9 @@ exports.click = function*(next) {
     var url_id = this.request.query.url_id || '';
 
     if (!url || !url_id) return this.body = 'ops!';
-    var collection = yield model.Collection.findOne({_id: url_id}).exec();
+    var collection = yield model.Collection.findOne({
+        _id: url_id
+    }).exec();
     if (!collection) return this.body = 'Not found.';
 
     // Update click couter 
@@ -381,12 +446,10 @@ exports.click = function*(next) {
 exports.shortenUrl = function*(next) {
     alias = this.params.alias || '';
 
-    console.log('alas: ', alias)
-
-    var collection = yield model.Collection.findOne({alias: alias}).exec();
+    var collection = yield model.Collection.findOne({
+        alias: alias
+    }).exec();
     if (!collection) return this.body = 'Not found.';
-
-    console.log(collection)
 
     // Update click couter 
     collection.click += 1;
@@ -395,8 +458,8 @@ exports.shortenUrl = function*(next) {
     this.redirect(collection.url);
 };
 
-function e404 (ctx, message) {
-    return ctx.render('page/404', {
+function e404(ctx, message) {
+    return ctx.render('utils/404', {
         message: 'user not found!'
-    });    
+    });
 }

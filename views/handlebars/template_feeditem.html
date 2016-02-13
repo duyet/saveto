@@ -4,7 +4,9 @@
 	<div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}" data-url-alias="{{alias}}">
 		<div class="link-text">
 			<a href="{{tracker_link url _id}}" onHover="window.status='{{url}}'; return true;">
-				{{#unless title}}{{url}}{{else}}{{title}}{{/unless}}</a>
+				{{#if is_loading}}<i class="fa fa-spinner fa-pulse"></i>{{/if}}
+				{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
+			</a>
 
 			<span class="alias">
 				{{shorten_url alias}}
@@ -16,9 +18,9 @@
 
 			{{#is_of user_id ../user}}
 				<span class="edit">
-					<a href="/{{_id}}/edit" class="editBtn" data-item="{{json this}}">
+					[<a href="/{{_id}}/edit" class="editBtn" data-item="{{json this}}">
 						<i class="fa fa-edit"></i>
-					</a>
+					</a>]
 				</span>
 			{{/is_of}}
 			<span class="created" title="{{created}}">{{fromNow created}}</span>

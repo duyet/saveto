@@ -8,11 +8,6 @@ $(document).ready(function() {
     var updateFormDialog = null;
 
     var isInitial = false;
-    // $(".feed").bind("DOMSubtreeModified", function() {
-    //     initial();
-    // });
-
-
     var lasted_url_item = null;
     var feed_per_page = 10;
     // Load timeline
@@ -22,12 +17,16 @@ $(document).ready(function() {
         conditions.is_public = 1;
 
         if (window['is_user_feed_only'] != void 0) {
-            conditions = {user_id: force_userid || app.user._id || ''};
+            conditions = {
+                user_id: force_userid || app.user._id || ''
+            };
         }
 
-        if (start_at) 
+        if (start_at)
             conditions = $.extend(conditions, {
-                created: { $lt: start_at }
+                created: {
+                    $lt: start_at
+                }
             });
 
         var limit = limit || feed_per_page;
@@ -83,17 +82,25 @@ $(document).ready(function() {
         $.post(app.api_endpoint + '/collection', data, function(data) {
             if (data) {
                 $('#quick-url').val('');
+
+                data.is_loading = true;
                 $('.feed').prepend(feedItemTemplate({
                     urls: [data],
                     user: app.user
                 }));
 
                 fetchUrlData(url, function(err, data_fetched) {
-                    if (err) return;
-                    
+                    if (err || !data_fetched) {
+                        console.log('error e', err, data_fetched, data_fetched.length)
+
+                        $('.fa.fa-spinner.fa-pulse').hide();
+                        return;
+                    }
+
                     // Update data
                     data = $.extend(data, data_fetched);
-                    
+                    data.is_loading = false;
+
                     // Sync back server
                     updateUrlItem(data);
 
@@ -110,8 +117,10 @@ $(document).ready(function() {
         });
     });
 
-    function fetchUrlData (url, cb) {
-        $.get(app.base_url + 'helper/v1/parser', {url: url}, function(data) {
+    function fetchUrlData(url, cb) {
+        $.get(app.base_url + 'helper/v1/parser', {
+            url: url
+        }, function(data) {
             url_fetched = data;
             if (cb) cb(null, data);
         }).error(function() {
@@ -188,27 +197,30 @@ $(document).ready(function() {
                     this.setting('frameless', true);
 
                     if (callback) callback(this);
-                    
-                    this.setContent(editItemTemplate({item: data, user: user}))
+
+                    this.setContent(editItemTemplate({
+                        item: data,
+                        user: user
+                    }))
                 },
                 setup: function() {
                     return {
-                        buttons: [
-                            {
-                                text: 'Save',
-                                className: alertify.defaults.theme.ok,
-                                key: 9,
-                                attrs:{attribute:'value'},
-                            
-                            }, 
-                        ],
+                        buttons: [{
+                            text: 'Save',
+                            className: alertify.defaults.theme.ok,
+                            key: 9,
+                            attrs: {
+                                attribute: 'value'
+                            },
+
+                        }, ],
                         focus: {
                             element: 0
                         },
                         options: {
                             resizable: true,
                             modal: false,
-                            transition:'flipx'
+                            transition: 'flipx'
                         }
                     };
                 },

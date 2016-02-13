@@ -6,7 +6,7 @@ exports.User = mongoose.model('User', {
     email: String,
     gender: String,
     address: String,
-    created: Date,
+    created: { type: Date, default: new Date() },
     access_token: String
 });
 
@@ -37,7 +37,7 @@ exports.Setting = mongoose.model('Setting', {
 
 exports.UserLog = mongoose.model('UserLog', {
     user_id: String,
-    created: Date,
+    created: { type: Date, default: new Date() },
     ip: String,
     event: String,
     path: String

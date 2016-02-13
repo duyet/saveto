@@ -6,7 +6,7 @@
     <table class="table table-log">
         {{#each logs}}
         <tr>
-            <td>{{created}}</td>
+            <td class="logCreated" data-created="{{created}}">{{created}}</td>
             <td>{{event}}</td>
             <td>{{path}}</td>
             <td>{{ip}}</td>

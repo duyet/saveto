@@ -16,6 +16,7 @@ var db = require('./app/db');
 var app = koa(); // initial koa application
 
 app.keys = [config.secret_key, 'i like a boss']; // Key server
+app.proxy = true; // active proxy
 app.context.db = db; // Database
 
 // Middlewares

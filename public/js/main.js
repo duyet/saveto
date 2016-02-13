@@ -6,13 +6,13 @@ function isURL(url) {
         return false;
     }
     options = {
-        protocols: [ 'http', 'https', 'ftp' ]
-      , require_tld: true
-      , require_protocol: true
-      , require_valid_protocol: true
-      , allow_underscores: false
-      , allow_trailing_dot: false
-      , allow_protocol_relative_urls: false
+        protocols: ['http', 'https', 'ftp'],
+        require_tld: true,
+        require_protocol: true,
+        require_valid_protocol: true,
+        allow_underscores: false,
+        allow_trailing_dot: false,
+        allow_protocol_relative_urls: false
     };
 
     var protocol, auth, host, hostname, port,

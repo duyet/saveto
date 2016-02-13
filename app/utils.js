@@ -21,7 +21,9 @@ exports.md5 = function(s) {
 }
 
 exports.isURL = function(s) {
-    return validator.isURL(s, {require_protocol: true});
+    return validator.isURL(s, {
+        require_protocol: true
+    });
 }
 
 exports.isUserID = function(s) {
@@ -60,6 +62,25 @@ exports.userLog = function(user, req, event_name) {
     log.path = req.path || '';
 
     log.save();
+}
+
+exports.checkURLAlias = function(alias) {
+    var min_length = 3;
+    var test = /^[0-9A-Z_-]+$/i;
+    var black_list = [
+        'me', 'admin', 'system', 'mod', 'login', 'register',
+        'duyetdev', 'user', 'validate', 'quick', 'goto',
+        'hihi', 'download', 'shutdown', 'shutup', 'xxxx'
+    ];
+
+    alias = '' + (alias || '');
+    alias = alias.trim();
+    if (alias.length <= min_length) return false;
+
+    if (!test.test(alias)) return false;
+    if (black_list.indexOf(alias) > -1) return false;
+
+    return true;
 }
 
 exports.userDefaultSetting = function() {
