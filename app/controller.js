@@ -85,6 +85,7 @@ exports.explore = function*(next) {
 // ===============================
 // Collection 
 exports.updateURL = function*(next) {
+    // process action
     if (this.method === 'POST') {
         var _id = this.request.body._id || '';
 
@@ -98,7 +99,8 @@ exports.updateURL = function*(next) {
         var error = null;
 
         if (data.title) collection.title = data.title;
-        if (data.is_public) collection.is_public = data.is_public;
+        if (data.is_public && data.is_public == 'true') collection.is_public = data.is_public;
+        else collection.is_public = false;
 
         if (!error && data.alias && !utils.checkURLAlias(data.alias))
             error = 'alias not accept';
@@ -127,6 +129,7 @@ exports.updateURL = function*(next) {
         })
     }
 
+    // [get] Render page 
     var collection_id = this.params.collection || '';
     if (!utils.isUserID(collection_id)) return e404(this, 'not found');
 
@@ -161,6 +164,21 @@ exports.viewURL = function*(next) {
     yield next;
 }
 
+exports.addURL = function * (next) {
+    var action = this.request.query;
+    if (action.auto_submit && action.auto_submit == '1') {
+        
+    }
+
+    if (action.quick_result && action.quick_result == '1') {
+        return yield this.body = { title: action.title, url: action.url };
+    }
+
+    return yield this.render('page/addURLForm', {
+        user: this.req.user,
+        data: action
+    });
+}
 
 // ================================
 // Auth

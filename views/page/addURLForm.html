@@ -1,0 +1,27 @@
+<div class="row">
+	{{> tip}}
+
+	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+		<form method="POST" role="form">
+
+			<legend>add new</legend>
+			{{#unless user.username}}
+				<span class="text-danger">
+					please <a href="/login">login</a> to using.
+				</span>
+			{{/unless}}
+		
+			<div class="form-group">
+				<label for="title">title</label>
+				<input type="text" class="form-control" id="title" name="title" placeholder="page title" value="{{data.title}}">
+			</div>
+
+			<div class="form-group">
+				<label for="url">url</label>
+				<input type="url" class="form-control" id="url" name="url" placeholder="http://" value="{{data.url}}">
+			</div>
+
+			<button type="submit" class="btn btn-dd btn-dd-outline">Submit</button>
+		</form>
+	</div>
+</div>					
