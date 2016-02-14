@@ -42,7 +42,9 @@ exports.help = function*(next) {
                 path.join(this.viewpath, 
                     'page/help/' + topic + this.viewExtName))) 
                         return yield this.render('page/help/404');
-        return yield this.render('page/help/' + this.params.topic);
+        return yield this.render('page/help/' + this.params.topic, {
+            custom_script: ['help']
+        });
     }
 
     yield this.render('page/help/index');
