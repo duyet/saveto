@@ -47,10 +47,11 @@ app.use(staticCache(app.context.assetspath, {
 
 // View
 require('./app/hbs');
+app.context.viewExtName = '.html';
 app.use(hbs.middleware({
   viewPath: app.context.viewpath,
   partialsPath: [ app.context.viewpath + '/partials', app.context.viewpath + '/handlebars' ],
-  extname: '.html',
+  extname: app.context.viewExtName,
   defaultLayout: 'index'
 }));
 

@@ -33,7 +33,19 @@ exports.faq = function*(next) {
 };
 
 exports.help = function*(next) {
-    yield this.render('page/help');
+    if (this.params.topic) {
+        var topic = this.params.topic;
+        var rules = /^[a-z0-9-_]+$/i
+
+        if (!rules.test(topic) 
+            || !utils.isFileExists(
+                path.join(this.viewpath, 
+                    'page/help/' + topic + this.viewExtName))) 
+                        return yield this.render('page/help/404');
+        return yield this.render('page/help/' + this.params.topic);
+    }
+
+    yield this.render('page/help/index');
 };
 
 exports.contact = function*(next) {

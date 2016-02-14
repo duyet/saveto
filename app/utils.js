@@ -1,4 +1,5 @@
 var url = require('url');
+var fs = require('fs');
 var bcrypt = require('bcrypt-nodejs');
 var md5 = require('md5');
 var randomstring = require('randomstring');
@@ -91,4 +92,8 @@ exports.userDefaultSetting = function() {
         timezone: '7',
         offline: false
     };
+}
+
+exports.isFileExists = function(file_path) {
+    return fs.existsSync(file_path);
 }
