@@ -63,6 +63,10 @@ app.use(function *(next) {
 	this.state.config = config.view;
 	this.state.request = this.request;
 
+	this.state.is_production = false;
+	if (this.request.hostname != '127.0.0.1' && this.request.hostname != 'localhost')
+		this.state.is_production = true;
+
 	var user = this.req.user || {}; 
 	if (user.password) user.password = '';
 	this.state.user = user;

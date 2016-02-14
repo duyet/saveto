@@ -84,3 +84,30 @@ hbs.registerHelper('custom_css_by_page', function(page) {
 hbs.registerHelper('raw', function(options) {
     return options.fn();
 });
+
+// =========================
+// CDN 
+// {{ js_cdn './local.js' '//cdn.com/local.js' }}
+hbs.registerHelper('js_cdn', function(is_production, local, cdn) {
+    var html = '<script type="text/javascript" src="%s"></script>';
+    var result = '';
+
+    if (!is_production || is_production != true)  
+        result = html.replace('%s', local);
+    else 
+        result = html.replace('%s', cdn);
+
+    return new hbs.SafeString(result);
+});
+
+hbs.registerHelper('css_cdn', function(is_production, local, cdn) {
+    var html = '<link rel="stylesheet" type="text/css" href="%s" />';
+    var result = '';
+
+    if (!is_production || is_production != true)  
+        result = html.replace('%s', local);
+    else 
+        result = html.replace('%s', cdn);
+
+    return new hbs.SafeString(result);
+});
