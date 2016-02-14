@@ -166,7 +166,7 @@ exports.viewURL = function*(next) {
 
 exports.addURL = function * (next) {
     var action = this.request.query;
-    if (action.auto_submit && action.auto_submit == '1') {
+    if (action.auto && action.auto == '1') {
         
     }
 
@@ -176,7 +176,19 @@ exports.addURL = function * (next) {
 
     return yield this.render('page/addURLForm', {
         user: this.req.user,
-        data: action
+        data: action,
+        custom_script: [
+            '@moment/min/moment.min',
+            '@clipboard/dist/clipboard.min',
+            '@handlebars/handlebars.min',
+            '@AlertifyJS/build/alertify.min',
+            'hbs',
+            'add'
+        ],
+        custom_css: [
+            '@AlertifyJS/build/css/alertify.min',
+            '@AlertifyJS/build/css/themes/default.min'
+        ]
     });
 }
 

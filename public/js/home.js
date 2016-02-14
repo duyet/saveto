@@ -1,9 +1,9 @@
 $(document).ready(function() {
     // Compile template
     var feedItemSource = $("#feeditem").html();
-    var editItemSource = $("#edititem").html();
+    // var editItemSource = $("#edititem").html();
     var feedItemTemplate = Handlebars.compile(feedItemSource);
-    var editItemTemplate = Handlebars.compile(editItemSource);
+    // var editItemTemplate = Handlebars.compile(editItemSource);
 
     var updateFormDialog = null;
 
@@ -70,6 +70,7 @@ $(document).ready(function() {
         }
         if (error) {
             $('.quick-url-input').addClass('has-danger');
+            return;
         }
 
         var data = {
@@ -88,6 +89,8 @@ $(document).ready(function() {
                     urls: [data],
                     user: app.user
                 }));
+
+                initialFeedScript();
 
                 fetchUrlData(url, function(err, data_fetched) {
                     if (err || !data_fetched) {
@@ -109,6 +112,7 @@ $(document).ready(function() {
                         user: app.user
                     });
                     $('#item-' + data._id).html($(newrender).html());
+                    initialFeedScript();
                 });
             }
         }).fail(function() {

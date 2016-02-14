@@ -1,66 +1,25 @@
 $(document).ready(function() {
-    // Compile template
     var feedItemSource = $("#feeditem").html();
-    var editItemSource = $("#edititem").html();
     var feedItemTemplate = Handlebars.compile(feedItemSource);
-    var editItemTemplate = Handlebars.compile(editItemSource);
 
-    var updateFormDialog = null;
+    var last_url_item = null;
 
-    var isInitial = false;
-    var lasted_url_item = null;
-    var feed_per_page = 10;
-    // Load timeline
-    function loadFeed(start_at, limit) {
-        var conditions = {};
+    // Quick by auto submit
+    if (__auto_submit) return doAdd();
 
-        conditions.is_public = 1;
+    // Trigger
+    $('#quickForm').on('submit', doAdd);
 
-        if (window['is_user_feed_only'] != void 0) {
-            conditions = {
-                user_id: force_userid || app.user._id || ''
-            };
+    // Add new 
+    function doAdd(e) {
+        !e || e.preventDefault();
+
+        if (!app.user || !app.user._id || !app.user.access_token) {
+            return alertify.error('ops, not login?');
         }
 
-        if (start_at)
-            conditions = $.extend(conditions, {
-                created: {
-                    $lt: start_at
-                }
-            });
-
-        var limit = limit || feed_per_page;
-
-        $.get(app.api_endpoint + '/collection', {
-            conditions: JSON.stringify(conditions),
-            limit: limit,
-            sort: '-created'
-        }, function(data) {
-            lasted_url_item = data.slice(-1).pop();
-            if (data) $('.feed').append(feedItemTemplate({
-                urls: data,
-                user: app.user
-            }));
-            initialFeedScript();
-            $('.load-more').text('more');
-        });
-    }
-
-    if ($('.feed').text().trim() == '') {
-        $('.load-more').text('loading ...');
-    }
-
-    // Load 
-    loadFeed(null, 5);
-    $('.load-more').click(function() {
-        if (lasted_url_item) loadFeed(lasted_url_item.created, 5);
-    });
-
-    // Add new
-    $('#quickForm').on('submit', function(e) {
-        e.preventDefault();
-
-        var url = $('#quick-url').val();
+        var title = $('#title').val();
+        var url = $('#url').val();
         var error = false;
 
         if (!url) error = true;
@@ -69,25 +28,38 @@ $(document).ready(function() {
             if (!isURL(url)) error = true;
         }
         if (error) {
-            $('.quick-url-input').addClass('has-danger');
+            $('.url-input').addClass('has-danger');
+            return;
         }
 
         var data = {
-            url: url,
+            url: url || '',
+            title: title || '',
             user_id: app.user._id,
             access_token: app.user.access_token
         };
 
+        if (last_url_item != null) {
+            // Update new title and url
+            if (data.title && data.title.length && data.url.length) {
+                last_url_item.title = data.title;
+                last_url_item.url = data.url;
+                updateUrlItem(data);
+            }
+        }
 
         $.post(app.api_endpoint + '/collection', data, function(data) {
             if (data) {
-                $('#quick-url').val('');
+
+                last_url_item = data;
 
                 data.is_loading = true;
-                $('.feed').prepend(feedItemTemplate({
+                $('#addResult').prepend(feedItemTemplate({
                     urls: [data],
                     user: app.user
-                }));
+                })).slideDown();
+
+                initialFeedScript();
 
                 fetchUrlData(url, function(err, data_fetched) {
                     if (err || !data_fetched) {
@@ -100,6 +72,7 @@ $(document).ready(function() {
                     // Update data
                     data = $.extend(data, data_fetched);
                     data.is_loading = false;
+                    if (title) data.title = title; // override by user
 
                     // Sync back server
                     updateUrlItem(data);
@@ -115,7 +88,7 @@ $(document).ready(function() {
             alertify.error('ops, try again.');
             if (!app.user || !app.user._id) alertify.error('please login');
         });
-    });
+    }
 
     function fetchUrlData(url, cb) {
         $.get(app.base_url + 'helper/v1/parser', {
@@ -131,7 +104,7 @@ $(document).ready(function() {
     }
 
     function updateUrlItem(item) {
-        if (!item) return false;
+        if (!item || !item._id) return false;
 
         var data = $.extend(item, {
             user_id: app.user._id,
@@ -170,20 +143,6 @@ $(document).ready(function() {
         });
         clipboard.on('error', function(e) {
             alertify.message("ops, using right click > copy.");
-        });
-
-        // Edit form 
-        $('.url-item .editBtn').click(function(e) {
-            // TODO: Open modal to edit 
-
-            // var data = $(this).data('item');
-            // if (data) {
-            //     updateFormDialog = alertify.itemEditBox(data, app.user, function(box) {
-            //         var root = $(box.elements.body);
-            //         console.log('xx', $(root).children('#itemUpdateForm'))
-            //     });
-            // }
-            // else alertify.message('Ops, error!');
         });
     }
 });

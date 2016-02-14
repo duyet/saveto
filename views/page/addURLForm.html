@@ -1,9 +1,16 @@
 <div class="row">
 	{{> tip}}
 
-	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-		<form method="POST" role="form">
+	<script type="text/javascript">
+	var __auto_submit = {{#if data.auto}}true{{else}}false{{/if}};
+	</script>
 
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
+		<div class="feed" id="addResult" style="display:none"></div>
+	</div>
+
+	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+		<form action="#" method="POST" role="form" id="quickForm">
 			<legend>add new</legend>
 			{{#unless user.username}}
 				<span class="text-danger">
@@ -11,13 +18,13 @@
 				</span>
 			{{/unless}}
 		
-			<div class="form-group">
+			<div class="form-group title-input">
 				<label for="title">title</label>
-				<input type="text" class="form-control" id="title" name="title" placeholder="page title" value="{{data.title}}">
+				<input type="text" class="form-control" id="title" name="title" placeholder="page title (auto load if blank)" value="{{data.title}}">
 			</div>
 
-			<div class="form-group">
-				<label for="url">url</label>
+			<div class="form-group url-input">
+				<label for="url">(*) url</label>
 				<input type="url" class="form-control" id="url" name="url" placeholder="http://" value="{{data.url}}">
 			</div>
 
@@ -25,3 +32,5 @@
 		</form>
 	</div>
 </div>					
+
+{{> template_feeditem}}

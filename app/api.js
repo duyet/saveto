@@ -70,9 +70,11 @@ exports.newURL = function*(next) {
 
     var parser = utils.parseURL(url);
 
+    var title = this.request.body.title || (parser && parser.host) ? parser.host : url;
+
     var collection = new model.Collection();
     collection.url = url;
-    collection.title = (parser && parser.host) ? parser.host : url;
+    collection.title = title;
     collection.host = (parser && parser.host) ? parser.host : '';
     collection.alias = utils.aliasGenerator();
     collection.user_id = user_id || '';
