@@ -18,6 +18,7 @@ exports.Collection = mongoose.model('Collection', {
     alias: String, // Shorten
     meta: Object,
     click: { type: Number, default: 0 },
+    click_via_alias: { type: Number, default: 0 },
     vote: { type: Number, default: 0 },
     tags: Array,
     created: { type: Date, default: new Date() },

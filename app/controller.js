@@ -497,6 +497,7 @@ exports.shortenUrl = function*(next) {
 
     // Update click couter
     collection.click += 1;
+    collection.click_via_alias += 1;
     collection.save();
 
     this.redirect(collection.url);
