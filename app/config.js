@@ -18,6 +18,8 @@ var config = {
     view: {
         title: 'Quick',
         appName: 'Quick',
+        description: 'Quick bookmark collection, shorten URL.',
+        author: 'duyetdev.com',
         ga: '',
         version: version,
         js_config: {
