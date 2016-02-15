@@ -1,3 +1,8 @@
+// Pmx for HTTP analysis. See: http://docs.keymetrics.io/docs/pages/http/
+require('pmx').init({
+  http : true
+});
+
 var http = require('http');
 var path = require('path');
 var koa = require('koa');
