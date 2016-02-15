@@ -42,6 +42,7 @@ $(document).ready(function() {
                 user: app.user
             }));
             initialFeedScript();
+            $('.load-more').text('more');
             if (!data.length) $('.load-more').text('');
         });
     }
