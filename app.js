@@ -1,6 +1,8 @@
 // Pmx for HTTP analysis. See: http://docs.keymetrics.io/docs/pages/http/
 require('pmx').init({
-  http : true
+  http          : true,  // HTTP analysis
+  network       : true,  // Network monitoring at the application level
+  ports         : true,  // Shows which ports your app is listening on (default: false)
 });
 
 var http = require('http');
