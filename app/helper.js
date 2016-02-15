@@ -13,9 +13,10 @@ exports.parser = function*(next) {
 
     var e;
     while (e = yield event(client)) {
-        console.log(e)
         switch (e.type) {
             case 'fetch':
+                if (!e.args[0]) return this.body = {};
+
                 return this.body = {
                     title: e.args[0].title || '',
                     url: e.args[0].url || '',
