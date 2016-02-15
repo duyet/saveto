@@ -1,33 +1,9 @@
 {{{{raw}}}}
 <script id="edititem" type="text/x-handlebars-template">
-<form action="#" method="POST" role="form" id="itemUpdateForm">
-	<legend>edit</legend>
-
-	<div class="form-group">
-		<label for="url">title</label>
-		<input type="url" class="form-control" id="url" name="url" value="{{item.title}}" placeholder="title">
-	</div>
-
-	<div class="form-group">
-		<label for="alias">alias shorten (Ex: /tuideptrai)</label>
-		<input type="text" class="form-control" id="alias" value="{{item.alias}}" placeholder="URL" disabled>
-	</div>
-
-	<div class="form-group">
-		<label for="alias">tags</label>
-		<input type="text" class="form-control" id="tags" value="{{item.tags}}" placeholder="separate by comma (,)">
-	</div>
-
-	
-	<div class="col-xs-6 ">
-		<a href="/collection/delete_item?id={{item._id}}&deleteby={{user._id}}" 
-			data-id="{{item._id}}"
-			onClick="deleteItem('{{item._id}}', '{{user._id}}')"
-		>delete</a>
-	</div>
-	<div class="col-xs-6 text-xs-right">
-		<button type="button" class="btn btn-dd-outline doUpdateItem">update</button>		
-	</div>
-</form>
+<iframe src="/{{item._id}}/edit?no_header=1"
+	 border=0 
+	 style="border:0; width:100%; height:100%" >
+	 <a href="/{{item._id}}/edit?no_header=1">edit</a>
+</iframe>
 </script>
 {{{{/raw}}}}

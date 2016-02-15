@@ -37,10 +37,10 @@ exports.help = function*(next) {
         var topic = this.params.topic;
         var rules = /^[a-z0-9-_]+$/i
 
-        if (!rules.test(topic) 
+        if (!rules.test(topic)
             || !utils.isFileExists(
-                path.join(this.viewpath, 
-                    'page/help/' + topic + this.viewExtName))) 
+                path.join(this.viewpath,
+                    'page/help/' + topic + this.viewExtName)))
                         return yield this.render('page/help/404');
         return yield this.render('page/help/' + this.params.topic, {
             custom_script: ['help']
@@ -97,7 +97,7 @@ exports.explore = function*(next) {
 };
 
 // ===============================
-// Collection 
+// Collection
 exports.updateURL = function*(next) {
     // process action
     if (this.method === 'POST') {
@@ -143,7 +143,7 @@ exports.updateURL = function*(next) {
         })
     }
 
-    // [get] Render page 
+    // [get] Render page
     var collection_id = this.params.collection || '';
     if (!utils.isUserID(collection_id)) return e404(this, 'not found');
 
@@ -181,7 +181,7 @@ exports.viewURL = function*(next) {
 exports.addURL = function * (next) {
     var action = this.request.query;
     if (action.auto && action.auto == '1') {
-        
+
     }
 
     if (action.quick_result && action.quick_result == '1') {
@@ -480,7 +480,7 @@ exports.click = function*(next) {
     }).exec();
     if (!collection) return this.body = 'Not found.';
 
-    // Update click couter 
+    // Update click couter
     collection.click += 1;
     collection.save();
 
@@ -495,7 +495,7 @@ exports.shortenUrl = function*(next) {
     }).exec();
     if (!collection) return this.body = 'Not found.';
 
-    // Update click couter 
+    // Update click couter
     collection.click += 1;
     collection.save();
 

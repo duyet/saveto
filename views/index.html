@@ -22,6 +22,7 @@
 </head>
 
 <body>
+    {{#unless request.query.no_header}}
     <div class="container-fluid color-header m-b-1">
         <header class="container header">
             <nav class="navbar navbar-light">
@@ -35,6 +36,7 @@
             </nav>
         </header>
     </div>
+    {{/unless}}
 
     <div class="container">{{{body}}}</div>
 
