@@ -27,7 +27,12 @@
                 		<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../request.origin}}/{{_id}}/view">
                 			<i class="fa fa-share-alt-square"></i>
                 		</a>
-                	</span> 
+                	</span>
+                	<span class="external-link">
+                		<a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
+							<i class="fa fa-external-link-square"></i>
+						</a>
+                	</span>
                     <span class="created" title="{{created}}">{{created}}</span>
                 </div>
             </div>
@@ -40,10 +45,10 @@
 	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
 	    	<div class="markdown_preview">
 	    		<div class="card card-block">
-	    			<h4 class="card-title">Preview</h4>
-	    			<p class="card-text">
+	    			<!-- <h4 class="card-title">Preview</h4> -->
+	    			<!-- <p class="card-text"> -->
 	    				<div id="md2html" data-md-url="{{github_markdown_url}}">fetching...</div>
-	    			</p>
+	    			<!-- </p> -->
 	    		</div>
 	    	</div>
 	    </div>

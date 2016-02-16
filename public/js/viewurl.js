@@ -30,7 +30,6 @@ $(document).ready(function() {
 	$('.share-this').click(function() {
 		var share_url = $(this).data('url');
 		alertify.prompt("share this via URL", share_url).set('onok', function(closeEvent) {
-			console.log()
 			if (0 == closeEvent.index) {
 				copy(share_url, function(err) {
 					if (!err) return alertify.message("Copied!");	

@@ -6,7 +6,7 @@ Handlebars.registerHelper('fromNow', function(context, block) {
 });
 
 Handlebars.registerHelper('tracker_link', function(url, url_id) {
-    return '/click?u=' + encodeURIComponent(url) + '&url_id=' + url_id;
+    return app.basepath + '/click?u=' + encodeURIComponent(url) + '&url_id=' + url_id;
 });
 
 Handlebars.registerHelper('json', function(context) {

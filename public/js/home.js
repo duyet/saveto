@@ -38,6 +38,7 @@ $(document).ready(function() {
         }, function(data) {
             lasted_url_item = data.slice(-1).pop();
             if (data) $('.feed').append(feedItemTemplate({
+                app: app,
                 urls: data,
                 user: app.user
             }));
@@ -153,6 +154,18 @@ $(document).ready(function() {
     function initialFeedScript() {
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
+
+        // Share
+        $('.share-this').click(function() {
+            var share_url = $(this).data('url');
+            alertify.prompt("share this via URL", share_url).set('onok', function(closeEvent) {
+                if (0 == closeEvent.index) {
+                    copy(share_url, function(err) {
+                        if (!err) return alertify.message("Copied!");   
+                    });
+                }
+            });
+        });
 
         // Detect Ctrl press
         $(document).keydown(function(e) {

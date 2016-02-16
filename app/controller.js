@@ -14,6 +14,7 @@ exports.home = function*(next) {
             '@clipboard/dist/clipboard.min',
             '@handlebars/handlebars.min',
             '@AlertifyJS/build/alertify.min',
+            '@copy/dist/copy.min',
             'hbs',
             'home'
         ],
