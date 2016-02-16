@@ -233,6 +233,16 @@ exports.addURL = function * (next) {
     });
 }
 
+exports.RSS = function * (next) {
+    var collections = yield model.Collection.find({}).limit(30).sort('-created').exec();
+    
+    this.set('Content-Type', 'text/xml');
+    return yield this.render('page/rss', {
+        collections: collections,
+        update: new Date(),
+    });
+}
+
 // ================================
 // Auth
 exports.github = function*(next) {

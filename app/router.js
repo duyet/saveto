@@ -42,6 +42,9 @@ root_router
 	.get('/:collection/view', controller.viewURL)
 	.all('/:collection/edit', controller.authed, controller.updateURL)
 	.all('/:collection/delete', controller.authed, controller.deleteURL)
+	
+	// Rss feed
+	.get('/rss', controller.RSS)
 
 	// Auth
 	.get('/auth/github', controller.github)

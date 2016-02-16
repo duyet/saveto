@@ -1,0 +1,19 @@
+{{!< blank}}
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{config.title}}</title>
+    <link href="{{request.host}}"/>
+    <updated>{{update}}</updated>
+    <description></description>
+
+    {{#each collections}}
+      <item>
+        <title>{{title}}</title>
+        <link>{{request.host}}/{{_id}}/view</link>
+        <description>{{title}}</description>
+        <pubdate>{{created}}</pubdate>
+      </item>
+    {{/each}}
+  </channel>
+</rss>
