@@ -70,7 +70,7 @@ exports.newURL = function*(next) {
 
     var parser = utils.parseURL(url);
 
-    var title = this.request.body.title || (parser && parser.host) ? parser.host : url;
+    var title = this.request.body.title || (parser && parser.host) ? parser.host : utils.getTilteFromUrl(url);
 
     var collection = new model.Collection();
     collection.url = url;

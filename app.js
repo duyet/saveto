@@ -62,7 +62,6 @@ app.use(hbs.middleware({
   defaultLayout: 'index'
 }));
 
-
 // passport 
 var passport = require('./app/passport');
 app.use(passport.initialize());

@@ -8,7 +8,7 @@ $(document).ready(function() {
 		if (new_title.indexOf('raw.githubusercontent.com') > -1) {
 			new_title = new_title.replace('http://', '');
 			new_title = new_title.replace('https://', '');
-			new_title = new_title.replace('raw.githubusercontent.com', 'raw.githu..om');
+			new_title = new_title.replace('raw.githubusercontent.com/', '');
 
 			$('#link-title').text(new_title);
 		}

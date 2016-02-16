@@ -119,11 +119,26 @@ exports.getGithubMarkdownUrl = function(url_path) {
     if (!url_path) return '';
 
     var parse = exports.parseURL(url_path);
-        console.log(parse);
     if (parse && 'github.com' === parse.host && url_path.indexOf('blob') > -1) {
         url_path = url_path.replace('github.com', 'raw.githubusercontent.com');
         url_path = url_path.replace('blob/', '');
     }
 
     return url_path;
+}
+
+exports.getTilteFromUrl = function(url_path) {
+    if (!url_path) return '';
+    
+    var parse = exports.parseURL(url_path);
+    if (!parse) return url_path;
+
+    var title = url_path;
+    if ('raw.githubusercontent.com' === parse.host) {
+        title = title.replace('http://', '');
+        title = title.replace('https://', '');
+        title = title.replace('raw.githubusercontent.com', '');
+    }
+
+    return title;
 }
