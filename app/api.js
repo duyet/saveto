@@ -80,6 +80,7 @@ exports.newURL = function*(next) {
     collection.user_id = user_id || '';
     collection.tags = [];
     collection.created = new Date();
+    collection.is_github_markdown_raw = utils.isGithubMarkdownRaw(url);
 
     collection.save();
     this.body = collection;

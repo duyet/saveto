@@ -30,11 +30,24 @@ hbs.registerHelper('url_tracker', function(text, url) {
 
     return new hbs.SafeString(result);
 });
+hbs.registerHelper('url_tracker', function(url, url_id) {
+    return '/click?u=' + encodeURIComponent(url) + '&url_id=' + url_id;
+});
 
 // ======================
 // {{json var}}
 hbs.registerHelper('json', function(context) {
     return JSON.stringify(context);
+});
+
+// ======================
+// {{equal var1 var2}}
+hbs.registerHelper('equal', function(var1, var2, context) {
+    if(var1 === var2) {
+        return context.fn(this);
+    }
+    
+    return context.inverse(this);
 });
 
 // ======================

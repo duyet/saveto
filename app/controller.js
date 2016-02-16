@@ -175,7 +175,35 @@ exports.deleteURL = function*(next) {
 }
 
 exports.viewURL = function*(next) {
-    yield next;
+    var throw_notfound = function() { return e404(this, 'not found') };
+    if (! utils.isUserID('' + this.params.collection)) return throw_notfound();
+
+    var collection = yield model.Collection.findById('' + this.params.collection).exec();
+    if (!collection) return throw_notfound();
+
+    collection.view_counter += 1;
+    collection.save();
+
+    console.log(this.req.user)
+
+    return yield this.render('page/viewURL', {
+        user: this.req.user,
+        collection: collection,
+        custom_script: [
+            '@moment/min/moment.min',
+            '@clipboard/dist/clipboard.min',
+            '@handlebars/handlebars.min',
+            '@AlertifyJS/build/alertify.min',
+            '@marked/marked.min',
+            '@copy/dist/copy.min',
+            'hbs',
+            'viewurl'
+        ],
+        custom_css: [
+            '@AlertifyJS/build/css/alertify.min',
+            '@AlertifyJS/build/css/themes/default.min'
+        ]
+    });
 }
 
 exports.addURL = function * (next) {

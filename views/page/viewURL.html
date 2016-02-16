@@ -1,0 +1,52 @@
+{{#with collection}}
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="feed inpage">
+            <div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}">
+                <div class="link-text">
+					<a href="{{url_tracker url _id}}" id="link-title">
+						{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
+					</a>
+                    <span class="alias">
+						<a href="javascript:;" class="short_url_item" data-toggle="tooltip" title="Shorten URL, click to copy. Ctrl + Click to go." data-clipboard-text="{{../request.origin}}/{{alias}}" data-alias="{{alias}}">/{{alias}}</a>
+						<a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
+							<i class="fa fa-external-link"></i>
+						</a>
+					</span>
+                </div>
+                <div class="link-host-url">
+                    <span>{{host}}</span>
+                </div>
+                <div class="link-meta">
+                	<span class="edit">
+                		{{#equal ../user.id ./user_id}}
+	                		<a href="/{{_id}}/edit"><i class="fa fa-pencil-square"></i></a>
+	                	{{/equal}}
+                	</span>
+                	<span class="share">
+                		<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../request.origin}}/{{_id}}/view">
+                			<i class="fa fa-share-alt-square"></i>
+                		</a>
+                	</span> 
+                    <span class="created" title="{{created}}">{{created}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="">
+  
+  
+    {{#if is_github_markdown_raw}}
+	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
+	    	<div class="markdown_preview">
+	    		<div class="card card-block">
+	    			<h4 class="card-title">Preview</h4>
+	    			<p class="card-text">
+	    				<div id="md2html" data-md-url="{{url}}">fetching...</div>
+	    			</p>
+	    		</div>
+	    	</div>
+	    </div>
+    {{/if}}
+</div>
+{{/with}}

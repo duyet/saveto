@@ -17,13 +17,19 @@ exports.Collection = mongoose.model('Collection', {
     user_id: String,
     alias: String, // Shorten
     meta: Object,
+    
+    view_counter: { type: Number, default: 0 }, // Preview page
     click: { type: Number, default: 0 },
     click_via_alias: { type: Number, default: 0 },
+    
     vote: { type: Number, default: 0 },
     tags: Array,
     created: { type: Date, default: new Date() },
     last_update: { type: Date, default: new Date() },
-    is_public: { type: Boolean, default: true }
+    is_public: { type: Boolean, default: true },
+
+    // features
+    is_github_markdown_raw: { type: Boolean, default: false },
 });
 
 exports.Setting = mongoose.model('Setting', {

@@ -303,6 +303,10 @@ body {
     border-bottom: 1px solid #ddd
 }
 
+.feed.inpage .url-item {
+    border-bottom: 0;
+}
+
 .feed .url-item .alias a {
     color: #949494;
     font-weight: 700;
@@ -312,7 +316,13 @@ body {
     font-size: 18px;
     color: #333;
 }
+.feed .url-item .link-text .is_markdown .icon-md {
+    display: inline-block;
+    vertical-align: text-top;
+    fill: currentColor;
+    color: #676767;
 
+}
 .feed .url-item .link-text a:hover {
     color: #FFCC00;
     text-decoration: none;
@@ -359,5 +369,5 @@ body {
 }
 
 .feed .url-item .link-meta .created {
-    font-style: italic;
+    /*font-style: italic;*/
 }

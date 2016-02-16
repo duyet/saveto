@@ -97,3 +97,16 @@ exports.userDefaultSetting = function() {
 exports.isFileExists = function(file_path) {
     return fs.existsSync(file_path);
 }
+
+exports.isGithubMarkdownRaw = function(url_path) {
+    if (!url_path) return false;
+
+    var parse = exports.parseURL(url_path);
+        console.log(parse);
+    if (parse && 'raw.githubusercontent.com' === parse.host) {
+        if (url_path.slice(-3) == '.md')
+            return true;
+    }
+
+    return false;
+}
