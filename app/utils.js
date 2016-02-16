@@ -107,6 +107,23 @@ exports.isGithubMarkdownRaw = function(url_path) {
         if (url_path.slice(-3) == '.md')
             return true;
     }
+    if (parse && 'github.com' === parse.host && url_path.indexOf('blob') > -1) {
+        if (url_path.slice(-3) == '.md')
+            return true;
+    }
 
     return false;
+}
+
+exports.getGithubMarkdownUrl = function(url_path) {
+    if (!url_path) return '';
+
+    var parse = exports.parseURL(url_path);
+        console.log(parse);
+    if (parse && 'github.com' === parse.host && url_path.indexOf('blob') > -1) {
+        url_path = url_path.replace('github.com', 'raw.githubusercontent.com');
+        url_path = url_path.replace('blob/', '');
+    }
+
+    return url_path;
 }

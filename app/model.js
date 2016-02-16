@@ -30,6 +30,7 @@ exports.Collection = mongoose.model('Collection', {
 
     // features
     is_github_markdown_raw: { type: Boolean, default: false },
+    github_markdown_url: { type: String, default: '' },
 });
 
 exports.Setting = mongoose.model('Setting', {
