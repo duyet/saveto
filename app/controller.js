@@ -176,16 +176,14 @@ exports.deleteURL = function*(next) {
 }
 
 exports.viewURL = function*(next) {
-    var throw_notfound = function() { return e404(this, 'not found') };
-    if (! utils.isUserID('' + this.params.collection)) return throw_notfound();
+    var throw_notfound = function(ctx) { return e404(ctx, 'not found') };
+    if (! utils.isUserID('' + this.params.collection)) return yield throw_notfound(this);
 
     var collection = yield model.Collection.findById('' + this.params.collection).exec();
-    if (!collection) return throw_notfound();
+    if (!collection) return yield throw_notfound(this);
 
     collection.view_counter += 1;
     collection.save();
-
-    console.log(this.req.user)
 
     return yield this.render('page/viewURL', {
         user: this.req.user,
@@ -534,6 +532,6 @@ exports.shortenUrl = function*(next) {
 
 function e404(ctx, message) {
     return ctx.render('utils/404', {
-        message: 'user not found!'
+        message: message
     });
 }
