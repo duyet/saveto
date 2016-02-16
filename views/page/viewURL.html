@@ -7,15 +7,17 @@
 					<a href="{{url_tracker url _id}}" id="link-title">
 						{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
 					</a>
-                    <span class="alias">
-						<a href="javascript:;" class="short_url_item" data-toggle="tooltip" title="Shorten URL, click to copy. Ctrl + Click to go." data-clipboard-text="{{../request.origin}}/{{alias}}" data-alias="{{alias}}">/{{alias}}</a>
-						<a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
-							<i class="fa fa-external-link"></i>
-						</a>
-					</span>
+                    <span class="external-link">
+                        <a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
+                            <i class="fa fa-external-link"></i>
+                        </a>
+                    </span>
                 </div>
                 <div class="link-host-url">
                     <span>{{host}}</span>
+                    <span class="alias">
+                        <a href="javascript:;" class="short_url_item" data-toggle="tooltip" title="Shorten URL, click to copy. Ctrl + Click to go." data-clipboard-text="{{../request.origin}}/{{alias}}" data-alias="{{alias}}">/{{alias}}</a>
+                    </span>
                 </div>
                 <div class="link-meta">
                 	<span class="edit">
@@ -28,6 +30,7 @@
                 			<i class="fa fa-share-alt-square"></i>
                 		</a>
                 	</span>
+
                 	<span class="external-link">
                 		<a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
 							<i class="fa fa-external-link-square"></i>
