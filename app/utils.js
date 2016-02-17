@@ -103,7 +103,7 @@ exports.isGithubMarkdownRaw = function(url_path) {
 
     var parse = exports.parseURL(url_path);
         console.log(parse);
-    if (parse && 'raw.githubusercontent.com' === parse.host) {
+    if (parse && ('raw.githubusercontent.com' === parse.host || 'gist.githubusercontent.com' === parse.host)) {
         if (url_path.slice(-3) == '.md')
             return true;
     }
@@ -138,6 +138,7 @@ exports.getTilteFromUrl = function(url_path) {
         title = title.replace('http://', '');
         title = title.replace('https://', '');
         title = title.replace('raw.githubusercontent.com', '');
+        title = title.replace('gist.githubusercontent.com', '');
     }
 
     return title;
