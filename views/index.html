@@ -4,7 +4,17 @@
 
 <html>
 <head>
-    <title>{{#if config.title}}{{config.title}}{{else}}Quick{{/if}}</title>
+    <title>
+        {{#if title}}
+            {{ title }}
+        {{else}}
+            {{#if config.title}}
+                {{ config.title }}
+            {{else}}
+                Quick
+            {{/if}}
+        {{/if}}
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     {{> header_meta}}

@@ -188,6 +188,7 @@ exports.viewURL = function*(next) {
     return yield this.render('page/viewURL', {
         user: this.req.user,
         collection: collection,
+        title: collection.title || '',
         custom_script: [
             '@moment/min/moment.min',
             '@clipboard/dist/clipboard.min',

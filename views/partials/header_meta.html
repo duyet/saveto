@@ -3,5 +3,44 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#FFCC00">
 
-<meta name="description" content="{{config.description}}">
+<meta name="description" content="
+{{~#if title~}}
+	{{ title ~}}
+{{else}}
+	{{~#if config.description~}}
+		{{ config.description ~}} 
+	{{else}}
+		Quick bookmark collection, shorten URL.
+	{{~/if~}}
+{{~/if~}}">
 <meta name="author" content="{{config.author}}">
+
+<meta property="og:title" content="
+{{~#if title~}}
+	{{ title ~}}
+{{else}}
+	{{~#if config.title~}}
+		{{ config.title ~}}
+	{{else}}Quick{{~/if~}}
+{{~/if~}}
+" />
+
+<meta property="og:description" content="{{~#if config.description~}}
+		{{ config.description ~}} 
+	{{else}}
+		Quick bookmark collection, shorten URL.
+	{{~/if~}}" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="{{config.appName}}" />
+<meta property="og:url" content="{{request.href	}}" />
+<!-- <meta property="og:image" content="" /> -->
+
+<script type='application/ld+json'> 
+{
+  "@context": "http://www.schema.org",
+  "@type": "WebSite",
+  "name": "{{config.appName}}",
+  "alternateName": "{{config.appName}}",
+  "url": "{{request.path}}"
+}
+</script>
