@@ -33,7 +33,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="{{config.appName}}" />
 <meta property="og:url" content="{{request.href	}}" />
-<!-- <meta property="og:image" content="" /> -->
+<meta property="og:image" content="{{~#if meta.image}}{{meta.image}}{{/if}}" />
 
 <script type='application/ld+json'> 
 {

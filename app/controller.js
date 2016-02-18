@@ -189,6 +189,7 @@ exports.viewURL = function*(next) {
         user: this.req.user,
         collection: collection,
         title: collection.title || '',
+	meta: collection.meta || {},
         custom_script: [
             '@moment/min/moment.min',
             '@clipboard/dist/clipboard.min',
