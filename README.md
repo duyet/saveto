@@ -4,6 +4,13 @@ Quick save link to collection, quick access.
 
 Build with Koajs
 
+Release: http://saveto.co or http://ahihi.club 
+
+## Coming soon
+
+[ ] using without login. <br />
+[] youtube review <br />
+
 # Installation 
 
 1. Clone the source 
