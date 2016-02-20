@@ -52,7 +52,7 @@
 
     <script type="text/javascript">
         window.app = window.app || {{{json config.js_config}}};
-        window.app.user = {{{json user}}} || {};
+        window.app.user = {{#if user}}{{{json user}}} {{else}} {} {{/if}};
         window.app.basepath = '{{request.origin}}';
     </script>
 
