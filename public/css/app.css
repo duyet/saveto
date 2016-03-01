@@ -288,6 +288,9 @@ body {
     margin-top: 20;
     color: #FFF;
 }
+.page.about a {
+    color: #FFF;
+}
 
 .page.about .logo {
     font-size: 80px
