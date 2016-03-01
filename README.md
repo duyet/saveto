@@ -25,12 +25,13 @@ Release: http://saveto.co or http://ahihi.club
 	npm install 
 	bower install 
 	sudo apt-get install mongodb redis-server
+	chmod +x ./watch.sh
 	```
 
 3. Change database config in `app/config.js`
-4. Start server 
+4. Start server (support watch and reload)
 	```sh
-	npm start
+	./watch.sh
 	```
 
 5. Visit [http://localhost:6969](http://localhost:6969)
