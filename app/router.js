@@ -58,8 +58,8 @@ root_router
 	.post('/register', controller.registerAction)
 	
 	.get('/logout', controller.logout)
-	.get('/forgot', controller.forgot)
-	.get('/forgot', controller.forgot)
+	.all('/forgot', controller.forgot)
+	.get('/forgot/:token', controller.forgotToken)
 
 	.get('/u', function*() { this.redirect('/') })
 	.get('/u/:username', controller.authed, controller.userPage)

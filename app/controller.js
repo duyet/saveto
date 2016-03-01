@@ -1,9 +1,12 @@
 var fs = require('fs');
 var path = require('path');
 var passport = require('koa-passport');
+var co = require('co');
 
+var config = require('./config');
 var model = require('./model');
 var utils = require('./utils');
+var mail = require('./mail');
 
 // ================================
 // Page
@@ -352,7 +355,50 @@ exports.registerAction = function*(next) {
 };
 
 exports.forgot = function*(next) {
+    var error = false;
+    var success = false;
 
+    if (this.method === 'POST') {
+        var email = this.request.body['email'] || '';
+        if (!email) error = 'please enter your email';
+
+        var reset_token = utils.accessTokenGenerator();
+        
+        if (!error) {
+            var update = yield model.User.update({
+                'email': email
+            }, {
+                reset_token: reset_token
+            });
+
+            console.warn('==> ', update);
+
+            if (!update || !update.nModified) error = 'email does not exsist';
+
+            if (!error) {
+                var reset_url = this.request.basepath + '/reset/' + reset_token;
+
+                var sender = yield mail({
+                    subject: '[quick] reset password.',
+                    to: email,
+                    html: 'Hi, <br />please reset password via url: ' + reset_url
+                });
+
+                sender(function(err, info) {
+                    console.warn('err, info', err, info);
+                });
+            }
+        }
+    }
+    console.log(config.smtp)
+    yield this.render('page/forgot', {
+        error: error,
+        success: success
+    });
+};
+
+exports.forgotToken = function*(next) {
+    yield this.render('page/forgot');
 };
 
 exports.logout = function*(next) {

@@ -102,7 +102,7 @@ exports.isGithubMarkdownRaw = function(url_path) {
     if (!url_path) return false;
 
     var parse = exports.parseURL(url_path);
-        console.log(parse);
+    console.log(parse);
     if (parse && ('raw.githubusercontent.com' === parse.host || 'gist.githubusercontent.com' === parse.host)) {
         if (url_path.slice(-3) == '.md')
             return true;
@@ -129,7 +129,7 @@ exports.getGithubMarkdownUrl = function(url_path) {
 
 exports.getTilteFromUrl = function(url_path) {
     if (!url_path) return '';
-    
+
     var parse = exports.parseURL(url_path);
     if (!parse) return url_path;
 
@@ -143,3 +143,20 @@ exports.getTilteFromUrl = function(url_path) {
 
     return title;
 }
+
+exports.merge = function(obj1, obj2) {
+    var c = {};
+    var keys = Object.keys(obj1);
+    for (var i = 0; i !== keys.length; i++) {
+        c[keys[i]] = obj1[keys[i]];
+    }
+
+    keys = Object.keys(obj2);
+    for (i = 0; i !== keys.length; i++) {
+        if (!c.hasOwnProperty(keys[i])) {
+            c[keys[i]] = obj2[keys[i]];
+        }
+    }
+
+    return c;
+};

@@ -7,7 +7,8 @@ exports.User = mongoose.model('User', {
     gender: String,
     address: String,
     created: { type: Date, default: new Date() },
-    access_token: String
+    access_token: String,
+    reset_token: String
 });
 
 exports.Collection = mongoose.model('Collection', {

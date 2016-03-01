@@ -1,0 +1,32 @@
+<form action="" method="POST" class="form-horizontal" role="form">
+    <div class="form-group">
+        go <a href="/login">login</a>
+    	or <a href="/register">register</a>
+        
+    </div>
+
+    <div class="form-group">
+    	{{#if error}}
+            <div class="text-danger" role="alert">
+              {{error}}.
+            </div>
+        {{/if}}
+        
+        {{#if success}}
+    		<div class="text-success" role="alert">
+			  {{success}}.
+			</div>
+    	{{/if}}
+    </div>
+
+    <fieldset class="form-group">
+        <label for="email">enter your email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="email">
+    </fieldset>
+    
+    <div class="form-group">
+        <div class="text-center">
+            <button type="submit" class="btn btn-dd btn-dd-outline">Send me reset email</button>
+        </div>
+    </div>
+</form>

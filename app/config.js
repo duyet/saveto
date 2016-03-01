@@ -26,6 +26,33 @@ var config = {
             base_url: '/',
             api_endpoint: '/api/v1'
         }
+    },
+
+    email: {
+        from: 'ahihi.club@gmail.com',
+        to: '',
+        cc: '',
+        bcc: '',
+        subject: '',
+        html: '',
+        text: ''
+    },
+    mail_server: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        tls: false,
+        auth: {
+            XOAuth2: {
+                user: 'ahihi.club@gmail.com',
+                clientId: '1082924614593-p2hdi1pab4t412p7dp8e0480bqggb28v.apps.googleusercontent.com',
+                clientSecret: 'xktmHH8aKiYLi75Ejit13W5U',
+              }
+        },
+        aws: {
+            accessKeyId: '',
+            secretAccessKey: 'AkhXjDcb3TnbuFKW+zUFmayiJ2z37xYPpvxXcwDGXuia'
+        }
     }
 };
 
