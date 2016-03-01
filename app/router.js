@@ -34,6 +34,7 @@ root_router
 	.get('/help/:topic', controller.help)
 	.get('/contact', controller.contact)
 	.get('/changelog', controller.changelog)
+	.get('/todo', controller.todo)
 	.get('/api', controller.apiDeveloper)
 	.get('/more', controller.more)
 
