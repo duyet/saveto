@@ -80,6 +80,9 @@ exports.more = function*(next) {
         url: '/contact',
         title: 'contact us'
     }, {
+        url: '/todo',
+        title: 'todo list'
+    }, {
         url: '/changelog',
         title: 'changelog'
     }, ];
