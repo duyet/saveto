@@ -63,6 +63,10 @@ exports.apiDeveloper = function*(next) {
     yield this.render('page/apiDeveloper');
 };
 
+exports.todo = function*(next) {
+    yield this.render('page/todo');
+};
+
 exports.more = function*(next) {
     var lists = [{
         url: '/about',
