@@ -13,6 +13,8 @@
     "jslab",
     "duyetdev"
   ],
+  "homepage": "http://saveto.co",
+  "repository": "git://github.com/duyetdev/quick.git",
   "author": "Van-Duyet Le <me@duyetdev.com>",
   "license": "MIT",
   "dependencies": {
@@ -32,7 +34,7 @@
     "koa-static-folder": "^0.1.6",
     "md5": "^2.0.0",
     "mongoose": "^4.4.0",
-    "node-metainspector": "^1.2.0",
+    "node-metainspector": "git+https://github.com/duyetdev/node-metainspector.git",
     "passport-github": "^1.1.0",
     "passport-local": "^1.0.0",
     "pmx": "^0.6.0",
