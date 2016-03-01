@@ -336,15 +336,14 @@ exports.register = function*(next) {
 exports.registerAction = function*(next) {
     var returnTo = this.session.returnTo || '/';
 
-    var err = false;
+    this.flash.error = '';
     if (!this.request.body['username']) this.flash.error = 'username is required';
     else if (!this.request.body['email']) this.flash.error = 'email is required';
     else if (!this.request.body['password'] || this.request.body['password'].length < 6) this.flash.error = 'password is required (len > 5)';
     else if (!this.request.body['repassword']) this.flash.error = 're-password is required';
     else if (this.request.body['password'] != this.request.body['repassword']) this.flash.error = 're-password not match password';
 
-    if (this.flash.error) err = true;
-    if (err == true) return this.redirect('/register?error=1');
+    if (this.flash.error) return this.redirect('/register?error=1');
 
     yield passport.authenticate('register', {
         successRedirect: '/register?success=1&next=' + returnTo,
