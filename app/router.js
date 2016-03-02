@@ -41,7 +41,11 @@ root_router
 
 	// Collection
 	.all('/add', controller.addURL)
+	
 	.get('/:collection/view', controller.viewURL)
+	.get('/quick/:collection', controller.viewURL)
+	.get('/q/:collection', controller.viewURL)
+	
 	.all('/:collection/edit', controller.authed, controller.updateURL)
 	.all('/:collection/delete', controller.authed, controller.deleteURL)
 	
@@ -76,6 +80,7 @@ root_router
 
 	// Helper 
 	.get('/click', controller.click)
+	.get('/go/:alias', controller.shortenUrl)
 	.get('/:alias', controller.shortenUrl)
 
 module.exports = root_router;
