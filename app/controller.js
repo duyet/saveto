@@ -67,6 +67,10 @@ exports.todo = function*(next) {
     yield this.render('page/todo');
 };
 
+exports.terms = function*(next) {
+    yield this.render('page/terms');
+};
+
 exports.more = function*(next) {
     var lists = [{
         url: '/about',
@@ -83,6 +87,9 @@ exports.more = function*(next) {
     }, {
         url: '/contact',
         title: 'contact us'
+    }, {
+        url: '/terms',
+        title: 'terms of service'
     }, {
         url: '/todo',
         title: 'todo list'

@@ -36,6 +36,7 @@ root_router
 	.get('/changelog', controller.changelog)
 	.get('/todo', controller.todo)
 	.get('/api', controller.apiDeveloper)
+	.get('/terms', controller.terms)
 	.get('/more', controller.more)
 
 	// Collection
