@@ -9,7 +9,7 @@ Release: http://saveto.co or http://ahihi.club
 ## Coming soon
 
 [x] using without login. <br />
-[  ] youtube review <br />
+[x] youtube review <br />
 [  ] file-quick: save file and hightlight <br />
 
 # Installation 
