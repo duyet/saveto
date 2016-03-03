@@ -127,7 +127,7 @@ $(document).ready(function() {
     });
 
     function fetchUrlData(url, cb) {
-        $.get(app.base_url + 'helper/v1/parser', {
+        $.get(app.base_url + 'api/v1/url/parser', {
             url: url
         }, function(data) {
             url_fetched = data;

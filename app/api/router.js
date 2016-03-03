@@ -6,6 +6,7 @@ var api_router = new Router();
 api_router
 	.get('/', function *(next) { this.body = { message: '/' }; })
 	.get('/ping', controller.ping)
+	.get('/url/parser', controller.urlParser)
 	.post('/collection', controller.newURL) // TODO: Check auth 
 	.all('/collection', controller.collection)
 	.all('/collection/:id', controller.collectionItem)
