@@ -30,11 +30,11 @@
 				<span class="text-danger">not published</span>
 			{{/unless}}
 			
-			{{#if is_github_markdown_raw}}
+			{{#is_review review_type}}
 				<span class="view-markdown">
 					<a class="text-info" href="/{{_id}}/view" target="_blank">preview</a>
 				</span>
-			{{/if}}
+			{{/is_review}}
 
 			<span class="click">{{click}} hits</span>
 

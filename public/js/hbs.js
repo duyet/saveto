@@ -20,6 +20,13 @@ Handlebars.registerHelper('is_of', function(uid, user, opts) {
         return opts.fn(this);
 });
 
+Handlebars.registerHelper('is_review', function(reviewType, opts) {
+    if (reviewType != '' && reviewType != 'none')
+        return opts.fn(this);
+    else
+        return opts.inverse(this);
+});
+
 Handlebars.registerHelper('shorten_url', function(alias, block) {
     if (!alias) return '';
     var data_url = app.basepath + '/' + alias;

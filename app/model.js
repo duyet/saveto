@@ -31,8 +31,10 @@ exports.Collection = mongoose.model('Collection', {
     is_public: { type: Boolean, default: true },
 
     // features
-    is_github_markdown_raw: { type: Boolean, default: false },
-    github_markdown_url: { type: String, default: '' },
+    review_type: { type: String, default: 'none' },
+    review_raw_url: { type: String, default: '' },
+    // is_github_markdown_raw: { type: Boolean, default: false },
+    // github_markdown_url: { type: String, default: '' },
 });
 
 exports.Setting = mongoose.model('Setting', {

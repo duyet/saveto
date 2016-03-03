@@ -102,8 +102,10 @@ exports.newURL = function*(next) {
     collection.delete_token = utils.getDeleteToken();
     collection.tags = [];
     collection.created = new Date();
-    collection.is_github_markdown_raw = utils.isGithubMarkdownRaw(url);
-    collection.github_markdown_url = utils.getGithubMarkdownUrl(url);
+    collection.review_type = utils.reviewType(url);
+    collection.review_raw_url = utils.getReviewRawUrl(url);
+
+    // collection.is_github_markdown_raw = utils.isGithubMarkdownRaw(url);
 
     collection.save();
     this.body = collection;

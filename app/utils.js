@@ -122,6 +122,30 @@ exports.isGithubMarkdownRaw = function(url_path) {
     return false;
 }
 
+exports.isYouTubeURL = function(url_path) {
+    return false;
+}
+
+exports.reviewType = function (url_path) {
+    if (!url_path) return 'none';
+
+    // is markdown
+    if (exports.isGithubMarkdownRaw(url_path)) return 'markdown';
+    if (exports.isYouTubeURL(url_path)) return 'youtube';
+
+    // More check
+
+    return 'none';
+}
+
+exports.getReviewRawUrl = function(url_path) {
+    if (exports.reviewType(url_path) == 'markdown')
+        return exports.getGithubMarkdownUrl(url_path);    
+
+    // Default
+    return url_path;
+}
+
 exports.getGithubMarkdownUrl = function(url_path) {
     if (!url_path) return '';
 

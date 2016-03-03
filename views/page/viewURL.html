@@ -53,17 +53,19 @@
 <div class="">
   
   
-    {{#if is_github_markdown_raw}}
-	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
-	    	<div class="markdown_preview">
-	    		<div class="card card-block">
-	    			<!-- <h4 class="card-title">Preview</h4> -->
-	    			<!-- <p class="card-text"> -->
-	    				<div id="md2html" data-md-url="{{github_markdown_url}}">fetching...</div>
-	    			<!-- </p> -->
-	    		</div>
-	    	</div>
-	    </div>
-    {{/if}}
+    {{#equal review_type 'markdown'}}
+        {{#if review_raw_url}}
+    	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
+    	    	<div class="markdown_preview">
+    	    		<div class="card card-block">
+    	    			<!-- <h4 class="card-title">Preview</h4> -->
+    	    			<!-- <p class="card-text"> -->
+    	    				<div id="md2html" data-md-url="{{review_raw_url}}">fetching...</div>
+    	    			<!-- </p> -->
+    	    		</div>
+    	    	</div>
+    	    </div>
+        {{/if}}
+    {{/equal}}
 </div>
 {{/with}}
