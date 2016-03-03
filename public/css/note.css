@@ -31,8 +31,8 @@
 }
 
 .ace-tm .ace_gutter {
-    background: #FFFFFF;
+    background: #FFFFFF !important;
     color: #333;
-    border-right: 1px solid #DEDEDE;
-    padding-right: 5px;
+    border-right: 1px solid #DEDEDE !important;
+    padding-right: 5px !important;
 }
