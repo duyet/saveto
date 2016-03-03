@@ -17,6 +17,10 @@
 
 .note-content {
 	margin-top: 20px;
-	padding: 15px;
+	padding: 0;
 	border: 1px solid #DDD;
+}
+
+#quick-note-review {
+	padding: 15px;
 }

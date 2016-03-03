@@ -1,5 +1,6 @@
-ace.define("quick/note", ["require", "ace/ext/modelist"], 
-	function(require, modelist) {
+ace.define("quick/note", ["require"], 
+	function(require) {
+	var modelist = ace.require("ace/ext/modelist");
 	var editor = ace.edit("quick-note-editor");
 
 	editor.setTheme('ace/theme/github');
@@ -23,8 +24,8 @@ ace.define("quick/note", ["require", "ace/ext/modelist"],
 	// Auto syntax
 	$('#note_title').on('change', function() {
 		var mode = modelist.getModeForPath($(this).val()).mode;
-		console.log('mode', mode);
 		editor.session.setMode(mode);
+		$('input[name="language"]').val(mode);
 	});
 });
 

@@ -11,6 +11,7 @@ exports.home = function*(next) {
     	user: user,
         custom_script: [
         	'@ace-builds/src-min-noconflict/ace',
+        	'@ace-builds/src-min-noconflict/ext-modelist',
         	'note'
         ],
         custom_css: [
@@ -30,6 +31,7 @@ exports.add = function*(next) {
     if (!note_content) return this.body = 'note content empty.'
 
     var note_title = this.request.body.note_title || utils.noteTitleGenerator();
+    var note_language = this.request.body.language || '';
     var is_private = !!this.request.body.is_private;
 
     var collection = new model.Note();
@@ -39,7 +41,7 @@ exports.add = function*(next) {
     collection.is_guest = utils.is_guest(user_id, access_token);
     collection.delete_token = utils.getDeleteToken();
     collection.tags = [];
-    collection.language = '';
+    collection.language = note_language;
     collection.is_public = !is_private;
     collection.created = new Date();
 
@@ -67,6 +69,7 @@ exports.view = function*(next) {
         
         custom_script: [
             '@ace-builds/src-min-noconflict/ace',
+            '@ace-builds/src-min-noconflict/ext-static_highlight',
             '@moment/min/moment.min',
             '@handlebars/handlebars.min',
             'hbs',

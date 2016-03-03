@@ -7,6 +7,7 @@
         <form action="/note/add" method="POST" class="form-horizontal" role="form" id="quickNoteForm">
             <input type="hidden" name="user_id" value="{{ user._id }}">
             <input type="hidden" name="access_token" value="{{ user.access_token }}">
+            <input type="hidden" name="language" value="">
 
             <div class="form-group">
                 <input type="text" class="form-control" name="note_title" id="note_title" placeholder="title or filename (default: title.md)" />
