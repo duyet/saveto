@@ -53,7 +53,7 @@ root_router
 	.post('/me/password', controller.authed, controller.mePasswordAction)
 	.get('/me/info', controller.authed, controller.meInfo)
 	.get('/me/log', controller.authed, controller.meLog)
-	.get('/setting', controller.authed, controller.setting)
+	.get('/settings', controller.authed, controller.settings)
 
 	// Helper 
 	.get('/click', controller.click)

@@ -8,7 +8,7 @@ var utils = require('./utils');
 // ================================
 // Page
 exports.home = function*(next) {
-    yield this.render('page/home', {
+    yield this.render('collection/home', {
         custom_script: [
             '@moment/min/moment.min',
             '@clipboard/dist/clipboard.min',
@@ -88,7 +88,7 @@ exports.updateURL = function*(next) {
     var collection = yield model.Collection.findById(collection_id).exec();
     if (!collection) return e404(this, 'not found');
 
-    yield this.render('page/updateURL', {
+    yield this.render('collection/updateURL', {
         user: this.req.user,
         item: collection
     })
@@ -123,7 +123,7 @@ exports.viewURL = function*(next) {
     collection.view_counter += 1;
     collection.save();
 
-    return yield this.render('page/viewURL', {
+    return yield this.render('collection/viewURL', {
         user: this.req.user,
         collection: collection,
         title: collection.title || '',
@@ -155,7 +155,7 @@ exports.addURL = function * (next) {
         return yield this.body = { title: action.title, url: action.url };
     }
 
-    return yield this.render('page/addURLForm', {
+    return yield this.render('collection/addURLForm', {
         user: this.req.user,
         data: action,
         custom_script: [
@@ -223,7 +223,7 @@ exports.login = function*(next) {
     this.session.returnTo = next;
 
     var error = (this.request.query.hasOwnProperty('error') && this.request.query.error == '1') ? true : false;
-    yield this.render('page/login', {
+    yield this.render('user/login', {
         error: error,
         error_message: this.flash.error
     });
@@ -258,7 +258,7 @@ exports.register = function*(next) {
     }
 
     var error = (this.request.query.hasOwnProperty('error') && this.request.query.error == '1') ? true : false;
-    yield this.render('page/register', {
+    yield this.render('user/register', {
         error: error,
         error_message: this.flash.error
     });
@@ -308,14 +308,14 @@ exports.me = function*(next) {
     var me = this.req.user || {};
     if (me.email) me.md5_mail = utils.md5(me.mail);
 
-    yield this.render('page/me', {
+    yield this.render('user/me', {
         me: me,
         custom_script: ['me']
     });
 };
 
 exports.mePassword = function*(next) {
-    yield this.render('page/mePassword', {
+    yield this.render('user/mePassword', {
         error_message: this.flash.error_message,
         success_message: this.flash.success_message
     });
@@ -350,7 +350,7 @@ exports.mePasswordAction = function*(next) {
         success_message = 'success';
     }
 
-    yield this.render('page/mePassword', {
+    yield this.render('user/mePassword', {
         error_message: error_message,
         success_message: success_message
     });
@@ -375,7 +375,7 @@ exports.accessTokenReset = function*(next) {
 }
 
 exports.meInfo = function*(next) {
-    yield this.render('page/meInfo', {
+    yield this.render('user/meInfo', {
         me: this.req.user
     });
 }
@@ -397,7 +397,7 @@ exports.meLog = function*(next) {
 
     var logs = yield builder.exec();
 
-    yield this.render('page/meLog', {
+    yield this.render('user/meLog', {
         me: this.req.user,
         page: page,
         prePageNumber: (page - 1 >= 0 ? page - 1 : 0),
@@ -411,8 +411,8 @@ exports.meLog = function*(next) {
     });
 }
 
-exports.setting = function*(next) {
-    this.render('page/setting', {
+exports.settings = function*(next) {
+    yield this.render('user/setting', {
         me: this.req.user
     });
 }
@@ -425,7 +425,7 @@ exports.userPage = function*(next) {
 
     if (!user_data) return yield e404(this, 'user not found');
 
-    yield this.render('page/user', {
+    yield this.render('user/user', {
         user_data: user_data,
         custom_script: [
             '@moment/min/moment.min',
