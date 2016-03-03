@@ -44,30 +44,6 @@ exports.urlParser = function*(next) {
     }
 }
 
-function check_access(user_id, access_token) {
-	// TODO: poor security, JWT instead of
-	var user_id = user_id || '';
-	var access_token = access_token || '';
-
-    if (user_id == '-' && access_token == '-') return true; // Guest
-
-	if (!user_id || !utils.isUserID(user_id) || !access_token) return api_error(this, 'access deny');
-
-	var user = model.User.find({
-	    _id: user_id,
-	    access_token: access_token
-	}).exec();
-
-	if (!user) return false;
-	return true;
-}
-
-function is_guest(user_id, access_token) {
-    if (!user_id || !access_token) return false;
-    if (user_id == '-' && access_token == '-') return true;
-    return false;
-}
-
 exports.collection = function*(next) {
     var user = this.req.user || {};
 
@@ -125,7 +101,7 @@ exports.newURL = function*(next) {
 	var access_token = this.request.body.access_token || '';
 
     // TODO: poor security, JWT instead of
-	if (!check_access(user_id, access_token)) 
+	if (!utils.checkAccessTokenUID(user_id, access_token)) 
         return api_error(this, 'access deny');
 
     var url = this.request.body.url || '';
@@ -141,7 +117,7 @@ exports.newURL = function*(next) {
     collection.host = (parser && parser.host) ? parser.host : '';
     collection.alias = utils.aliasGenerator();
     collection.user_id = user_id || '';
-    collection.is_guest = is_guest(user_id, access_token);
+    collection.is_guest = utils.is_guest(user_id, access_token);
     collection.delete_token = utils.getDeleteToken();
     collection.tags = [];
     collection.created = new Date();
@@ -167,7 +143,7 @@ exports.collectionItem = function*(next) {
 			var access_token = this.request.body.access_token || '';
 
 		    // TODO: poor security, JWT instead of
-			if (!check_access(user_id, access_token)) 
+			if (!utils.checkAccessTokenUID(user_id, access_token)) 
 		        return api_error(this, 'access deny');
 
             var data_update = {};
@@ -194,7 +170,7 @@ exports.collectionItem = function*(next) {
             break;
 
         case 'DELETE':
-			if (!check_access(this.request.body.user_id, this.request.body.access_token)) 
+			if (!utils.checkAccessTokenUID(this.request.body.user_id, this.request.body.access_token)) 
                 return api_error(this, 'access deny');
 
         	var remove = yield model.Collection.remove({

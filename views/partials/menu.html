@@ -6,9 +6,9 @@
         <a class="nav-link" href="/note">note</a>
     </li>
     {{#if user.username}}
-    <li class="nav-item ">
+    <!-- <li class="nav-item ">
         <a class="nav-link" href="/u/{{user.username}}">my</a>
-    </li>
+    </li> -->
     {{/if}}
     <li class="nav-item">
         <a class="nav-link" href="/me">{{#if user.username}}@{{user.username}}{{else}}me{{/if}}</a>

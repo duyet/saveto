@@ -1,0 +1,22 @@
+.note-header {
+	
+}
+.note-header h5 {
+	/*margin-bottom: 0;*/
+}
+
+.note-header .note-tools {
+	font-size: 0.8rem;
+	margin-top: 0;
+}
+
+.note-header .note-tools > * {
+	margin-right: 1em;
+
+}
+
+.note-content {
+	margin-top: 20px;
+	padding: 15px;
+	border: 1px solid #DDD;
+}

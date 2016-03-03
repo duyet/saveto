@@ -83,10 +83,10 @@ exports.updateURL = function*(next) {
 
     // [get] Render page
     var collection_id = this.params.collection || '';
-    if (!utils.isUserID(collection_id)) return e404(this, 'not found');
+    if (!utils.isUserID(collection_id)) return utils.e404(this, 'not found');
 
     var collection = yield model.Collection.findById(collection_id).exec();
-    if (!collection) return e404(this, 'not found');
+    if (!collection) return utils.e404(this, 'not found');
 
     yield this.render('collection/updateURL', {
         user: this.req.user,
@@ -113,7 +113,7 @@ exports.deleteURL = function*(next) {
 }
 
 exports.viewURL = function*(next) {
-    var throw_notfound = function(ctx) { return e404(ctx, 'not found') };
+    var throw_notfound = function(ctx) { return utils.e404(ctx, 'not found') };
     if (! utils.isUserID('' + this.params.collection)) return yield throw_notfound(this);
 
     var collection = null; 
@@ -423,7 +423,7 @@ exports.userPage = function*(next) {
         username: username
     }).exec();
 
-    if (!user_data) return yield e404(this, 'user not found');
+    if (!user_data) return yield utils.e404(this, 'user not found');
 
     yield this.render('user/user', {
         user_data: user_data,
@@ -479,8 +479,4 @@ exports.shortenUrl = function*(next) {
     this.redirect(collection.url);
 };
 
-function e404(ctx, message) {
-    return ctx.render('utils/404', {
-        message: message
-    });
-}
+

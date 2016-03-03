@@ -58,6 +58,14 @@ exports.aliasGenerator = function(len) {
     });
 }
 
+exports.noteTitleGenerator = function(len) {
+    return randomstring.generate({
+        length: len || 32,
+        charset: 'alphabetic',
+        capitalization: 'lowercase'
+    });
+}
+
 // Userlog
 exports.userLog = function(user, req, event_name) {
     if (!user || !user._id) return false;
@@ -197,4 +205,42 @@ exports.getTilteFromUrl = function(url_path) {
     }
 
     return title;
+}
+
+exports.guestUserObject = {
+    _id: '-',
+    email: '-',
+    name: 'guest',
+    access_token: ''
+}
+
+exports.is_guest = function(user_id, access_token) {
+    if (!user_id || !access_token) return false;
+    if (user_id == '-' && access_token == '-') return true;
+    return false;
+}
+
+
+exports.checkAccessTokenUID = function(user_id, access_token) {
+    // TODO: poor security, JWT instead of
+    var user_id = user_id || '';
+    var access_token = access_token || '';
+
+    if (user_id == '-' && access_token == '-') return true; // Guest
+
+    if (!user_id || !exports.isUserID(user_id) || !access_token) return false;
+
+    var user = model.User.find({
+        _id: user_id,
+        access_token: access_token
+    }).exec();
+
+    if (!user) return false;
+    return true;
+}
+
+exports.e404 = function (ctx, message) {
+    return ctx.render('utils/404', {
+        message: message
+    });
 }

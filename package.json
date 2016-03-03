@@ -33,6 +33,7 @@
     "koa-static-cache": "^3.1.4",
     "koa-static-folder": "^0.1.6",
     "md5": "^2.0.0",
+    "mongo-sanitize": "^1.0.0",
     "mongoose": "^4.4.0",
     "node-metainspector": "git+https://github.com/duyetdev/node-metainspector.git",
     "passport-github": "^1.1.0",

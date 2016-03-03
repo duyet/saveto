@@ -37,6 +37,26 @@ exports.Collection = mongoose.model('Collection', {
     // github_markdown_url: { type: String, default: '' },
 });
 
+exports.Note = mongoose.model('Note', {
+    title: String,
+    content: String,
+    user_id: String,
+    is_guest: Boolean,
+    delete_token: String,
+    alias: String, // Shorten
+    language: String, // Shorten
+    
+    view_counter: { type: Number, default: 0 }, // Preview page
+    click: { type: Number, default: 0 },
+    click_via_alias: { type: Number, default: 0 },
+    
+    vote: { type: Number, default: 0 },
+    tags: Array,
+    created: { type: Date, default: new Date() },
+    last_update: { type: Date, default: new Date() },
+    is_public: { type: Boolean, default: true },
+});
+
 exports.Setting = mongoose.model('Setting', {
     user_id: String,
     last_change: Date,

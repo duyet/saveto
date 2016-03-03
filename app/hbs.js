@@ -43,7 +43,7 @@ hbs.registerHelper('json', function(context) {
 // ======================
 // {{equal var1 var2}}
 hbs.registerHelper('equal', function(var1, var2, context) {
-    if(var1 === var2) {
+    if(var1 == var2) {
         return context.fn(this);
     }
     

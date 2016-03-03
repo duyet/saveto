@@ -399,3 +399,11 @@ body {
     padding: 0;
     margin: auto;
 }
+
+/* Note form ========================= */
+#quickNoteForm {
+}
+
+#quickNoteForm .editor #quick-note-editor {
+    height: 250px;
+}
