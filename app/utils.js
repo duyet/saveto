@@ -109,7 +109,7 @@ exports.isGithubMarkdownRaw = function(url_path) {
     if (!url_path) return false;
 
     var parse = exports.parseURL(url_path);
-        console.log(parse);
+    console.log(parse);
     if (parse && ('raw.githubusercontent.com' === parse.host || 'gist.githubusercontent.com' === parse.host)) {
         if (url_path.slice(-3) == '.md')
             return true;
@@ -122,11 +122,33 @@ exports.isGithubMarkdownRaw = function(url_path) {
     return false;
 }
 
-exports.isYouTubeURL = function(url_path) {
-    return false;
+exports.getYoutubeID = function(url_path) {
+    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url_path.match(regExp);
+
+    if (match && match[2].length == 11) {
+        return match[2];
+    } else {
+        return '';
+    }
 }
 
-exports.reviewType = function (url_path) {
+exports.isYouTubeEmbedURL = function (url_path) {
+    return '//www.youtube.com/embed/' + exports.getYoutubeID(url_path);
+}
+
+exports.isYouTubeURL = function(url_path) {
+    if (!url_path) return false;
+    url_path = '' + url_path;
+
+    var r = /(youtube\.com|youtu\.be)/i;
+    if (!r.test(url_path)) return false;
+    if (exports.getYoutubeID(url_path) == '') return false;
+
+    return true;
+}
+
+exports.reviewType = function(url_path) {
     if (!url_path) return 'none';
 
     // is markdown
@@ -140,7 +162,9 @@ exports.reviewType = function (url_path) {
 
 exports.getReviewRawUrl = function(url_path) {
     if (exports.reviewType(url_path) == 'markdown')
-        return exports.getGithubMarkdownUrl(url_path);    
+        return exports.getGithubMarkdownUrl(url_path);
+    else if (exports.reviewType(url_path) == 'youtube')
+        return exports.isYouTubeEmbedURL(url_path);
 
     // Default
     return url_path;
@@ -160,7 +184,7 @@ exports.getGithubMarkdownUrl = function(url_path) {
 
 exports.getTilteFromUrl = function(url_path) {
     if (!url_path) return '';
-    
+
     var parse = exports.parseURL(url_path);
     if (!parse) return url_path;
 

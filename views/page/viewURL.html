@@ -50,22 +50,31 @@
             </div>
         </div>
     </div>
-<div class="">
+
+    <div class="">
   
-  
-    {{#equal review_type 'markdown'}}
         {{#if review_raw_url}}
-    	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
-    	    	<div class="markdown_preview">
-    	    		<div class="card card-block">
-    	    			<!-- <h4 class="card-title">Preview</h4> -->
-    	    			<!-- <p class="card-text"> -->
-    	    				<div id="md2html" data-md-url="{{review_raw_url}}">fetching...</div>
-    	    			<!-- </p> -->
-    	    		</div>
-    	    	</div>
-    	    </div>
+            {{#equal review_type 'markdown'}}
+        	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
+        	    	<div class="markdown_preview">
+        	    		<div class="card card-block">
+        	    			<!-- <h4 class="card-title">Preview</h4> -->
+        	    			<!-- <p class="card-text"> -->
+        	    				<div id="md2html" data-md-url="{{review_raw_url}}">fetching...</div>
+        	    			<!-- </p> -->
+        	    		</div>
+        	    	</div>
+        	    </div>
+            {{/equal}}
+
+            {{#equal review_type 'youtube'}}
+                <div class="col-xs-12 ">
+                    <div class="review-embed">
+                        <iframe class="embed-responsive-item" width="853" height="480" src="https:{{review_raw_url}}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            {{/equal}}
         {{/if}}
-    {{/equal}}
-</div>
+    
+    </div>
 {{/with}}
