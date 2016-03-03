@@ -14,7 +14,7 @@ Handlebars.registerHelper('json', function(context) {
 });
 
 Handlebars.registerHelper('is_of', function(uid, user, opts) {
-    if (!uid || !user || !user._id || uid != user._id)
+    if (!uid || !user || !user._id || user._id == '-' || uid != user._id)
         return opts.inverse(this);
     else
         return opts.fn(this);
