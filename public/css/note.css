@@ -24,3 +24,7 @@
 /*.quick-note-review {
 	padding: 15px;
 }*/
+
+.ace_static_highlight {
+	font-size: 16px !important;
+}

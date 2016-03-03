@@ -16,9 +16,10 @@ ace.define("quick/note/review", ["require", "ace/ext/static_highlight"],
                 trim: true,
                 fontSize: "18px"
             }, function(highlighted) {
-            	
+
             });
         });
+
     });
 
 jQuery(document).ready(function($) {
@@ -27,5 +28,7 @@ jQuery(document).ready(function($) {
         if (time) $(this).text(moment(new Date(time)).fromNow());
     });
 
-    ace.require(["quick/note/review"], function() {});
+    ace.require(["quick/note/review"], function() {
+    	$('.ace_static_highlight').css({'fontSize': '16px', 'fontFamily': ''});
+    });
 });
