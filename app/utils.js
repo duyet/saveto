@@ -39,6 +39,13 @@ exports.accessTokenGenerator = function() {
     });
 }
 
+exports.getDeleteToken = function() {
+    return randomstring.generate({
+        length: 16,
+        charset: 'alphabetic'
+    });
+}
+
 exports.parseURL = function(u, parseQueryString, slashesDenoteHost) {
     return url.parse(u, parseQueryString, slashesDenoteHost);
 }

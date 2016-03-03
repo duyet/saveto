@@ -5,6 +5,9 @@ function check_access(user_id, access_token) {
 	// TODO: poor security, JWT instead of
 	var user_id = user_id || '';
 	var access_token = access_token || '';
+
+    if (user_id == '-' && access_token == '-') return true; // Guest
+
 	if (!user_id || !utils.isUserID(user_id) || !access_token) return api_error(this, 'access deny');
 
 	var user = model.User.find({
@@ -14,6 +17,12 @@ function check_access(user_id, access_token) {
 
 	if (!user) return false;
 	return true;
+}
+
+function is_guest(user_id, access_token) {
+    if (!user_id || !access_token) return false;
+    if (user_id == '-' && access_token == '-') return true;
+    return false;
 }
 
 exports.collection = function*(next) {
@@ -89,6 +98,8 @@ exports.newURL = function*(next) {
     collection.host = (parser && parser.host) ? parser.host : '';
     collection.alias = utils.aliasGenerator();
     collection.user_id = user_id || '';
+    collection.is_guest = is_guest(user_id, access_token);
+    collection.delete_token = utils.getDeleteToken();
     collection.tags = [];
     collection.created = new Date();
     collection.is_github_markdown_raw = utils.isGithubMarkdownRaw(url);

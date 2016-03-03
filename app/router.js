@@ -44,6 +44,7 @@ root_router
 	
 	.get('/:collection/view', controller.viewURL)
 	.get('/quick/:collection', controller.viewURL)
+	.get('/view/:collection', controller.viewURL)
 	.get('/q/:collection', controller.viewURL)
 	
 	.all('/:collection/edit', controller.authed, controller.updateURL)

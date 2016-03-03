@@ -193,7 +193,8 @@ exports.viewURL = function*(next) {
     var throw_notfound = function(ctx) { return e404(ctx, 'not found') };
     if (! utils.isUserID('' + this.params.collection)) return yield throw_notfound(this);
 
-    var collection = yield model.Collection.findById('' + this.params.collection).exec();
+    var collection = null; 
+    collection = yield model.Collection.findById('' + this.params.collection).exec();
     if (!collection) return yield throw_notfound(this);
 
     collection.view_counter += 1;

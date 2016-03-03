@@ -15,6 +15,8 @@ exports.Collection = mongoose.model('Collection', {
     title: String,
     host: String,
     user_id: String,
+    is_guest: Boolean,
+    delete_token: String,
     alias: String, // Shorten
     meta: Object,
     
