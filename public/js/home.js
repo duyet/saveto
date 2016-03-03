@@ -30,11 +30,13 @@ $(document).ready(function() {
             });
 
         var limit = limit || feed_per_page;
+        var uid = window.app.user && window.app.user._id ? window.app.user._id : '';
 
         $.get(app.api_endpoint + '/collection', {
             conditions: JSON.stringify(conditions),
             limit: limit,
-            sort: '-created'
+            sort: '-created',
+            'uid': uid
         }, function(data) {
             lasted_url_item = data.slice(-1).pop();
             if (data) $('.feed').append(feedItemTemplate({

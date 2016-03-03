@@ -30,6 +30,8 @@ exports.collection = function*(next) {
             if (query.conditions) {
                 conditions = JSON.parse(query.conditions);
             }
+            var uid = query.uid || '';
+            if (!uid.length && user && user._id) uid = user._id; 
 
             var builder = model.Collection.find(conditions);
 
@@ -44,7 +46,16 @@ exports.collection = function*(next) {
                 }
             });
 
-            this.body = yield builder.exec();
+            var result = yield builder.exec();
+
+            // Remove another userid, or remove all
+            for (var i in result) {
+                if (!uid.length || uid != result[i].user_id) {
+                    result[i].user_id = ''; // remove
+                }
+            }
+            this.body = result;
+
             break;
 
         case 'POST':
