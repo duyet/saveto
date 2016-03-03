@@ -1,5 +1,5 @@
-var utils = require('./utils');
-var model = require('./model');
+var utils = require('../utils');
+var model = require('../model');
 
 function check_access(user_id, access_token) {
 	// TODO: poor security, JWT instead of

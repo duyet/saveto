@@ -1,22 +1,13 @@
 var Router = require('koa-router');
 
 var root_router = new Router();
-var api_router = new Router();
 var helper_router = new Router();
+var note_router = require('./note/router');
+var api_router = require('./api/router');
 
 var controller = require('./controller');
 var api = require('./api');
 var helper = require('./helper');
-
-// Api endpoint
-// ==> <host>/api/v1
-api_router
-	.get('/', function *(next) { this.body = { message: '/' }; })
-	.get('/ping', api.ping)
-	.post('/collection', api.newURL) // TODO: Check auth 
-	.all('/collection', api.collection)
-	.all('/collection/:id', api.collectionItem)
-	.all('/:path', function *(next) { this.body = { message: 'Nothing at /' + this.params.path }; })
 
 // ==> <host>/helper/v1
 helper_router
@@ -25,6 +16,7 @@ helper_router
 root_router
 	.use('/api/v1', api_router.routes(), api_router.allowedMethods())
 	.use('/helper/v1', helper_router.routes(), helper_router.allowedMethods())
+	.use('/note', note_router.routes(), note_router.allowedMethods())
 	
 	.get('/', controller.home)
 	.get('/about', controller.about)
