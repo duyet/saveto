@@ -5,7 +5,8 @@ $(document).ready(function() {
     var feedItemTemplate = Handlebars.compile(feedItemSource);
     var editItemTemplate = Handlebars.compile(editItemSource);
 
-    var updateFormDialog = null;
+    var updateFormDialog = null
+    var clipboard = null;
 
     var isInitial = false;
     var lasted_url_item = null;
@@ -179,7 +180,8 @@ $(document).ready(function() {
         var ctrlPressed = false;
 
         // Clipboard 
-        var clipboard = new Clipboard('.short_url_item');
+        if (clipboard != null) clipboard.destroy();
+        clipboard = new Clipboard('.short_url_item');
         clipboard.on('success', function(e) {
             if (ctrlPressed) {
                 window.location = e.text;
