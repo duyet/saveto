@@ -36,3 +36,9 @@
     border-right: 1px solid #DEDEDE !important;
     padding-right: 5px !important;
 }
+
+/* Markdown review  */
+.note-markdown-preview {
+	border: 0;
+	margin-top: 25px;
+}

@@ -15,9 +15,15 @@
     			</div>
     		</div>
 
-    		<div class="note-content">
-    			<pre class="quick-note-review" ace-mode="{{note.language}}" ace-theme="ace/theme/textmate" ace-gutter="no">{{ note.content }}</pre>
-    		</div>
+				{{#if is_markdown}}
+					<div class="markdown_preview note-markdown-preview">
+						{{{ note.content }}}
+					</div>	
+				{{else}}
+    			<div class="note-content">
+					<pre class="quick-note-review" ace-mode="{{note.language}}" ace-theme="ace/theme/textmate" ace-gutter="no">{{ note.content }}</pre>
+    			</div>
+				{{/if}}
     	</div>
     </div>
 </div>

@@ -1,11 +1,12 @@
 var sanitize = require('mongo-sanitize');
+var marked = require('marked');
 
 var utils = require('../utils');
 var model = require('../model');
 
 exports.home = function*(next) {
 	var user = this.req.user;
-	if (!user._id) user  = utils.guestUserObject;
+	if (!user || !user._id) user  = utils.guestUserObject;
 	
     yield this.render('note/home', {
     	user: user,
@@ -25,7 +26,7 @@ exports.add = function*(next) {
 
     // TODO: poor security, JWT instead of
 	if (!utils.checkAccessTokenUID(user_id, access_token)) 
-        return api_error(this, 'access deny');
+        return utils.e404(this, 'not found');
 
     var note_content = sanitize(this.request.body.note_content || '');
     if (!note_content) return this.body = 'note content empty.'
@@ -62,19 +63,30 @@ exports.view = function*(next) {
     note.view_counter += 1;
     note.save();
 
+	var custom_script = [];
+
+    var is_markdown = false;
+    if (note.language == '' || ['ace/mode/text', 'ace/mode/markdown'].indexOf(note.language) > -1) {
+    	is_markdown = true;
+    	note.content = marked(note.content);
+    } else {
+    	custom_script.push('@ace-builds/src-min-noconflict/ace');
+    	custom_script.push('@ace-builds/src-min-noconflict/ext-static_highlight');
+    }
+
+    custom_script.push(
+	    '@moment/min/moment.min',
+	    '@handlebars/handlebars.min',
+	    'hbs',
+	    'note-view');
+
     return yield this.render('note/view', {
         user: this.req.user,
         note: note,
         title: note.title || '',
+        is_markdown: is_markdown,
         
-        custom_script: [
-            '@ace-builds/src-min-noconflict/ace',
-            '@ace-builds/src-min-noconflict/ext-static_highlight',
-            '@moment/min/moment.min',
-            '@handlebars/handlebars.min',
-            'hbs',
-            'note-view'
-        ],
+        custom_script: custom_script,
         custom_css: [
         	'note'
         ]

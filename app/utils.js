@@ -211,7 +211,7 @@ exports.guestUserObject = {
     _id: '-',
     email: '-',
     name: 'guest',
-    access_token: ''
+    access_token: '-'
 }
 
 exports.is_guest = function(user_id, access_token) {
@@ -225,6 +225,8 @@ exports.checkAccessTokenUID = function(user_id, access_token) {
     // TODO: poor security, JWT instead of
     var user_id = user_id || '';
     var access_token = access_token || '';
+
+    console.log('user_id, access_token', user_id, access_token);
 
     if (user_id == '-' && access_token == '-') return true; // Guest
 
