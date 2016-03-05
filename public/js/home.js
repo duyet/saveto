@@ -37,7 +37,7 @@ $(document).ready(function() {
             conditions: JSON.stringify(conditions),
             limit: limit,
             sort: '-created',
-            'uid': uid
+            uid: uid
         }, function(data) {
             lasted_url_item = data.slice(-1).pop();
             if (data) $('.feed').append(feedItemTemplate({

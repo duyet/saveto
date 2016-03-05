@@ -32,10 +32,12 @@ $(document).ready(function() {
             return;
         }
 
+        var uid = window.app.user && window.app.user._id ? window.app.user._id : '';
+
         var data = {
             url: url || '',
             title: title || '',
-            user_id: app.user._id,
+            user_id: uid,
             access_token: app.user.access_token
         };
 
@@ -91,7 +93,7 @@ $(document).ready(function() {
     }
 
     function fetchUrlData(url, cb) {
-        $.get(app.base_url + 'helper/v1/parser', {
+        $.get(app.base_url + 'api/v1/url/parser', {
             url: url
         }, function(data) {
             url_fetched = data;
@@ -112,7 +114,7 @@ $(document).ready(function() {
         });
 
         $.post(app.api_endpoint + '/collection/' + item._id, data, function(result) {
-            console.log(result);
+            
         }).error(function() {
             alert('Can not sync')
         });
