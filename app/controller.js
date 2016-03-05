@@ -72,7 +72,7 @@ exports.updateURL = function*(next) {
         }
         collection.save();
 
-        return yield this.render('page/updateURL', {
+        return yield this.render('collection/updateURL', {
             success: !error ? 'update success' : null,
             error: error,
             user: this.req.user,
