@@ -27,6 +27,16 @@ Handlebars.registerHelper('is_review', function(reviewType, opts) {
         return opts.inverse(this);
 });
 
+Handlebars.registerHelper('link_icon', function(host) {
+    var result = '';
+
+    var host_icons = {
+        'github': 'github'
+    };
+
+    return new Handlebars.SafeString(result);
+});
+
 Handlebars.registerHelper('shorten_url', function(alias, block) {
     if (!alias) return '';
     var data_url = app.basepath + '/' + alias;

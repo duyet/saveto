@@ -9,7 +9,11 @@
 			</a>
 			{{/if}}
 
-			<a href="{{tracker_link url _id}}" onHover="window.status='{{url}}'; return true;">
+			{{#is_review review_type}}
+				<a href="/{{_id}}/view" tite="preview" onHover="window.status='{{url}}'; return true;">
+			{{else}}
+				<a href="{{tracker_link url _id}}" onHover="window.status='{{url}}'; return true;">
+			{{/is_review}}
 				{{#if is_loading}}<i class="fa fa-spinner fa-pulse"></i>{{/if}}
 				{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
 			</a>
@@ -20,7 +24,7 @@
 			</span>
 		</div>
 		<div class="link-host-url">
-			<span>{{host}}</span>
+			<span>{{link_icon host}}  {{host}}</span>
 			<span class="alias">
 				{{shorten_url alias}}
 			</span>
@@ -32,7 +36,7 @@
 			
 			{{#is_review review_type}}
 				<span class="view-markdown">
-					<a class="text-info" href="/{{_id}}/view" target="_blank">preview</a>
+					<a class="text-info" href="/{{_id}}/view">preview</a>
 				</span>
 			{{/is_review}}
 
