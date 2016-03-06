@@ -1,4 +1,5 @@
 var event = require('co-event');
+// var async = require('async');
 var MetaInspector = require('node-metainspector');
 
 var utils = require('../utils');
@@ -62,7 +63,7 @@ exports.collection = function*(next) {
             if (!uid.length && user && user._id) uid = user._id; 
 
             var builder = model.Collection.find(conditions);
-
+            
             ['limit', 'skip', 'sort'].forEach(function(key) {
                 // hack for limit 
                 query['limit'] = query['limit'] || max_result;

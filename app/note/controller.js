@@ -7,15 +7,19 @@ var model = require('../model');
 exports.home = function*(next) {
 	var user = this.req.user;
 	if (!user || !user._id) user  = utils.guestUserObject;
+
+	var lasted_notes = yield model.Note.find({}).sort('-created').limit(4).exec();
 	
     yield this.render('note/home', {
     	user: user,
+    	lasted_notes: lasted_notes,
         custom_script: [
         	'@ace-builds/src-min-noconflict/ace',
         	'@ace-builds/src-min-noconflict/ext-modelist',
         	'note'
         ],
         custom_css: [
+        	'note'
         ]
     });
 };

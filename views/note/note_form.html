@@ -1,0 +1,19 @@
+<form action="/note/add" method="POST" class="form-horizontal" role="form" id="quickNoteForm">
+    <input type="hidden" name="user_id" value="{{ user._id }}">
+    <input type="hidden" name="access_token" value="{{ user.access_token }}">
+    <input type="hidden" name="language" value="">
+
+    <div class="form-group">
+        <input type="text" class="form-control" name="note_title" id="note_title" placeholder="title or filename (default: title.md)" />
+    </div>
+
+    <div class="form-group editor">
+    <input type="hidden" name="note_content" value="">
+     	<pre id="quick-note-editor" class="form-control"></pre>
+    </div>
+
+    <div class="form-group text-right">
+        <button name="is_private" value="1" class="btn btn-default btn-warning">Save as private</button>
+    	<button name="is_private" value="0" class="btn btn-default btn-primary">Save as public</button>
+    </div>
+</form>

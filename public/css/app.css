@@ -123,9 +123,12 @@ body {
 
 .color-header {
     padding-top: 1.5rem;
-    background-color: #FFCC00;
+    /*background-color: #FFCC00;*/
+    background-color: #6AD1D8;
     /*border-bottom: .05rem solid #e5e5e5;*/
     /*margin-bottom: 1rem;*/
+    background-image: url('../img/header-bg.png');
+    background-repeat: repeat;
 }
 
 .color-header .navbar-brand {
