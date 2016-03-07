@@ -20,7 +20,7 @@ var config = {
         appName: 'Quick',
         description: 'Quick bookmark collection, shorten URL.',
         author: 'duyetdev.com',
-        ga: '',
+        ga: 'UA-18218315-55',
         version: version,
         js_config: {
             base_url: '/',
