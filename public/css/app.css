@@ -127,7 +127,7 @@ body {
     background-color: #6AD1D8;
     /*border-bottom: .05rem solid #e5e5e5;*/
     /*margin-bottom: 1rem;*/
-    background-image: url('../img/header-bg.png');
+    /*background-image: url('../img/header-bg.png');*/
     background-repeat: repeat;
 }
 
@@ -245,7 +245,7 @@ body {
 }
 
 .menu-btn-mobile {
-    color: #0A0A0A !important;
+    color: #fff !important;
     text-decoration: none !important;
 }
 
