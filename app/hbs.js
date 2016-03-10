@@ -124,3 +124,20 @@ hbs.registerHelper('css_cdn', function(is_production, local, cdn) {
 
     return new hbs.SafeString(result);
 });
+
+// =========================
+// Random header 
+// {{ random_header }}
+
+
+hbs.registerHelper('random_header', function() {
+    function rand (bg) {
+        return bg[Math.floor(Math.random()*bg.length)];
+    }
+
+    var bg_image = rand(['triangle.png', 'circle.png', 'carrot.png', 'big-blue.png']);
+    var bg_color = rand(['#e3a21a', '#00aba9', '#FFCC00', '#2d89ef', '#da532c']);
+    var result = `style="background-color: ${bg_color}; background-image: url(/public/img/header-bg/${bg_image})"`;
+
+    return new hbs.SafeString(result);
+});
