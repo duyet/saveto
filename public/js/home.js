@@ -56,7 +56,7 @@ $(document).ready(function() {
     }
 
     // Load 
-    loadFeed(null, 5);
+    loadFeed(null, 10);
     $('.load-more').click(function() {
         if (lasted_url_item) loadFeed(lasted_url_item.created, 5);
     });
