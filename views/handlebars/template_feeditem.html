@@ -9,7 +9,7 @@
 			</a>
 			{{else}}
 				{{#if review_type}}
-				<i class="fa fa-{{review_type}}"></i>
+					{{#equal review_type 'none'}}{{else}}<i class="fa fa-{{review_type}}"></i>{{/equal}}
 				{{/if}}
 			{{/equal}}
 
