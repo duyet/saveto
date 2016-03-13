@@ -1,4 +1,5 @@
 var path = require('path');
+var utils = require('../utils');
 
 exports.about = function*(next) {
     yield this.render('page/about');
