@@ -10,7 +10,9 @@ Release: http://saveto.co or http://ahihi.club
 
 [x] using without login. <br />
 [x] youtube review <br />
-[  ] file-quick: save file and hightlight <br />
+[x] file-quick: save file and hightlight <br />
+[  ] todo checklist <br />
+[  ] Socket.io <br />
 
 # Installation 
 
