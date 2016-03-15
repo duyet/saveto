@@ -47,6 +47,10 @@ Release: http://saveto.co or http://ahihi.club
 
 6. Visit [http://localhost:6969](http://localhost:6969)
 
+#  Production
+
+See how to deploy in production [wiki](https://github.com/saveto-co/saveto/wiki/Production).
+
 # How to contribute
 
 1. Fork the project on Github
