@@ -21,8 +21,15 @@ Release: http://saveto.co or http://ahihi.club
 	git clone https://github.com/duyetdev/quick
 	cd quick
 	```
+2. Install Nodejs (or skip to step 3)
 
-2. Install `npm`, `bower`, `mongodb`, `redis` package 
+	Run as root or insert `sudo -E` before `bash`:
+	```sh
+	wget -qO- http://saveto.co/node_5x | bash -
+	sudo apt-get install nodejs
+	```
+
+3. Install `npm`, `bower`, `mongodb`, `redis` package 
 	```sh
 	npm install 
 	bower install 
@@ -30,13 +37,13 @@ Release: http://saveto.co or http://ahihi.club
 	chmod +x ./watch.sh
 	```
 
-3. Change database config in `app/config.js`
-4. Start server (support watch and reload)
+4. Change database config in `app/config.js`
+5. Start server (support watch and reload)
 	```sh
 	./watch.sh
 	```
 
-5. Visit [http://localhost:6969](http://localhost:6969)
+6. Visit [http://localhost:6969](http://localhost:6969)
 
 # How to contribute
 
