@@ -403,6 +403,10 @@ body {
     margin: auto;
 }
 
+.url-favicon img {
+    margin-bottom: 6px;
+}
+
 /* Note form ========================= */
 #quickNoteForm {
 }
