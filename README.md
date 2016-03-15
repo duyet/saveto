@@ -17,6 +17,7 @@ Release: http://saveto.co or http://ahihi.club
 # Installation 
 
 1. Clone the source 
+
 	```sh
 	git clone https://github.com/duyetdev/quick
 	cd quick
