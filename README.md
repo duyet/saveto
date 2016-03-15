@@ -33,6 +33,7 @@ Release: http://saveto.co or http://ahihi.club
 3. Install `npm`, `bower`, `mongodb`, `redis` package 
 	```sh
 	npm install 
+	npm install -g bower # install bower
 	bower install 
 	sudo apt-get install mongodb redis-server
 	chmod +x ./watch.sh
