@@ -70,7 +70,7 @@ function isURL(url) {
 };
 
 // Moment
-if (moment) {
+if (typeof moment != undefined) {
     $('.created').each(function() {
         $(this).html(moment($(this).text()).fromNow())
     })
