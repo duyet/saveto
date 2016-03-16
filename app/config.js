@@ -12,13 +12,24 @@ var config = {
     debug: process.env.NODE_ENV !== 'production',
     port: process.env.PORT || 6969,
     secret_key: '-duyetdev-quick-',
-    alias_min: 3,
-    alias_length: 6,
+    
+    app: {
+        link: {
+            alias_min: 3,
+            alias_length: 6,
+        },
+        collection: {
+
+        },
+        note: {
+            
+        }
+    },
 
     view: {
         title: 'Quick',
         appName: 'Quick',
-        description: 'Quick bookmark collection, shorten URL.',
+        description: 'Home for the best links on the web',
         author: 'duyetdev.com',
         ga: 'UA-18218315-55',
         version: version,

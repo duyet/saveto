@@ -56,7 +56,7 @@ exports.add = function*(next) {
 }
 
 exports.view = function*(next) {
-    var throw_notfound = function(ctx) { return utils.e404(this, 'not found'); };
+    var throw_notfound = function(ctx) { return utils.e404(ctx, 'not found'); };
     
     if (! utils.isUserID('' + this.params.note_id)) return yield throw_notfound(this);
 
@@ -95,4 +95,19 @@ exports.view = function*(next) {
         	'note'
         ]
     });
+}
+
+exports.me = function * (next) {
+    if (!this.req.user || !this.req.user._id) return yield this.redirect('/note');
+
+    var notes = yield model.Notes.find({ user_id: this.req.user._id }).exec();
+
+    return yield this.render('note/me', {
+        user: this.req.user,
+        notes: notes,
+        custom_script: [],
+        custom_css: [
+            'note'
+        ] 
+    })
 }

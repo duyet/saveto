@@ -51,7 +51,7 @@ exports.parseURL = function(u, parseQueryString, slashesDenoteHost) {
 }
 
 exports.aliasGenerator = function(len) {
-    len = len || config.alias_length;
+    len = len || config.app.link.alias_length;
     return randomstring.generate({
         length: len,
         charset: 'alphabetic'
@@ -82,7 +82,7 @@ exports.userLog = function(user, req, event_name) {
 }
 
 exports.checkURLAlias = function(alias) {
-    var min_length = config.alias_min || 3;
+    var min_length = config.app.link.alias_min || 3;
     var test = /^[0-9A-Z_-]+$/i;
     var black_list = [
         'me', 'admin', 'system', 'mod', 'login', 'register',
