@@ -5,7 +5,11 @@
     			<h5>{{ note.title }}</h5>
     			<div class="note-tools">
     				{{#equal user._id note.user_id}}
-    					<a href="/note/delete/{{note.delete_token}}" class="text-warning" title="delete">
+    					<a href="/note/edit/{{note._id}}" class="text-info" title="delete">
+                            <i class="fa fa-pencil"></i> edit
+                        </a>
+
+                        <a href="/note/delete/{{note.delete_token}}" class="text-warning" title="delete">
     						<i class="fa fa-trash"></i> delete
     					</a>
     				{{/equal}}

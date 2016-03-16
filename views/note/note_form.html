@@ -1,15 +1,21 @@
-<form action="/note/add" method="POST" class="form-horizontal" role="form" id="quickNoteForm">
+<form action="/note/{{#if is_edit}}{{note._id}}{{else}}add{{/if}}" method="POST" class="form-horizontal" role="form" id="quickNoteForm">
     <input type="hidden" name="user_id" value="{{ user._id }}">
     <input type="hidden" name="access_token" value="{{ user.access_token }}">
-    <input type="hidden" name="language" value="">
+    <input type="hidden" name="language" value="{{note.language}}">
+
+    {{#if is_edit}}
+        <input type="hidden" name="_id" value="{{note._id}}">
+    {{/if}}
+
+    <!-- {{{json note}}} -->
 
     <div class="form-group">
-        <input type="text" class="form-control" name="note_title" id="note_title" placeholder="title or filename (default: title.md)" />
+        <input type="text" class="form-control" name="note_title" id="note_title" placeholder="title or filename (default: title.md)" value="{{note.title}}" />
     </div>
 
     <div class="form-group editor">
     <input type="hidden" name="note_content" value="">
-     	<pre id="quick-note-editor" class="form-control"></pre>
+<pre id="quick-note-editor" class="form-control">{{~note.content~}}</pre>
     </div>
 
     <div class="form-group text-right">

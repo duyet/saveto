@@ -4,7 +4,9 @@ ace.define("quick/note", ["require"],
 	var editor = ace.edit("quick-note-editor");
 
 	editor.setTheme('ace/theme/github');
-	editor.session.setMode("ace/mode/html");
+	
+	var language = $('input[name=language]').val();
+	editor.session.setMode(language || "ace/mode/html");
 	editor.setAutoScrollEditorIntoView(true);
 	editor.setOption("minLines", 20);
 	editor.setOption("maxLines", Infinity);

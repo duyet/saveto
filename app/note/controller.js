@@ -5,23 +5,78 @@ var utils = require('../utils');
 var model = require('../model');
 
 exports.home = function*(next) {
-	var user = this.req.user;
-	if (!user || !user._id) user  = utils.guestUserObject;
+    var user = this.req.user;
+    if (!user || !user._id) user  = utils.guestUserObject;
 
-	var lasted_notes = yield model.Note.find({}).sort('-created').limit(4).exec();
-	
+    var lasted_notes = yield model.Note.find({}).sort('-created').limit(4).exec();
+    
     yield this.render('note/home', {
-    	user: user,
-    	lasted_notes: lasted_notes,
+        user: user,
+        lasted_notes: lasted_notes,
         custom_script: [
-        	'@ace-builds/src-min-noconflict/ace',
-        	'@ace-builds/src-min-noconflict/ext-modelist',
-        	'note'
+            '@ace-builds/src-min-noconflict/ace',
+            '@ace-builds/src-min-noconflict/ext-modelist',
+            'note'
         ],
         custom_css: [
-        	'note'
+            'note'
         ]
     });
+};
+
+exports.edit = function * (next) {
+    var user = this.req.user;
+    var note_id = '' + this.params.note_id;
+    
+    if (!user || !user._id) return yield utils.e404(this, 'please login');
+    if (! utils.isUserID(note_id)) return yield utils.e404(this, 'invalid note');
+
+    var note = yield model.Note.findOne({_id: note_id, user_id: user._id}).exec();
+    if (!note) return yield utils.e404(this, 'invalid note');
+    
+    yield this.render('note/edit', {
+        user: user,
+        note: note,
+        custom_script: [
+            '@ace-builds/src-min-noconflict/ace',
+            '@ace-builds/src-min-noconflict/ext-modelist',
+            'note'
+        ],
+        custom_css: [
+            'note'
+        ]
+    });
+};
+
+exports.update = function * (next) {
+	var user = this.req.user;
+    var note_id = '' + this.params.note_id;
+    
+    if (!user || !user._id) return yield utils.e404(this, 'please login');
+    if (!this.request.body.user_id || this.request.body.user_id != user._id) return yield utils.e404(this, 'access deny');
+    if (! utils.isUserID(note_id)) return yield utils.e404(this, 'invalid note');
+
+    var note = yield model.Note.findOne({_id: note_id, user_id: user._id}).exec();
+    if (!note) return yield utils.e404(this, 'not found');
+	
+    var note_content = sanitize(this.request.body.note_content || '');
+    if (!note_content) return this.body = 'note content empty.'
+
+
+    var note_title = this.request.body.note_title || utils.noteTitleGenerator();
+    var note_language = this.request.body.language || '';
+    var is_private = !!this.request.body.is_private;
+
+    note.title = note_title;
+    note.content = note_content;
+    note.tags = [];
+    note.language = note_language;
+    note.is_public = !is_private;
+    note.last_update = new Date();
+
+    var result = yield note.save();
+    if (result && result._id) this.redirect('/note/' + result._id);
+    else return yield exports.home(next);
 };
 
 
