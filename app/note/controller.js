@@ -84,7 +84,7 @@ exports.all = function * (next) {
     if (!this.req.user || !this.req.user._id) return yield utils.e404(this, 'please login');
 
     var limit = 30;
-    var notes = yield model.Note.find({ user_id: this.req.user._id }).limit(limit).exec();
+    var notes = yield model.Note.find({ user_id: this.req.user._id }).limit(limit).sort('-created').exec();
 
     return yield this.render('note/all', {
         user: this.req.user,
