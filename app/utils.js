@@ -211,7 +211,8 @@ exports.guestUserObject = {
     _id: '-',
     email: '-',
     name: 'guest',
-    access_token: '-'
+    access_token: '-',
+    is_guest: true
 }
 
 exports.is_guest = function(user_id, access_token) {
