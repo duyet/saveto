@@ -24,6 +24,33 @@ exports.home = function*(next) {
     });
 };
 
+
+exports.all = function * (next) {
+    if (!this.req.user || !this.req.user._id) return yield utils.e404(this, 'please login');
+
+    var limit = 30;
+    var notes = yield model.Note.find({ user_id: this.req.user._id }).limit(limit).exec();
+
+    return yield this.render('note/all', {
+        user: this.req.user,
+        notes: notes,
+        custom_script: [
+            '@moment/min/moment.min',
+        ],
+        custom_css: [
+            'note'
+        ] 
+    })
+}
+
+exports.delete_via_token = function * (next) {
+    var token = '' + this.params.delete_token;
+    if (!token) return yield utils.e404(this, 'invalid token', 456);
+    var deleted = yield model.Note.remove({ delete_token: token }).exec();
+
+    return yield utils.e404(this, 'deleted '+ (deleted) +' note!', 200);
+}
+
 exports.add = function*(next) {
 	var user_id = this.request.body.user_id || '';
 	var access_token = this.request.body.access_token || '';
@@ -95,19 +122,4 @@ exports.view = function*(next) {
         	'note'
         ]
     });
-}
-
-exports.me = function * (next) {
-    if (!this.req.user || !this.req.user._id) return yield this.redirect('/note');
-
-    var notes = yield model.Notes.find({ user_id: this.req.user._id }).exec();
-
-    return yield this.render('note/me', {
-        user: this.req.user,
-        notes: notes,
-        custom_script: [],
-        custom_css: [
-            'note'
-        ] 
-    })
 }

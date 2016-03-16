@@ -42,3 +42,12 @@
 	border: 0;
 	margin-top: 25px;
 }
+
+.list-all-note {
+	font-size: 13px;
+}
+
+.list-all-note h4.list-group-item-heading {
+    font-size: 19px;
+    color: #ffcc00;
+}

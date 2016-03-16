@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="list-group list-all-note">
+		{{#each notes}}
+			<a href="/note/{{ _id }}" class="list-group-item">
+				<h4 class="list-group-item-heading">
+					{{ note_icon language }}
+					{{#if title}}
+						{{ title }}
+					{{ else }}
+						{{ _id }}
+					{{/if}}
+
+					{{#if is_public}}
+					{{ else }}
+						<span class="label label-warning">private</span>
+					{{/if}}
+				</h4>
+				<p class="list-group-item-text">
+					<span class="created">{{ created }}</span>
+				</p>
+			</a>
+		{{/each}}
+	</div>
+</div>
+
+

@@ -68,3 +68,10 @@ function isURL(url) {
     }
     return true;
 };
+
+// Moment
+if (moment) {
+    $('.created').each(function() {
+        $(this).html(moment($(this).text()).fromNow())
+    })
+}

@@ -141,3 +141,22 @@ hbs.registerHelper('random_header', function() {
 
     return new hbs.SafeString(result);
 });
+
+// ================
+// Note fa icon
+hbs.registerHelper('note_icon', function(language) {
+    var result = '';
+    var icon = '';
+
+    switch(language) {
+        case 'ace/mode/html':
+            icon = 'html5'
+            break;
+        default:
+            icon = 'sticky-note-o';
+    }
+
+    if (!icon) return result;
+    result = `<i class="fa fa-${icon}"></i>`;
+    return new hbs.SafeString(result);
+});

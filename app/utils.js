@@ -241,8 +241,9 @@ exports.checkAccessTokenUID = function(user_id, access_token) {
     return true;
 }
 
-exports.e404 = function (ctx, message) {
+exports.e404 = function (ctx, message, code) {
     return ctx.render('utils/404', {
-        message: message
+        message: message,
+        code: code || 404
     });
 }
