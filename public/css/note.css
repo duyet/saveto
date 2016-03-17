@@ -51,3 +51,9 @@
     font-size: 19px;
     color: #ffcc00;
 }
+
+.ace-github {
+	font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+	font-size: 12px !important;
+	line-height: 18px !important;
+}
