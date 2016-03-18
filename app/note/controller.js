@@ -146,7 +146,7 @@ exports.view = function*(next) {
     note.view_counter += 1;
     note.save();
 
-	var custom_script = [];
+    var custom_script = [];
 
     var is_markdown = false;
     var content = note.content;
@@ -154,15 +154,15 @@ exports.view = function*(next) {
         is_markdown = true;
         content = marked(note.content);
     } else {
-    	custom_script.push('@ace-builds/src-min-noconflict/ace');
-    	custom_script.push('@ace-builds/src-min-noconflict/ext-static_highlight');
+        custom_script.push('@ace-builds/src-min-noconflict/ace');
+        custom_script.push('@ace-builds/src-min-noconflict/ext-static_highlight');
     }
 
     custom_script.push(
-	    '@moment/min/moment.min',
-	    '@handlebars/handlebars.min',
-	    'hbs',
-	    'note-view');
+        '@moment/min/moment.min',
+        '@handlebars/handlebars.min',
+        'hbs',
+        'note-view');
 
     return yield this.render('note/view', {
         user: this.req.user,
@@ -173,7 +173,37 @@ exports.view = function*(next) {
         
         custom_script: custom_script,
         custom_css: [
-        	'note'
+            'note'
         ]
     });
+}
+
+exports.raw = function*(next) {
+    var throw_notfound = function (ctx) {
+        ctx.code = 404;
+        ctx.body = 'not found';
+    }
+
+    if (! utils.isUserID('' + this.params.note_id)) return throw_notfound(this);
+
+    var note = null; 
+    note = yield model.Note.findById('' + this.params.note_id).exec();
+    if (!note) return throw_notfound(this);
+
+    note.view_counter += 1;
+    note.save();
+
+    this.set('Access-Control-Allow-Origin', '*');
+    this.set('Content-Type', 'text/plain; charset=utf-8')
+    this.set('Strict-Transport-Security', 'max-age=31536000');
+    this.set('X-Content-Type-Options', 'nosniff');
+    this.set('X-Frame-Options', 'deny');
+    this.set('X-XSS-Protection', '1; mode=block');
+
+    if (this.request.query['dl'] && '1' == this.request.query['dl']) {
+        this.set('Content-Type', 'application/force-download');
+        this.set('Content-Disposition', 'attachment; filename="'+ note.title +'"')
+    }
+
+    this.body = note.content;
 }
