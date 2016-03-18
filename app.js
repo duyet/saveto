@@ -15,6 +15,7 @@ var passport = require('koa-passport');
 var hbs = require('koa-hbs');
 var flash = require('koa-flash');
 var helmet = require('koa-helmet');
+var subdomain = require('koa-sub-domain');
 
 var config = require('./app/config');
 var router = require('./app/router');
@@ -85,6 +86,9 @@ app.use(function *(next) {
 app
   .use(router.routes())
   .use(router.allowedMethods());
+// Router subdoman
+app.use(subdomain('note', require('./app/note/router')));
+app.use(subdomain('api', require('./app/api/router')));
 
 // Start application
 app = module.exports = http.createServer(app.callback());
