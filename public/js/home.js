@@ -214,6 +214,7 @@ $(document).ready(function() {
             if (!_id) return alert('something went wrong!');
 
             var item = $( '#item-' + _id);
+            if (!item) return false;
 
             var p = $(item).find('.list-tags').hide();
             
