@@ -14,13 +14,15 @@ exports.home = function*(next) {
             '@clipboard/dist/clipboard.min',
             '@handlebars/handlebars.min',
             '@AlertifyJS/build/alertify.min',
+            '@bootstrap-tagsinput/dist/bootstrap-tagsinput.min',
             '@copy/dist/copy.min',
             'hbs',
             'home'
         ],
         custom_css: [
             '@AlertifyJS/build/css/alertify.min',
-            '@AlertifyJS/build/css/themes/default.min'
+            '@AlertifyJS/build/css/themes/default.min',
+            '@bootstrap-tagsinput/dist/bootstrap-tagsinput'
         ]
     });
 };
@@ -140,7 +142,8 @@ exports.viewURL = function*(next) {
         ],
         custom_css: [
             '@AlertifyJS/build/css/alertify.min',
-            '@AlertifyJS/build/css/themes/default.min'
+            '@AlertifyJS/build/css/themes/default.min',
+            '@bootstrap-tagsinput/dist/bootstrap-tagsinput'
         ]
     });
 }
@@ -163,6 +166,7 @@ exports.addURL = function * (next) {
             '@clipboard/dist/clipboard.min',
             '@handlebars/handlebars.min',
             '@AlertifyJS/build/alertify.min',
+            '@bootstrap-tagsinput/dist/bootstrap-tagsinput.min',
             'hbs',
             'add'
         ],

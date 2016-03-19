@@ -33,6 +33,7 @@
     "marked": "~0.3.5",
     "copy": "*",
     "ace-builds": "^1.2.3",
-    "requirejs": "^2.1.22"
+    "requirejs": "^2.1.22",
+    "bootstrap-tagsinput": "^0.8.0"
   }
 }

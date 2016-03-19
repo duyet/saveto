@@ -50,7 +50,7 @@ $(document).ready(function() {
             }
         }
 
-        $.post(app.api_endpoint + '/collection', data, function(data) {
+        $.post(app.api_endpoint + '/url', data, function(data) {
             if (data) {
 
                 last_url_item = data;
@@ -84,6 +84,8 @@ $(document).ready(function() {
                         user: app.user
                     });
                     $('#item-' + data._id).html($(newrender).html());
+                    $('#item-' + data._id).attr('data-raw', JSON.stringify(data));
+                    initialFeedScript();
                 });
             }
         }).fail(function() {
@@ -113,10 +115,10 @@ $(document).ready(function() {
             access_token: app.user.access_token
         });
 
-        $.post(app.api_endpoint + '/collection/' + item._id, data, function(result) {
-            
+        $.post(app.api_endpoint + '/url/' + item._id, data, function(result) {
+            alertify.message('synced');
         }).error(function() {
-            alert('Can not sync')
+            alertify.error('sync is currently experiencing problems');
         });
     }
 
@@ -146,5 +148,45 @@ $(document).ready(function() {
         clipboard.on('error', function(e) {
             alertify.message("ops, using right click > copy.");
         });
+
+        $('.tags .update-tags').click(function(e) {
+            e.preventDefault();
+            var _id = $(this).data('url-id');
+            if (!_id) return alert('something went wrong!');
+
+            var item = $( '#item-' + _id);
+
+            var p = $(item).find('.list-tags').hide();
+            
+            var inputTags = $(item).find('.input-tags');
+            if (inputTags) {
+                inputTags.show();
+                var form_row = inputTags.find('input');
+                if (form_row) {
+                    $(form_row).tagsinput({
+                        maxTags: 3,
+                        maxChars: 8,
+                        trimValue: true,
+                        confirmKeys: [13, 44]
+                    });
+
+                    $(form_row).on('itemAdded itemRemoved', function() {
+                        var data = $(item).data('raw');
+                        data.tags = $(this).tagsinput('items');
+
+                        // Sync back server
+                        updateUrlItem(data);
+
+                        var newrender = feedItemTemplate({
+                            urls: [data],
+                            user: app.user
+                        });
+                        $('#item-' + data._id).html($(newrender).html());
+                        initialFeedScript();
+                    });
+                }
+            }
+        });
+
     }
 });

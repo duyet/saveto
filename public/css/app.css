@@ -414,3 +414,21 @@ body {
 #quickNoteForm .editor #quick-note-editor {
     height: 250px;
 }
+
+
+/* URL Tags ========================== */
+.tags {
+    color: #fff;
+}
+.tags .list-tags a { 
+    color: #31b0d5 !important;
+    font-weight: 300;
+    border: 0.5px solid #7DE2FF;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.tags .list-tags a.update-tags:hover {
+    background-color: #F0FCFF;
+}

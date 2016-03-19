@@ -3,6 +3,7 @@ var Router = require('koa-router');
 var root_router = new Router();
 var helper_router = new Router();
 var page_router = require('./page/router');
+var url_router = require('./url/router');
 var note_router = require('./note/router');
 var api_router = require('./api/router');
 
@@ -11,6 +12,7 @@ var controller = require('./controller');
 root_router
 	// Static page
 	.use('', page_router.routes(), page_router.allowedMethods())
+	.use('', url_router.routes(), url_router.allowedMethods())
 	
 	// Api
 	.use('/api/v1', api_router.routes(), api_router.allowedMethods())

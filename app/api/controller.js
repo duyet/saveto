@@ -45,7 +45,7 @@ exports.urlParser = function*(next) {
     }
 }
 
-exports.collection = function*(next) {
+exports.URL = function*(next) {
     var user = this.req.user || {};
 
     switch (this.method) {
@@ -131,7 +131,7 @@ exports.newURL = function*(next) {
     this.body = collection;
 }
 
-exports.collectionItem = function*(next) {
+exports.URLItem = function*(next) {
     var id = this.params.id || '';
     if (!id.length || !utils.isUserID(id)) {
         return api_error(this, 'not found', 404);
@@ -149,7 +149,7 @@ exports.collectionItem = function*(next) {
 
             var data_update = {};
             var body = this.request.body;
-            ['url', 'alias', 'title', 'host', 'meta'].forEach(function(key) {
+            ['url', 'alias', 'title', 'host', 'meta', 'tags'].forEach(function(key) {
                 if (body.hasOwnProperty(key)) {
                     data_update[key] = body[key];
                 }
