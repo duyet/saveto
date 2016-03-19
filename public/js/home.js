@@ -232,6 +232,9 @@ $(document).ready(function() {
 
                     $(form_row).on('itemAdded itemRemoved', function() {
                         var data = $(item).data('raw');
+                        var tags = $(this).tagsinput('items');
+                        if (!tags) return false;
+                        
                         data.tags = $(this).tagsinput('items');
 
                         // Sync back server
@@ -242,7 +245,7 @@ $(document).ready(function() {
                             user: app.user
                         });
                         $('#item-' + data._id).html($(newrender).html());
-                        initialFeedScript();
+                        // initialFeedScript();
                     });
                 }
             }
