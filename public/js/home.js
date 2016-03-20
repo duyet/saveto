@@ -225,7 +225,7 @@ $(document).ready(function() {
                 if (form_row) {
                     $(form_row).tagsinput({
                         maxTags: 3,
-                        maxChars: 8,
+                        maxChars: 20,
                         trimValue: true,
                         confirmKeys: [13, 44]
                     });
