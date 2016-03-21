@@ -61,12 +61,14 @@ hbs.registerHelper('custom_script_by_page', function(page) {
         var jspath = '';
         if (page[i].substr(0, 1) == '@') {
             // is lib
-            jspath = 'lib/' + page[i].substr(1);
+            jspath = '/public/lib/' + page[i].substr(1);
+        } else if (page[i].substr(0, 1) == '@') {
+            jspath = '//' + page[i].substr(2);
         } else {
-            jspath = 'js/' + page[i];
+            jspath = '/public/js/' + page[i];
         }
 
-        result.push('<script type="text/javascript" src="/public/' + jspath + '.js"></script>');
+        result.push('<script type="text/javascript" src="' + jspath + '.js"></script>');
     }
 
     return new hbs.SafeString(result.join('\n'));
@@ -78,15 +80,17 @@ hbs.registerHelper('custom_css_by_page', function(page) {
 
     var result = [];
     for (var i in page) {
-        var jspath = '';
+        var csspath = '';
         if (page[i].substr(0, 1) == '@') {
             // is lib
-            jspath = 'lib/' + page[i].substr(1);
+            csspath = '/public/lib/' + page[i].substr(1);
+        } else if (page[i].substr(0, 2) == '//') {
+            csspath = '//' + page[i].substr(2);
         } else {
-            jspath = 'css/' + page[i];
+            csspath = '/public/css/' + page[i];
         }
 
-        result.push('<link rel="stylesheet" type="text/css" href="/public/' + jspath + '.css" />');
+        result.push('<link rel="stylesheet" type="text/css" href="' + csspath + '.css" />');
     }
 
     return new hbs.SafeString(result.join('\n'));

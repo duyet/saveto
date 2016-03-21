@@ -32,7 +32,6 @@
     "koa-session": "^3.3.1",
     "koa-static-cache": "^3.1.4",
     "koa-static-folder": "^0.1.6",
-    "koa-sub-domain": "^1.0.2",
     "marked": "^0.3.5",
     "md5": "^2.0.0",
     "mongo-sanitize": "^1.0.0",
@@ -41,6 +40,7 @@
     "passport-github": "^1.1.0",
     "passport-local": "^1.0.0",
     "pmx": "^0.6.0",
+    "pygmentize-bundled": "^2.3.0",
     "randomstring": "^1.1.4",
     "validator": "^4.8.0"
   },

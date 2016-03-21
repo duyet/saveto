@@ -1,12 +1,22 @@
 var sanitize = require('mongo-sanitize');
 var marked = require('marked');
 
+// Synchronous highlighting with highlight.js
+marked.setOptions({
+  highlight: function (code) {
+    return require('highlight.js').highlightAuto(code).value;
+  },
+  sanitize: true, // Ignore HTML input
+  gfm: true, // Enable GitHub flavored markdown.
+  tables: true
+});
+
 var utils = require('../utils');
 var model = require('../model');
 
 exports.home = function*(next) {
     var user = this.req.user;
-    if (!user || !user._id) user  = utils.guestUserObject;
+    if (!user || !user._id) user = utils.guestUserObject;
 
     yield this.render('note/home', {
         user: user,
@@ -21,16 +31,16 @@ exports.home = function*(next) {
     });
 };
 
-exports.edit = function * (next) {
+exports.edit = function*(next) {
     var user = this.req.user;
     var note_id = '' + this.params.note_id;
-    
-    if (!user || !user._id) return yield utils.e404(this, 'please login');
-    if (! utils.isUserID(note_id)) return yield utils.e404(this, 'invalid note');
 
-    var note = yield model.Note.findOne({_id: note_id, user_id: user._id}).exec();
+    if (!user || !user._id) return yield utils.e404(this, 'please login');
+    if (!utils.isUserID(note_id)) return yield utils.e404(this, 'invalid note');
+
+    var note = yield model.Note.findOne({ _id: note_id, user_id: user._id }).exec();
     if (!note) return yield utils.e404(this, 'invalid note');
-    
+
     yield this.render('note/edit', {
         user: user,
         note: note,
@@ -45,17 +55,17 @@ exports.edit = function * (next) {
     });
 };
 
-exports.update = function * (next) {
-	var user = this.req.user;
+exports.update = function*(next) {
+    var user = this.req.user;
     var note_id = '' + this.params.note_id;
-    
+
     if (!user || !user._id) return yield utils.e404(this, 'please login');
     if (!this.request.body.user_id || this.request.body.user_id != user._id) return yield utils.e404(this, 'access deny');
-    if (! utils.isUserID(note_id)) return yield utils.e404(this, 'invalid note');
+    if (!utils.isUserID(note_id)) return yield utils.e404(this, 'invalid note');
 
-    var note = yield model.Note.findOne({_id: note_id, user_id: user._id}).exec();
+    var note = yield model.Note.findOne({ _id: note_id, user_id: user._id }).exec();
     if (!note) return yield utils.e404(this, 'not found');
-	
+
     var note_content = sanitize(this.request.body.note_content || '');
     if (!note_content) return this.body = 'note content empty.'
 
@@ -77,7 +87,7 @@ exports.update = function * (next) {
 };
 
 
-exports.all = function * (next) {
+exports.all = function*(next) {
     if (!this.req.user || !this.req.user._id) return yield utils.e404(this, 'please login');
 
     var limit = 30;
@@ -91,24 +101,24 @@ exports.all = function * (next) {
         ],
         custom_css: [
             'note'
-        ] 
+        ]
     })
 }
 
-exports.delete_via_token = function * (next) {
+exports.delete_via_token = function*(next) {
     var token = '' + this.params.delete_token;
     if (!token) return yield utils.e404(this, 'invalid token', 456);
     var deleted = yield model.Note.remove({ delete_token: token }).exec();
 
-    return yield utils.e404(this, 'deleted '+ (deleted) +' note!', 200);
+    return yield utils.e404(this, 'deleted ' + (deleted) + ' note!', 200);
 }
 
 exports.add = function*(next) {
-	var user_id = this.request.body.user_id || '';
-	var access_token = this.request.body.access_token || '';
+    var user_id = this.request.body.user_id || '';
+    var access_token = this.request.body.access_token || '';
 
     // TODO: poor security, JWT instead of
-	if (!utils.checkAccessTokenUID(user_id, access_token)) 
+    if (!utils.checkAccessTokenUID(user_id, access_token))
         return utils.e404(this, 'not found');
 
     var note_content = sanitize(this.request.body.note_content || '');
@@ -135,11 +145,12 @@ exports.add = function*(next) {
 }
 
 exports.view = function*(next) {
-    var throw_notfound = function(ctx) { return utils.e404(ctx, 'not found'); };
-    
-    if (! utils.isUserID('' + this.params.note_id)) return yield throw_notfound(this);
+    var throw_notfound = function(ctx) {
+        return utils.e404(ctx, 'not found'); };
 
-    var note = null; 
+    if (!utils.isUserID('' + this.params.note_id)) return yield throw_notfound(this);
+
+    var note = null;
     note = yield model.Note.findById('' + this.params.note_id).exec();
     if (!note) return yield throw_notfound(this);
 
@@ -170,23 +181,25 @@ exports.view = function*(next) {
         content_render: content,
         title: note.title || '',
         is_markdown: is_markdown,
-        
+
         custom_script: custom_script,
         custom_css: [
-            'note'
+            'note',
+            'note-markdown',
+            '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min'
         ]
     });
 }
 
 exports.raw = function*(next) {
-    var throw_notfound = function (ctx) {
+    var throw_notfound = function(ctx) {
         ctx.code = 404;
         ctx.body = 'not found';
     }
 
-    if (! utils.isUserID('' + this.params.note_id)) return throw_notfound(this);
+    if (!utils.isUserID('' + this.params.note_id)) return throw_notfound(this);
 
-    var note = null; 
+    var note = null;
     note = yield model.Note.findById('' + this.params.note_id).exec();
     if (!note) return throw_notfound(this);
 
@@ -202,7 +215,7 @@ exports.raw = function*(next) {
 
     if (this.request.query['dl'] && '1' == this.request.query['dl']) {
         this.set('Content-Type', 'application/force-download');
-        this.set('Content-Disposition', 'attachment; filename="'+ note.title +'"')
+        this.set('Content-Disposition', 'attachment; filename="' + note.title + '"')
     }
 
     this.body = note.content;
