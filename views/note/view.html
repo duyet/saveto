@@ -6,15 +6,19 @@
     			<div class="note-tools">
     				{{#equal user._id note.user_id}}
     					<a href="/note/edit/{{ note._id }}" class="text-info" title="edit">
-                            <i class="fa fa-pencil"></i> edit
-                        </a>
+                            			<i class="fa fa-pencil"></i> edit
+                        		</a>
 
-                        <a href="/note/delete/{{ note.delete_token }}" class="text-warning" title="delete">
-                            <i class="fa fa-trash"></i> delete
-                    {{/equal}}
-                    </a><a href="/note/raw/{{ note._id }}" class="text-info" title="raw">
-                        <i class="fa fa-code"></i> raw
-					</a>
+                        		<a href="/note/delete/{{ note.delete_token }}" class="text-warning" title="delete">
+                            			<i class="fa fa-trash"></i> delete
+                            		</a>
+                            		
+                            		<a href="#"><i>{{note.view_counter}} views</i></a>
+                    		{{/equal}}
+                    		<a href="/note/raw/{{ note._id }}" class="text-info" title="raw">
+                        		<i class="fa fa-code"></i> raw
+				</a>
+    				
     				<a href="javascript:;">
     					<i class="fa fa-calendar-times-o"></i> <time title="{{ note.created }}">{{ note.created }}</time>
     				</a>
