@@ -8,11 +8,11 @@ Release: http://saveto.co or http://ahihi.club
 
 ## Coming soon
 
-[x] using without login. <br />
-[x] youtube review <br />
-[x] file-quick: save file and hightlight <br />
-[  ] todo checklist <br />
-[  ] Socket.io <br />
+- [x] using without login. 
+- [x] youtube review
+- [x] file-quick: save file and hightlight 
+- [ ] todo checklist 
+- [ ] Socket.io 
 
 # Installation 
 
