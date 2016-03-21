@@ -1,14 +1,16 @@
 var sanitize = require('mongo-sanitize');
 var marked = require('marked');
+var Renderer = require('marked-sanitized')(marked.Renderer);
 
 // Synchronous highlighting with highlight.js
 marked.setOptions({
-  highlight: function (code) {
-    return require('highlight.js').highlightAuto(code).value;
-  },
-  sanitize: true, // Ignore HTML input
-  gfm: true, // Enable GitHub flavored markdown.
-  tables: true
+    renderer: new Renderer(),
+    highlight: function(code) {
+        return require('highlight.js').highlightAuto(code).value;
+    },
+    sanitize: false, // Ignore HTML input
+    gfm: true, // Enable GitHub flavored markdown.
+    tables: true
 });
 
 var utils = require('../utils');
@@ -146,7 +148,8 @@ exports.add = function*(next) {
 
 exports.view = function*(next) {
     var throw_notfound = function(ctx) {
-        return utils.e404(ctx, 'not found'); };
+        return utils.e404(ctx, 'not found');
+    };
 
     if (!utils.isUserID('' + this.params.note_id)) return yield throw_notfound(this);
 
