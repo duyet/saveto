@@ -3,7 +3,7 @@ var model = require('../model');
 
 exports.tag = function*(next) {
 	var tag = '' + this.params.tag;
-	var urls = yield model.Collection.find({ tags: { $in : [ tag ] } });
+	var urls = yield model.Collection.find({ tags: { $in : [ tag ] } }).sort('-created').exec();
 
     yield this.render('url/tag', {
     	tag: tag,
