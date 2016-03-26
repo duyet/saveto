@@ -1,5 +1,6 @@
 var mongoose = require('./db');
 
+// User
 exports.User = mongoose.model('User', {
     username: String,
     password: String,
@@ -10,7 +11,26 @@ exports.User = mongoose.model('User', {
     access_token: String
 });
 
-exports.Collection = mongoose.model('Collection', {
+// Application
+var ApplicationSchema = new mongoose.Schema({
+    user_id: String,
+    app_name: String,
+    app_id: String,
+    access_token: String,
+    created: { type: Date, default: new Date() },
+    last_update: { type: Date, default: new Date() },
+    is_active: { type: Boolean, default: true },
+});
+ApplicationSchema.index({ app_id: 1 });
+exports.Application = mongoose.model('Application', ApplicationSchema);
+
+exports.ApplicationLog = mongoose.model('ApplicationLog', {
+    app_id: String,
+    created: { type: Date, default: new Date() },
+});
+
+// URL 
+var URLSchema = new mongoose.Schema({
     url: String,
     title: String,
     host: String,
@@ -33,11 +53,12 @@ exports.Collection = mongoose.model('Collection', {
     // features
     review_type: { type: String, default: 'none' },
     review_raw_url: { type: String, default: '' },
-    // is_github_markdown_raw: { type: Boolean, default: false },
-    // github_markdown_url: { type: String, default: '' },
 });
+URLSchema.index({ alias: 1 });
+exports.Collection = mongoose.model('Collection', URLSchema);
 
-exports.Note = mongoose.model('Note', {
+// Note
+var NoteSchema = new mongoose.Schema({
     title: String,
     content: String,
     user_id: String,
@@ -56,7 +77,9 @@ exports.Note = mongoose.model('Note', {
     last_update: { type: Date, default: new Date() },
     is_public: { type: Boolean, default: true },
 });
+exports.Note = mongoose.model('Note', NoteSchema);
 
+// User settings
 exports.Setting = mongoose.model('Setting', {
     user_id: String,
     last_change: Date,
@@ -66,6 +89,7 @@ exports.Setting = mongoose.model('Setting', {
     offline: Boolean
 })
 
+// User log
 exports.UserLog = mongoose.model('UserLog', {
     user_id: String,
     created: { type: Date, default: new Date() },
