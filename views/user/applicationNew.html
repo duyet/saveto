@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="list-group">
+        <div class="list-group-item">
+            <form action="" method="POST" role="form">
+                <legend>Application</legend>
+                <input type="hidden" name="user_id" value="{{user._id}}">
+                <input type="hidden" name="app_id" value="{{app.app_id}}">
+
+
+                <div class="form-group">
+                    <label for="appname">application name</label>
+                    <input type="text" class="form-control" id="appname" name="appname" placeholder="Application name" value="{{appAPI.app_name}}">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

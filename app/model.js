@@ -16,12 +16,14 @@ var ApplicationSchema = new mongoose.Schema({
     user_id: String,
     app_name: String,
     app_id: String,
+    secret_key: String,
     access_token: String,
     created: { type: Date, default: new Date() },
     last_update: { type: Date, default: new Date() },
     is_active: { type: Boolean, default: true },
+    is_remove: { type: Boolean, default: false },
 });
-ApplicationSchema.index({ app_id: 1 });
+ApplicationSchema.index({ app_id: 1 }, { unique: true });
 exports.Application = mongoose.model('Application', ApplicationSchema);
 
 exports.ApplicationLog = mongoose.model('ApplicationLog', {
@@ -54,7 +56,7 @@ var URLSchema = new mongoose.Schema({
     review_type: { type: String, default: 'none' },
     review_raw_url: { type: String, default: '' },
 });
-URLSchema.index({ alias: 1 });
+URLSchema.index({ alias: 1 }, { unique: true });
 exports.Collection = mongoose.model('Collection', URLSchema);
 
 // Note

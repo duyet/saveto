@@ -28,11 +28,21 @@ exports.isURL = function(s) {
     });
 }
 
+exports.isID = function(s) {
+    return validator.isMongoId(s);
+}
+
 exports.isUserID = function(s) {
     return validator.isMongoId(s);
 }
 
 exports.accessTokenGenerator = function() {
+    return randomstring.generate({
+        length: 32,
+        charset: 'alphabetic'
+    });
+}
+exports.appAccessTokenGenerator = function() {
     return randomstring.generate({
         length: 32,
         charset: 'alphabetic'
@@ -55,6 +65,23 @@ exports.aliasGenerator = function(len) {
     return randomstring.generate({
         length: len,
         charset: 'alphabetic'
+    });
+}
+
+exports.appSecretKeyGenerator = function(len) {
+    len = len || 15;
+    return randomstring.generate({
+        length: len,
+        charset: 'alphanumeric',
+        capitalization: 'lowercase'
+    });
+}
+
+exports.appIdGenerator = function(len) {
+    len = len || 15;
+    return randomstring.generate({
+        length: len,
+        charset: 'numeric'
     });
 }
 
