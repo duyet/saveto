@@ -13,7 +13,9 @@ Release: http://saveto.co or http://ahihi.club
 - [x] file-quick: save file and hightlight 
 - [ ] todo checklist 
 - [ ] Socket.io 
-
+- [ ] report flag
+- [ ] admin dashboard
+ 
 # Installation 
 
 1. Clone the source 
