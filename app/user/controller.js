@@ -1,3 +1,5 @@
+var passport = require('koa-passport');
+
 var model = require('../model');
 var utils = require('../utils');
 
