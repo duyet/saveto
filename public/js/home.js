@@ -65,28 +65,41 @@ $(document).ready(function() {
     $('#quickForm').on('submit', function(e) {
         e.preventDefault();
 
+        var mode = 'url';
         var url = $('#quick-url').val();
+        var is_url = false;
         var error = false;
 
         if (!url) error = true;
-        else if (isURL && !isURL(url)) {
-            url = 'http://' + url;
-            if (!isURL(url)) error = true;
-        }
+        else if (isURL && isURL(url)) is_url = true;
+        // else if (isURL && isURL('http://' + url)) {
+        //     is_url = true;
+        //     url = 'http://' + url;
+        // }
+
         if (error) {
             $('.quick-url-input').addClass('has-danger');
             return;
         }
 
+        console.log(is_url, url);
+        if (true !== is_url) {
+            var mode = 'search';
+        }
+
         var data = {
-            url: url,
+            data: url,
             user_id: app.user._id,
             access_token: app.user.access_token
         };
 
-
-        $.post(app.api_endpoint + '/url', data, function(data) {
-            if (data) {
+        if (mode == 'search') {
+            $('.feed').html('');
+            $('.load-more').text('loading ...');    
+        }
+        
+        $.post(app.api_endpoint + '/' + mode, data, function(data) {
+            if (data && mode == 'url') {
                 $('#quick-url').val('');
 
                 data.is_loading = true;
@@ -120,6 +133,16 @@ $(document).ready(function() {
 
                     initialFeedScript();
                 });
+            } else if (data && mode == 'search') {
+                console.info(data);
+                $('.feed').html('');
+                if (data) $('.feed').append(feedItemTemplate({
+                    app: app,
+                    urls: data,
+                    user: app.user
+                }));
+                initialFeedScript();
+                $('.load-more').text('');
             }
         }).fail(function() {
             alertify.error('ops, try again.');

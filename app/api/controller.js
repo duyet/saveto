@@ -105,7 +105,7 @@ exports.newURL = function*(next) {
 	if (!utils.checkAccessTokenUID(user_id, access_token)) 
         return api_error(this, 'access deny');
 
-    var url = this.request.body.url || '';
+    var url = this.request.body.data || '';
     if (!utils.isURL(url)) return api_error(this, 'URL is invalid.');
 
     var parser = utils.parseURL(url);

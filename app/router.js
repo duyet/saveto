@@ -5,6 +5,7 @@ var helper_router = new Router();
 
 var page_router = require('./page/router');
 var url_router = require('./url/router');
+var search_router = require('./search/router');
 var note_router = require('./note/router');
 var user_router = require('./user/router');
 var api_router = require('./api/router');
@@ -19,6 +20,7 @@ root_router
 	.use('', user_router.routes(), user_router.allowedMethods())
 	
 	// Api
+	.use('/api/v1', search_router.routes(), search_router.allowedMethods())
 	.use('/api/v1', api_router.routes(), api_router.allowedMethods())
 	.use('/helper/v1', helper_router.routes(), helper_router.allowedMethods())
 	
