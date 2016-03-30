@@ -35,7 +35,7 @@ $(document).ready(function() {
         var uid = window.app.user && window.app.user._id ? window.app.user._id : '';
 
         var data = {
-            url: url || '',
+            data: url || '',
             title: title || '',
             user_id: uid,
             access_token: app.user.access_token
