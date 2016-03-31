@@ -51,8 +51,7 @@
         </div>
     </div>
 
-    <div class="">
-  
+    <div class="review">
         {{#if review_raw_url}}
             {{#equal review_type 'markdown'}}
         	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
@@ -77,6 +76,5 @@
         {{else}}
         	<img src="https://webshot.saveto.co/?url={{url}}" class="img-fluid" />
         {{/if}}
-    
     </div>
 {{/with}}
