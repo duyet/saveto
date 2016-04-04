@@ -74,7 +74,7 @@ exports.update = function*(next) {
 
     var note_title = this.request.body.note_title || utils.noteTitleGenerator();
     var note_language = this.request.body.language || '';
-    var is_private = !!this.request.body.is_private;
+    var is_private = this.request.body.is_private == 'true' || false;
 
     note.title = note_title;
     note.content = note_content;
@@ -128,7 +128,7 @@ exports.add = function*(next) {
 
     var note_title = this.request.body.note_title || utils.noteTitleGenerator();
     var note_language = this.request.body.language || '';
-    var is_private = !!this.request.body.is_private;
+    var is_private = this.request.body.is_private == 'true' || false;
 
     var collection = new model.Note();
     collection.title = note_title;
