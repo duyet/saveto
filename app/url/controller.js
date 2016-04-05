@@ -8,6 +8,7 @@ exports.tag = function*(next) {
     yield this.render('url/tag', {
     	tag: tag,
     	urls: urls,
+    	title: tag,
         custom_script: [
             '@moment/min/moment.min',
             '@clipboard/dist/clipboard.min',
