@@ -99,3 +99,12 @@ exports.UserLog = mongoose.model('UserLog', {
     event: String,
     path: String
 });
+
+exports.QueryLog = mongoose.model('QueryLog', {
+    user_id: String,
+    created: { type: Date, default: new Date() },
+    ip: String,
+    raw_query: String,
+    query: String,
+    path: String
+});

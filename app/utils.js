@@ -108,6 +108,21 @@ exports.userLog = function(user, req, event_name) {
     log.save();
 }
 
+exports.queryLog = function(user, req, raw_query, query) {
+    if (!req) return false;
+
+    var log = new model.QueryLog();
+    log.user_id = user ? user._id || '-' : '-';
+    log.created = new Date();
+    log.raw_query = raw_query || '';
+    log.query = query || '';
+    log.ip = req.ip || '';
+    log.path = req.path || '';
+    log.save();
+
+    console.info('LOG: Save query log ', query);
+}
+
 exports.checkURLAlias = function(alias) {
     var min_length = config.app.link.alias_min || 3;
     var test = /^[0-9A-Z_-]+$/i;
