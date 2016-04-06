@@ -64,7 +64,7 @@ exports.aliasGenerator = function(len) {
     len = len || config.app.link.alias_length;
     return randomstring.generate({
         length: len,
-        charset: 'alphabetic'
+        charset: 'alphanumeric'
     });
 }
 
@@ -88,7 +88,7 @@ exports.appIdGenerator = function(len) {
 exports.noteTitleGenerator = function(len) {
     return randomstring.generate({
         length: len || 32,
-        charset: 'alphabetic',
+        charset: 'alphanumeric',
         capitalization: 'lowercase'
     });
 }
