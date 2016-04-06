@@ -106,8 +106,9 @@ exports.userLog = function(user, req, event_name) {
     log.path = req.path || '';
     log.header = {};
 
-    console.log(req.header, '==========');
-    for (var key in ['x-requested-with', 'cookie', 'accept-language', 'referer', 'user-agent']) {
+    var headers = ['x-requested-with', 'accept-language', 'referer', 'user-agent'];
+    var key = '', i = 0; 
+    for (; key = headers[i++];) {
         if (req.header[key]) log.header[key] = req.header[key] || '';
     }
     
@@ -126,7 +127,7 @@ exports.queryLog = function(user, req, raw_query, query) {
     log.path = req.path || '';
     log.header = {};
 
-    var headers = ['x-requested-with', 'cookie', 'accept-language', 'referer', 'user-agent'];
+    var headers = ['x-requested-with', 'accept-language', 'referer', 'user-agent'];
     var key = '', i = 0; 
     for (; key = headers[i++];) {
         if (req.header[key]) log.header[key] = req.header[key] || '';
