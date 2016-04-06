@@ -1,5 +1,6 @@
 var utils = require('../utils');
 var model = require('../model');
+var math = require('mathjs');
 
 exports.doSearch = function * (next) {
     var q = this.request.query.q || '';
@@ -13,12 +14,26 @@ exports.doSearch = function * (next) {
     q = q.replace(/[\s]+/g, ' ');
     q = q.trim();
 
-    var re = new RegExp(q, 'i');
+    // Math test result
+    var htmlResult = {
+        type: 'html',
+        html: ''
+    };
 
-    this.body = yield model.Collection.find({is_public: true}, {user_id: 0}).or([
+    try {
+        var result = math.eval(q);
+        htmlResult.html = '<h4><span class="text-success">' + q + '</span> => <span class="text-warning">'+ result +'</span></h4>'
+    } catch (e) {
+
+    }
+
+    var re = new RegExp(q, 'i');
+    var searchResult = yield model.Collection.find({is_public: true}, {user_id: 0}).or([
         { 'title': { $regex: re }}, 
         { 'url': { $regex: re }},
         { 'host': { $regex: re }},
         { 'tags': { $in: [q] }},
     ]).sort('-created title').limit(100).exec();
+
+    this.body = [htmlResult, searchResult];
 }

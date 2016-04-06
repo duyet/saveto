@@ -29,16 +29,6 @@ root_router
 	
 	.get('/', controller.home)
 	.get('/explore', controller.explore)
-
-	// Collection
-	.all('/add', controller.addURL)
-	.get('/:collection/view', controller.viewURL)
-	.get('/quick/:collection', controller.viewURL)
-	.get('/view/:collection', controller.viewURL)
-	.get('/q/:collection', controller.viewURL)
-	
-	.all('/:collection/edit', user_controller.authed, controller.updateURL)
-	.all('/:collection/delete', user_controller.authed, controller.deleteURL)
 	
 	// Rss feed
 	.get('/rss', controller.RSS)

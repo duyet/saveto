@@ -1,9 +1,11 @@
 $(document).ready(function() {
     // Compile template
     var feedItemSource = $("#feeditem").html();
+    var customResultSource = $("#custom_result").html();
     var editItemSource = $("#edititem").html();
     var feedItemTemplate = Handlebars.compile(feedItemSource);
     var editItemTemplate = Handlebars.compile(editItemSource);
+    var customResultTemplate = Handlebars.compile(customResultSource);
 
     var updateFormDialog = null
     var clipboard = null;
@@ -136,13 +138,31 @@ $(document).ready(function() {
             } else if (data && mode == 'search') {
                 console.info(data);
                 $('.feed').html('');
-                if (data) $('.feed').append(feedItemTemplate({
-                    app: app,
-                    urls: data,
-                    user: app.user
-                }));
-                initialFeedScript();
-                $('.load-more').text('');
+                
+                if (data && data.length == 2) {
+                    // Data[0] is custom html results
+                    if (data[0].type == 'html')
+                        $('.feed').append(customResultTemplate({
+                            app: app,
+                            data: data[0],
+                            user: app.user
+                        }));
+
+                    $('.load-more').text('');
+                    data.shift();
+                }
+
+                console.log(data);
+                
+                if (data && data.length == 1) {
+                    $('.feed').append(feedItemTemplate({
+                        app: app,
+                        urls: data[0],
+                        user: app.user
+                    }));
+                    initialFeedScript();
+                    $('.load-more').text('');
+                }
             }
         }).fail(function() {
             alertify.error('ops, try again.');
