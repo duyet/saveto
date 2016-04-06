@@ -57,7 +57,7 @@ var URLSchema = new mongoose.Schema({
     review_raw_url: { type: String, default: '' },
 });
 URLSchema.index({ alias: 1 }, { unique: true });
-exports.Collection = mongoose.model('Collection', URLSchema);
+exports.Collection = mongoose.model('URL', URLSchema);
 
 // Note
 var NoteSchema = new mongoose.Schema({
