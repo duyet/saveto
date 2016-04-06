@@ -96,8 +96,9 @@ exports.UserLog = mongoose.model('UserLog', {
     user_id: String,
     created: { type: Date, default: new Date() },
     ip: String,
+    path: String,
     event: String,
-    path: String
+    header: mongoose.Schema.Types.Mixed
 });
 
 exports.QueryLog = mongoose.model('QueryLog', {
@@ -106,5 +107,6 @@ exports.QueryLog = mongoose.model('QueryLog', {
     ip: String,
     raw_query: String,
     query: String,
-    path: String
+    path: String,
+    header: mongoose.Schema.Types.Mixed
 });

@@ -104,7 +104,13 @@ exports.userLog = function(user, req, event_name) {
     log.event = event_name;
     log.ip = req.ip || '';
     log.path = req.path || '';
+    log.header = {};
 
+    console.log(req.header, '==========');
+    for (var key in ['x-requested-with', 'cookie', 'accept-language', 'referer', 'user-agent']) {
+        if (req.header[key]) log.header[key] = req.header[key] || '';
+    }
+    
     log.save();
 }
 
@@ -118,6 +124,14 @@ exports.queryLog = function(user, req, raw_query, query) {
     log.query = query || '';
     log.ip = req.ip || '';
     log.path = req.path || '';
+    log.header = {};
+
+    var headers = ['x-requested-with', 'cookie', 'accept-language', 'referer', 'user-agent'];
+    var key = '', i = 0; 
+    for (; key = headers[i++];) {
+        if (req.header[key]) log.header[key] = req.header[key] || '';
+    }
+    
     log.save();
 
     console.info('LOG: Save query log ', query);
