@@ -7,6 +7,8 @@
 var version = require('../package.json').version;
 
 var config = {
+    maintain: false,
+    
     db: 'mongodb://127.0.0.1:27017/quick-dev',
     version: version,
     debug: process.env.NODE_ENV !== 'production',

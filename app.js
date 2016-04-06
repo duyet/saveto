@@ -20,6 +20,16 @@ var config = require('./app/config');
 var router = require('./app/router');
 var db = require('./app/db');
 
+if (true === config.maintain) {
+	var server = http.createServer(function(req, res){
+	var stream = require('fs').createReadStream('views/utils/maintain.html');
+		stream.pipe(res);
+	});
+	server.listen(config.port);
+	console.info("Listen on http://localhost:%s", config.port);
+	return;
+}
+
 var app = koa(); // initial koa application
 
 app.keys = [config.secret_key, 'i like a boss']; // Key server
