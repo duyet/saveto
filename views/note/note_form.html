@@ -1,4 +1,4 @@
-<form action="/note/{{#if is_edit}}{{note._id}}{{else}}add{{/if}}" method="POST" class="form-horizontal" role="form" id="quickNoteForm">
+<form action="/note/{{#if is_edit}}{{note._id}}{{else}}add{{/if}}" method="POST" class="form-horizontal" role="form" id="quickNoteForm" onsubmit="setFormSubmitting()">
     <input type="hidden" name="user_id" value="{{ user._id }}">
     <input type="hidden" name="access_token" value="{{ user.access_token }}">
     <input type="hidden" name="language" value="{{note.language}}">
@@ -23,7 +23,14 @@
 </form>
 
 <script>
+var formSubmitting = false;
+var setFormSubmitting = function() { formSubmitting = true; };
+
 window.addEventListener("beforeunload", function (e) {
+    if (formSubmitting) {
+        return undefined;
+    }
+
     var confirmationMessage = 'You haven\'t finished your content yet. '
                             + 'Do you want to leave without finishing?';
 
