@@ -21,3 +21,13 @@
     	<button name="is_private" value="false" class="btn btn-default btn-primary">Save as public</button>
     </div>
 </form>
+
+<script>
+window.addEventListener("beforeunload", function (e) {
+    var confirmationMessage = 'You haven\'t finished your content yet. '
+                            + 'Do you want to leave without finishing?';
+
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+});
+</script>
