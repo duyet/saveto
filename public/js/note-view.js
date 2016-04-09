@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
     });
 
     $('.container.app').css({
-    	'maxWidth': '60rem',
+    	'maxWidth': '70rem',
     	'marginTop': '15px'
     });
 
