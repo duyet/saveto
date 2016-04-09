@@ -15,7 +15,7 @@ ace.define("quick/note", ["require"],
 	editor.resize();
 	
 	// Fix text size
-	document.getElementById('quick-note-editor').style.fontSize='16px';
+	document.getElementById('quick-note-editor').style.fontSize='14px';
 
 	// Trick, get form data from ace editor
 	var note_content = $('input[name="note_content"]');
