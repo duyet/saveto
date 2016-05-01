@@ -49,6 +49,22 @@ Release: http://saveto.co or http://ahihi.club
 
 6. Visit [http://localhost:6969](http://localhost:6969)
 
+# Dockerizing
+
+1. Install Docker and start Docker deamon
+2. Build Docker image
+
+	```
+	docker build --tag duyetdev/saveto.co .
+	```
+3. Deploy and run
+
+	```
+	docker run -p 6969:6969 --name saveto-app -d duyetdev/saveto.co
+	```
+
+4. Visit http://localhost:6969
+
 #  Production
 
 See how to deploy in production [wiki](https://github.com/saveto-co/saveto/wiki/Production).
