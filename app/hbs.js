@@ -164,3 +164,10 @@ hbs.registerHelper('note_icon', function(language) {
     result = `<i class="fa fa-${icon}"></i>`;
     return new hbs.SafeString(result);
 });
+
+
+hbs.registerHelper('trimString', function(passedString, length) {
+    length = length || 150
+    var theString = passedString.substring(0,length);
+    return new hbs.SafeString(theString)
+});

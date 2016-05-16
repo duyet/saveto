@@ -9,6 +9,7 @@ var search_router = require('./search/router');
 var note_router = require('./note/router');
 var user_router = require('./user/router');
 var api_router = require('./api/router');
+var til_router = require('./til/router');
 
 var controller = require('./controller');
 var user_controller = require('./user/controller');
@@ -26,6 +27,9 @@ root_router
 	
 	// Note
 	.use('/note', note_router.routes(), note_router.allowedMethods())
+	
+	// Today I learned
+	.use('/til', til_router.routes(), til_router.allowedMethods())
 	
 	.get('/', controller.home)
 	.get('/explore', controller.explore)

@@ -1,28 +1,21 @@
-FROM risingstack/alpine:3.3-v5.11.0-3.5.0
+FROM node:5.11
 
 MAINTAINER Van-Duyet Le <me@duyetdev.com>
 
-# Fix npm install from github.com
-RUN git config --global http.sslverify "false"
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 # Install NPM
-COPY package.json package.json
+COPY package.json /usr/src/app/
 RUN npm install
 
-# Install Mongodb
-# Import MongoDB public GPG key AND create a MongoDB list file
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-RUN echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-
-# Update apt-get sources AND install MongoDB
-RUN apt-get update && apt-get install -y mongodb-org
-
-# Add your source files
-COPY . .
+# Bundle app source
+COPY . /usr/src/app
 
 # Install and run Bower
 RUN npm install -g bower
-RUN bower install
+RUN bower install --allow-root
 
 EXPOSE 6969
 

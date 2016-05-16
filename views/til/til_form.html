@@ -1,0 +1,50 @@
+<form action="/til/{{#if is_edit}}{{note._id}}{{else}}add{{/if}}" method="POST" class="form-horizontal" role="form" id="quickNoteForm" onsubmit="setFormSubmitting()">
+    <input type="hidden" name="user_id" value="{{ user._id }}">
+    <input type="hidden" name="access_token" value="{{ user.access_token }}">
+    <input type="hidden" name="language" value="{{note.language}}">
+
+    {{#if is_edit}}
+        <input type="hidden" name="_id" value="{{note._id}}">
+    {{/if}}
+
+
+    <div class="form-group text-right">
+        <button name="is_private" value="false" class="btn btn-default btn-primary" style="float:right">Save as public</button>
+        <div style="clear:both;"></div>
+    </div>
+
+    <div class="form-group">
+        <input type="text" class="form-control" name="note_title" id="note_title" placeholder="title or filename (default: title.md)" value="{{note.title}}" />
+    </div>
+
+    <div class="form-group">
+    <input type="hidden" name="note_content" value="{{~note.content~}}">
+    <div class="editor col-md-6">
+<pre id="quick-note-editor" class="form-control">{{~#if note.content~}}{{~note.content~}}{{~else~}}
+# Post title
+
+... Content here ...
+{{~/if~}}</pre>
+    </div>
+    <div class="col-md-6">
+        <div id="til-preview"></div>
+    </div>
+    </div>
+</form>
+
+<script>
+var formSubmitting = false;
+var setFormSubmitting = function() { formSubmitting = true; };
+
+window.addEventListener("beforeunload", function (e) {
+    if (formSubmitting) {
+        return undefined;
+    }
+
+    var confirmationMessage = 'You haven\'t finished your content yet. '
+                            + 'Do you want to leave without finishing?';
+
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+});
+</script>

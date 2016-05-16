@@ -45,6 +45,7 @@
     "passport-local": "^1.0.0",
     "pmx": "^0.6.0",
     "randomstring": "^1.1.4",
+    "slug": "^0.9.1",
     "validator": "^4.8.0"
   },
   "devDependencies": {
