@@ -205,6 +205,7 @@ exports.view = function*(next) {
         custom_script: custom_script,
         custom_css: [
             'note',
+            'til',
             'note-markdown',
             '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min'
         ]
