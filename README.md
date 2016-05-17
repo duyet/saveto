@@ -11,6 +11,7 @@ Release: http://saveto.co or http://ahihi.club
 - [x] using without login. 
 - [x] youtube review
 - [x] file-quick: save file and hightlight 
+- [x] TIL
 - [ ] todo checklist 
 - [ ] Socket.io 
 - [ ] report flag
