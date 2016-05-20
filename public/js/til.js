@@ -19,7 +19,7 @@ ace.define("quick/note", ["require"],
 	$('#til-preview').height($('#quick-note-editor').height() + 100);
 	$('#til-preview').html(marked(editor.getSession().getValue()));
 	editor.getSession().on('change', function() {
-		$('#til-preview').height($('#quick-note-editor').height());
+		$('#til-preview').css('max-height', $('#quick-note-editor').height());
 		$('#til-preview').html(marked(editor.getSession().getValue()));
 	})
 	
