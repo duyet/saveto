@@ -140,7 +140,7 @@ hbs.registerHelper('random_header', function() {
     }
 
     var bg_image = rand(['triangle.png', 'circle.png', 'carrot.png', 'big-blue.png']);
-    var bg_color = rand(['#e3a21a', '#00aba9', '#FFCC00', '#2d89ef', '#da532c', '#9f00a7', '#ffc40d']);
+    var bg_color = rand(['#e3a21a', '#00aba9', '#FFCC00', '#2d89ef', '#da532c', '#9f00a7', '#ffc40d', '#47ad66']);
     var result = `style="background-color: ${bg_color}; /* background-image: url(/public/img/header-bg/${bg_image})" */`;
 
     return new hbs.SafeString(result);
