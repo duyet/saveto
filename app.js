@@ -21,8 +21,8 @@ var router = require('./app/router');
 var db = require('./app/db');
 
 if (true === config.maintain) {
-	var server = http.createServer(function(req, res){
-	var stream = require('fs').createReadStream('views/utils/maintain.html');
+	var server = http.createServer(function (req, res) {
+		var stream = require('fs').createReadStream('views/utils/maintain.html');
 		stream.pipe(res);
 	});
 	server.listen(config.port);
@@ -66,17 +66,17 @@ app.use(staticCache(app.context.assetspath, {
 require('./app/hbs');
 app.context.viewExtName = '.html';
 app.use(hbs.middleware({
-  viewPath: app.context.viewpath,
-  partialsPath: [ app.context.viewpath + '/partials', app.context.viewpath + '/handlebars', app.context.viewpath + '/note', app.context.viewpath + '/til' ],
-  extname: app.context.viewExtName,
-  defaultLayout: 'index'
+	viewPath: app.context.viewpath,
+	partialsPath: [app.context.viewpath + '/partials', app.context.viewpath + '/handlebars', app.context.viewpath + '/note', app.context.viewpath + '/til'],
+	extname: app.context.viewExtName,
+	defaultLayout: 'index'
 }));
 
 // passport 
 var passport = require('./app/passport');
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function *(next) {
+app.use(function* (next) {
 	this.state.config = config.view;
 	this.state.request = this.request;
 
@@ -84,7 +84,7 @@ app.use(function *(next) {
 	if (this.request.hostname != '127.0.0.1' && this.request.hostname != 'localhost')
 		this.state.is_production = true;
 
-	var user = this.req.user || {}; 
+	var user = this.req.user || {};
 	if (user.password) user.password = '';
 	this.state.user = user;
 
@@ -93,8 +93,8 @@ app.use(function *(next) {
 
 // Router
 app
-  .use(router.routes())
-  .use(router.allowedMethods());
+	.use(router.routes())
+	.use(router.allowedMethods());
 
 // Start application
 app = module.exports = http.createServer(app.callback());
