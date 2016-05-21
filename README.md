@@ -1,6 +1,6 @@
-# quick
+# saveto
 
-Quick save link to collection, quick access.
+Saveto.co - Home for the best links on the web.
 
 Build with Koajs
 
@@ -22,8 +22,8 @@ Release: http://saveto.co or http://ahihi.club
 1. Clone the source 
 
 	```sh
-	git clone https://github.com/duyetdev/quick
-	cd quick
+	git clone https://github.com/saveto-co/saveto
+	cd saveto
 	```
 2. Install Nodejs (or skip to step 3)
 
@@ -45,7 +45,7 @@ Release: http://saveto.co or http://ahihi.club
 4. Change database config in `app/config.js`
 5. Start server (support watch and reload)
 	```sh
-	./watch.sh
+	npm start
 	```
 
 6. Visit [http://localhost:6969](http://localhost:6969)

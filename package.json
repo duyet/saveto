@@ -1,10 +1,10 @@
 {
-  "name": "quick-koa",
-  "version": "1.0.0",
-  "description": "Quick by Koa",
+  "name": "saveto",
+  "version": "0.1.0",
+  "description": "Saveto.co by Koa",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "./node_modules/.bin/nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -12,10 +12,12 @@
     "shorten",
     "link",
     "jslab",
-    "duyetdev"
+    "duyetdev",
+    "saveto",
+    "saveto.co"
   ],
-  "homepage": "http://saveto.co",
-  "repository": "git://github.com/duyetdev/quick.git",
+  "homepage": "https://saveto.co",
+  "repository": "git://github.com/saveto-co/saveto.git",
   "author": "Van-Duyet Le <me@duyetdev.com>",
   "license": "MIT",
   "dependencies": {
