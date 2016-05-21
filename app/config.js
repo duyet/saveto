@@ -29,8 +29,8 @@ var config = {
     },
 
     view: {
-        title: 'Quick',
-        appName: 'Quick',
+        title: 'Saveto.co',
+        appName: 'saveto',
         description: 'Home for the best links on the web',
         author: 'duyetdev.com',
         ga: 'UA-18218315-55',
