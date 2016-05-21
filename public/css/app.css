@@ -127,8 +127,9 @@ body {
     background-color: #6AD1D8;
     /*border-bottom: .05rem solid #e5e5e5;*/
     /*margin-bottom: 1rem;*/
-    /*background-image: url('../img/header-bg.png');*/
-    background-repeat: repeat;
+    background-image: url('../img/teach-pattern-2.png');
+    background-repeat: repeat
+    background-size: 200px;
 }
 
 .color-header .navbar-brand {
