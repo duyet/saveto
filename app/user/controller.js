@@ -26,7 +26,7 @@ exports.login = function*(next) {
         return this.redirect('/');
     }
 
-    var success = (this.request.query.hasOwnProperty('success') && this.request.query.success == '1') ? true : false;
+    var success = (this.request.query && this.request.query.success && this.request.query.success == '1') ? true : false;
     if (success) {
         var next = this.session.returnTo || '/';
         if (this.request.query.hasOwnProperty('next')) {
@@ -39,10 +39,10 @@ exports.login = function*(next) {
         return;
     }
 
-    var next = (this.request.query.hasOwnProperty('next')) ? this.request.query.next : this.req.headers['referer'] || '/';
+    var next = (this.request.query && typeof this.request.query.next != undefined) ? this.request.query.next : this.req.headers['referer'] || '/';
     this.session.returnTo = next;
 
-    var error = (this.request.query.hasOwnProperty('error') && this.request.query.error == '1') ? true : false;
+    var error = (typeof this.request.query.error != undefined && this.request.query.error == '1') ? true : false;
     yield this.render('user/login', {
         error: error,
         error_message: this.flash.error
@@ -64,7 +64,7 @@ exports.register = function*(next) {
         return this.redirect('/');
     }
 
-    var success = (this.request.query.hasOwnProperty('success') && this.request.query.success == '1') ? true : false;
+    var success = (typeof this.request.query.success != undefined && this.request.query.success == '1') ? true : false;
     if (success) {
         var next = this.session.returnTo || '/';
         if (this.request.query.hasOwnProperty('next')) {
@@ -77,7 +77,7 @@ exports.register = function*(next) {
         return;
     }
 
-    var error = (this.request.query.hasOwnProperty('error') && this.request.query.error == '1') ? true : false;
+    var error = (typeof this.request.query.error != undefined && this.request.query.error == '1') ? true : false;
     yield this.render('user/register', {
         error: error,
         error_message: this.flash.error
