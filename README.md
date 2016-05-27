@@ -12,6 +12,7 @@ Release: http://saveto.co or http://ahihi.club
 - [x] youtube review
 - [x] file-quick: save file and hightlight 
 - [x] TIL
+- [ ] save login token in cookie/localStorage
 - [ ] todo checklist 
 - [ ] Socket.io 
 - [ ] report flag
