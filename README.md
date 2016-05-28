@@ -4,7 +4,9 @@ Saveto.co - Home for the best links on the web.
 
 Build with Koajs
 
-Release: http://saveto.co or http://ahihi.club 
+Release: https://saveto.co or https://ahihi.club 
+
+[![](http://i.imgur.com/awdCHBn.png)](https://saveto.co)
 
 ## Coming soon
 
