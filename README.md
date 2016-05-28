@@ -6,7 +6,7 @@ Build with Koajs
 
 Release: https://saveto.co or https://ahihi.club 
 
-[![](http://i.imgur.com/awdCHBn.png)](https://saveto.co)
+[![](https://i.imgur.com/jPhizUv.png)](https://saveto.co)
 
 ## Coming soon
 
