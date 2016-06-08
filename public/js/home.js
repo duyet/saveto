@@ -202,7 +202,7 @@ $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
 
         // Start GIF
-        if (Gifffer) Gifffer();
+        if (typeof Gifffer != undefined) Gifffer();
 
         // Share
         $('.share-this').click(function() {
