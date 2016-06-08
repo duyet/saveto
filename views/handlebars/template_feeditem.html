@@ -4,52 +4,69 @@
 	<div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}" data-url-alias="{{alias}}" data-raw="{{json .}}">
 
 		{{#equal review_type 'gif'}}
-            <div class="col-xs-12 ">
-                <div class="review-embed">
-                    <center>
-	                    <img data-gifffer="{{review_raw_url}}" 
-	                    	data-gifffer-width="50%"
-	                    	class="img-fluid gif-review" 
-	                    	style="max-height: 250px" />
-	                </center>
-                </div>
-            </div>
-
-        {{else}}
-
-			<div class="link-text">
-				{{#equal review_type 'markdown'}}
-				<a href="#" class="is_markdown">
-					{{icon_markdown 'icon-md'}}
-				</a>
-				{{else}}
-					{{#if review_type}}
-						{{#equal review_type 'none'}}
-							<span class="url-favicon">
-								<img src="//www.google.com/s2/favicons?domain_url={{url}}" width="16" height="16" />
-							</span>
-						{{else}}
-							<i class="fa fa-{{review_type}}"></i>
-						{{/equal}}
-					{{/if}}
-				{{/equal}}
-
-				{{#is_review review_type}}
-					<a href="/{{_id}}/view" tite="preview" onHover="window.status='{{url}}'; return true;">
-				{{else}}
-					<a href="{{tracker_link url _id}}" onHover="window.status='{{url}}'; return true;">
-				{{/is_review}}
-					{{#if is_loading}}<i class="fa fa-spinner fa-pulse"></i>{{/if}}
-					{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
-				</a>
-				<span class="external-link">
-					<a href="{{tracker_link url _id}}" target="_blank" class="text-muted">
-						<i class="fa fa-external-link"></i>
-					</a>
-				</span>
+			<div class="col-xs-12 ">
+				<div class="review-embed">
+					<center>
+						<img data-gifffer="{{review_raw_url}}" 
+							data-gifffer-width="50%"
+							class="img-fluid gif-review" 
+							style="max-height: 250px" />
+					</center>
+				</div>
 			</div>
 
-        {{/equal}}
+		{{else}}
+
+			{{#equal review_type 'image'}}
+				<div class="col-xs-12 ">
+					<div class="review-embed">
+						<center>
+							<a href="{{url}}" target="_blank">
+								<img src="{{review_raw_url}}" 
+									class="img-fluid gif-review" 
+									style="max-height: 250px" />
+							</a>
+						</center>
+					</div>
+				</div>
+
+			{{else}}
+
+				<div class="link-text">
+					{{#equal review_type 'markdown'}}
+					<a href="#" class="is_markdown">
+						{{icon_markdown 'icon-md'}}
+					</a>
+					{{else}}
+						{{#if review_type}}
+							{{#equal review_type 'none'}}
+								<span class="url-favicon">
+									<img src="//www.google.com/s2/favicons?domain_url={{url}}" width="16" height="16" />
+								</span>
+							{{else}}
+								<i class="fa fa-{{review_type}}"></i>
+							{{/equal}}
+						{{/if}}
+					{{/equal}}
+
+					{{#is_review review_type}}
+						<a href="/{{_id}}/view" tite="preview" onHover="window.status='{{url}}'; return true;">
+					{{else}}
+						<a href="{{tracker_link url _id}}" onHover="window.status='{{url}}'; return true;">
+					{{/is_review}}
+						{{#if is_loading}}<i class="fa fa-spinner fa-pulse"></i>{{/if}}
+						{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
+					</a>
+					<span class="external-link">
+						<a href="{{tracker_link url _id}}" target="_blank" class="text-muted">
+							<i class="fa fa-external-link"></i>
+						</a>
+					</span>
+				</div>
+
+			{{/equal}}
+
+		{{/equal}}
 
 		<div class="link-host-url">
 			<span>{{link_icon host}}  {{host}}</span>
@@ -94,10 +111,10 @@
 			{{/is_of}}
 
 			<span class="share">
-        		<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../app.basepath}}/{{_id}}/view">
-        			<i class="fa fa-share-alt-square"></i>
-        		</a>
-        	</span>
+				<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../app.basepath}}/{{_id}}/view">
+					<i class="fa fa-share-alt-square"></i>
+				</a>
+			</span>
 			<span class="bookmark" data-toggle="tooltip" title="coming soon"><i class="fa fa-bookmark-o"></i></span>
 			
 			<a href="javascript:;">
