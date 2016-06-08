@@ -32,6 +32,9 @@ $(document).ready(function() {
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
 
+        // Start GIF
+        if (typeof Gifffer != undefined) Gifffer();
+
         // Share
         $('.share-this').click(function() {
             var share_url = $(this).data('url');
