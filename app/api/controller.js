@@ -9,6 +9,13 @@ exports.urlParser = function*(next) {
     var url = this.request.query.url || '';
     if (!url) return this.body = {};
 
+    if (utils.isImage(url)) {
+        return this.body = {
+            title: url || '',
+            url: url || ''
+        }
+    }
+ 
     var client = new MetaInspector(url, {
         timeout: 5000
     });
@@ -120,7 +127,7 @@ exports.newURL = function*(next) {
     collection.user_id = user_id || '';
     collection.is_guest = utils.is_guest(user_id, access_token);
     collection.delete_token = utils.getDeleteToken();
-    collection.tags = [];
+    collection.tags = utils.getTags(url);
     collection.created = new Date();
     collection.review_type = utils.reviewType(url);
     collection.review_raw_url = utils.getReviewRawUrl(url);

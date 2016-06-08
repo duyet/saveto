@@ -170,6 +170,26 @@ exports.isFileExists = function(file_path) {
     return fs.existsSync(file_path);
 }
 
+exports.isImage = function (url_path) {
+    var url_path = url_path || ''
+
+    if (url_path.toLowerCase().match(/\.(jpg|png|gif)/g)) {
+        return true;
+    }
+
+    return false;
+}
+
+exports.isGIF = function (url_path) {
+    var url_path = url_path || ''
+
+    if (url_path.toLowerCase().match(/\.(gif)/g)) {
+        return true;
+    }
+
+    return false;
+}
+
 exports.isGithubMarkdownRaw = function(url_path) {
     if (!url_path) return false;
 
@@ -219,10 +239,20 @@ exports.reviewType = function(url_path) {
     // is markdown
     if (exports.isGithubMarkdownRaw(url_path)) return 'markdown';
     if (exports.isYouTubeURL(url_path)) return 'youtube';
+    if (exports.isGIF(url_path)) return 'gif';
+    if (exports.isImage(url_path)) return 'image';
 
     // More check
 
     return 'none';
+}
+
+exports.getTags = function (url_path) {
+    var tags = [];
+
+    if (exports.isGIF(url_path)) tags.push('gif');
+
+    return tags;
 }
 
 exports.getReviewRawUrl = function(url_path) {

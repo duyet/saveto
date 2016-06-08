@@ -201,6 +201,9 @@ $(document).ready(function() {
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
 
+        // Start GIF
+        if (Gifffer) Gifffer();
+
         // Share
         $('.share-this').click(function() {
             var share_url = $(this).data('url');

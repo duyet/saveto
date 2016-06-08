@@ -34,6 +34,7 @@
     "copy": "*",
     "ace-builds": "^1.2.3",
     "requirejs": "^2.1.22",
-    "bootstrap-tagsinput": "^0.8.0"
+    "bootstrap-tagsinput": "^0.8.0",
+    "gifffer": "^1.0.0"
   }
 }

@@ -73,6 +73,23 @@
                     </div>
                 </div>
             {{/equal}}
+
+            {{#equal review_type 'image'}}
+                <div class="col-xs-12 ">
+                    <div class="review-embed">
+                        <img src="{{review_raw_url}}" class="image-fluid" />
+                    </div>
+                </div>
+            {{/equal}}
+
+            {{#equal review_type 'gif'}}
+                <div class="col-xs-12 ">
+                    <div class="review-embed">
+                        <img src="{{review_raw_url}}" class="image-fluid" />
+                    </div>
+                </div>
+            {{/equal}}
+
         {{/if}}
     </div>
 {{/with}}

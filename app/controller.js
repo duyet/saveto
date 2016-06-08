@@ -16,6 +16,7 @@ exports.home = function*(next) {
             '@AlertifyJS/build/alertify.min',
             '@bootstrap-tagsinput/dist/bootstrap-tagsinput.min',
             '@copy/dist/copy.min',
+            '@gifffer/build/gifffer.min',
             'hbs',
             'home'
         ],
