@@ -314,6 +314,10 @@ body {
     border-bottom: 0;
 }
 
+.feed .url-item .link-text {
+    margin-bottom: 8px;
+}
+
 .feed .url-item .link-text a {
     font-size: 18px;
     color: #333;
@@ -327,7 +331,7 @@ body {
 }
 .feed .url-item .link-text a:hover {
     /*color: #FFCC00;*/
-    text-decoration: none;
+    /*text-decoration: none;*/
 }
 
 .feed .url-item .link-meta {
@@ -372,7 +376,7 @@ body {
     margin-bottom: 0.25rem;
 }
 .feed .url-item .link-host-url span {
-    color: #FFCC00;
+    color: #888;
     font-size: 0.9rem;
 }
 
