@@ -355,7 +355,8 @@ body {
     font-size: 0.75em;
     color: #FFF;
     font-weight: 300;
-    padding: 5px;
+    padding: 0;
+    line-height: 1.5em;
 }
 
 .feed .url-item .external-link a i {
