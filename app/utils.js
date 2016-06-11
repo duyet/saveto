@@ -144,7 +144,8 @@ exports.checkURLAlias = function(alias) {
     var black_list = [
         'me', 'admin', 'system', 'mod', 'login', 'register',
         'duyetdev', 'user', 'validate', 'quick', 'goto',
-        'hihi', 'download', 'shutdown', 'shutup', 'xxxx'
+        'hihi', 'download', 'shutdown', 'shutup', 'xxxx',
+        'saveto', 'saveto.co', 'saveto-co'
     ];
 
     alias = '' + (alias || '');
@@ -251,6 +252,8 @@ exports.getTags = function (url_path) {
     var tags = [];
 
     if (exports.isGIF(url_path)) tags.push('gif');
+    if (url_path.indexOf('github') > -1) tags.push('github');
+    if (url_path.indexOf('youtube.com') > -1 || url_path.indexOf('youtu.be') > -1) tags.push('youtube');
 
     return tags;
 }
