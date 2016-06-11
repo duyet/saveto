@@ -326,7 +326,7 @@ body {
 
 }
 .feed .url-item .link-text a:hover {
-    color: #FFCC00;
+    /*color: #FFCC00;*/
     text-decoration: none;
 }
 
@@ -422,12 +422,19 @@ body {
     color: #fff;
 }
 .tags .list-tags a { 
-    color: #31b0d5 !important;
+    background: #31b0d5!important;
     font-weight: 300;
-    border: 0.5px solid #7DE2FF;
+    /* border: 0.5px solid #7DE2FF; */
     padding: 2px 6px;
     border-radius: 3px;
     text-decoration: none;
+    color: #FFF !important;
+}
+
+.tags .list-tags a.update-tags {
+    background: #fff !important;
+    color: #31b0d5!important;
+    border: 1px solid #31b0d5!important;
 }
 
 .tags .list-tags a.update-tags:hover {
