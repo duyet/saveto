@@ -310,6 +310,10 @@ body {
     border-bottom: 1px solid #ddd
 }
 
+.feed .url-item .review-embed {
+    margin-bottom: 12px;
+}
+
 .feed.inpage .url-item {
     border-bottom: 0;
 }
