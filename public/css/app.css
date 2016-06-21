@@ -4,7 +4,6 @@ body {
     padding-bottom: 1.5rem;
 }
 
-
 /* Custom application button */
 
 .btn {}
@@ -382,8 +381,9 @@ body {
     margin-bottom: 0.25rem;
 }
 .feed .url-item .link-host-url span {
-    color: #888;
+    color: #5cb85c;
     font-size: 0.9rem;
+    font-weight: 700;
 }
 
 .feed .url-item .link-meta .created {
