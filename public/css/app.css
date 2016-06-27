@@ -121,7 +121,7 @@ body {
 .header {}
 
 .color-header {
-    padding-top: 1.5rem;
+    padding-top: 0.5rem;
     /*background-color: #FFCC00;*/
     background-color: #6AD1D8;
     /*border-bottom: .05rem solid #e5e5e5;*/
@@ -236,7 +236,7 @@ body {
         padding-top: 0;
     }
     .header {
-        margin-bottom: 1.5rem;
+        margin-bottom: 0.5rem;
         padding: 0;
     }
     .navbar-nav .nav-item+.nav-item {
