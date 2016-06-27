@@ -223,7 +223,7 @@ body {
     }
     /* Space out the masthead */
     .header {
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
     }
     /* Remove the bottom border on the jumbotron for visual effect */
     .jumbotron {
