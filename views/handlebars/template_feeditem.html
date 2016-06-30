@@ -7,7 +7,7 @@
 			{{#if meta.image}}
 			<div class="col-xs-3 url-meta-image-wrapper">
 				<a href="{{tracker_link url _id}}" target="_blank" title="Visit ">
-					<img src="https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?resize_w=300&container=focus&url={{url meta.image}}" class="img-fluid url-meta-image" />
+					<img src="{{resize_w meta.image}}" class="img-fluid url-meta-image" />
 				</a>
 			</div>
 			{{/if}}
@@ -24,7 +24,7 @@
 					<div class="col-xs-12 ">
 						<div class="review-embed">
 							<center>
-								<img data-gifffer="{{review_raw_url}}" 
+								<img data-gifffer="{{img_proxy review_raw_url}}" 
 									data-gifffer-width="50%"
 									class="img-fluid gif-review" 
 									style="max-height: 350px" />
@@ -39,7 +39,7 @@
 							<div class="review-embed">
 								<center>
 									<a href="{{url}}" target="_blank">
-										<img src="{{review_raw_url}}" 
+										<img src="{{img_proxy review_raw_url}}" 
 											class="img-fluid gif-review" 
 											style="max-height: 350px" />
 									</a>
