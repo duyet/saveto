@@ -6,7 +6,9 @@
 		<div class="row">
 			{{#if meta.image}}
 			<div class="col-xs-3 url-meta-image-wrapper">
-				<img src="https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?resize_w=300&container=focus&url={{url meta.image}}" class="img-fluid url-meta-image" />
+				<a href="{{tracker_link url _id}}" target="_blank" title="Visit ">
+					<img src="https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?resize_w=300&container=focus&url={{url meta.image}}" class="img-fluid url-meta-image" />
+				</a>
 			</div>
 			{{/if}}
 
@@ -56,7 +58,7 @@
 								{{#if review_type}}
 									{{#equal review_type 'none'}}
 										<span class="url-favicon">
-											<img src="//www.google.com/s2/favicons?domain_url={{url}}" width="16" height="16" />
+											<img src="//www.google.com/s2/favicons?domain_url={{url url}}" width="16" height="16" />
 										</span>
 									{{else}}
 										<i class="fa fa-{{review_type}}"></i>
