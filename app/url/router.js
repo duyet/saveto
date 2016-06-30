@@ -6,6 +6,7 @@ var url_router = new Router();
 
 url_router
 	.all('/add', controller.viewAddURL)
+	.all('/trend', controller.trend)
 
 	// View URL and alias
 	.get('/:id/view', controller.viewURL)

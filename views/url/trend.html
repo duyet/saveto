@@ -1,0 +1,24 @@
+<div class="row">
+	<div class="col-sm-12">
+		<div class="text-center">
+			<h2>{{ title }}</h2>
+		</div>
+	</div>
+
+	
+	<div class="col-sm-12 tags-trends">
+		{{#each tags}}
+			<a href="/t/{{_id}}" 
+				class="tag" 
+				data-counter="{{value}}" 
+				title="Counter {{value}}" 
+				style="font-size: {{tagSize value ../max ../min}}em">{{_id}}</a>
+		{{/each}}
+	</div>
+
+	<hr />
+</div>
+
+<script type="text/javascript">
+
+</script>

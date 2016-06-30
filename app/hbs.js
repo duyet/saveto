@@ -171,3 +171,18 @@ hbs.registerHelper('trimString', function(passedString, length) {
     var theString = passedString.substring(0,length);
     return new hbs.SafeString(theString)
 });
+
+hbs.registerHelper('tagSize', function(current, max, min) {
+    var max_value = 6; // 6 em
+
+    var current = parseInt(current);
+    var max = parseInt(max);
+    var min = parseInt(min);
+
+    var value = current - min + 1;
+    var max  = max - min;
+
+    var value = value * max_value / max;
+
+    return value
+});

@@ -1,5 +1,51 @@
 var utils = require('../utils');
 var model = require('../model');
+var mongoose = require('../db');
+
+exports.trend = function*(next) {
+    var that = this;
+
+    var o = {}; 
+    o.map = function() { 
+        this.tags.forEach(function(tag){ 
+            emit(tag, 1);
+        })
+    };
+    o.reduce = function(key, values) {
+        return values.length
+    };
+
+    var tags = yield model.Collection.mapReduce(o);
+    var max = 0;
+    var min = 0;
+
+    if (tags.length) {
+        max = tags[0].value;
+        min = tags[0].value;
+
+        for (var i in tags) {
+            if (tags[i].value > max) max = tags[i].value;
+            if (tags[i].value < min) min = tags[i].value;
+        }
+    }
+    
+
+    console.log('-->', tags)
+
+    yield this.render('url/trend', {
+        tags: tags,
+        min: min,
+        max: max,
+
+        title: 'saveto trends',
+        custom_script: [
+            '@AlertifyJS/build/alertify.min',
+        ],
+        custom_css: [
+            'trend'
+        ]
+    });
+}
 
 exports.tag = function*(next) {
 	var tag = '' + this.params.tag;
