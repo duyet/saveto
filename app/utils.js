@@ -36,9 +36,9 @@ exports.isUserID = function(s) {
     return validator.isMongoId(s);
 }
 
-exports.accessTokenGenerator = function() {
+exports.accessTokenGenerator = function(length) {
     return randomstring.generate({
-        length: 32,
+        length: length || 32,
         charset: 'alphabetic'
     });
 }

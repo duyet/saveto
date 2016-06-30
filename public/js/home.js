@@ -84,7 +84,6 @@ $(document).ready(function() {
             return;
         }
 
-        console.log(is_url, url);
         if (true !== is_url) {
             var mode = 'search';
         }

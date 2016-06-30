@@ -25,6 +25,9 @@ var config = {
     
     // Secret key
     secret_key: '-duyetdev-quick-',
+
+    // Cookie maxAge 
+    cookieMaxAge: 604800000,
     
     // Application config 
     app: {

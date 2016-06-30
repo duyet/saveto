@@ -2,6 +2,7 @@ var passport = require('koa-passport');
 
 var model = require('../model');
 var utils = require('../utils');
+var config = require('../config');
 
 // ================================
 // Auth
@@ -21,26 +22,38 @@ exports.githubCallback = function*(next) {
 };
 
 exports.login = function*(next) {
-    if (this.req.isAuthenticated()) {
-        // Authenticated, why still here?
-        return this.redirect('/');
-    }
-
+    var that = this;
     var success = (this.request.query && this.request.query.success && this.request.query.success == '1') ? true : false;
     if (success) {
-        var next = this.session.returnTo || '/';
-        if (this.request.query.hasOwnProperty('next')) {
-            next = this.request.query.next;
+        var nextTo = this.session.nextTo || '/';
+        if (this.request.query.next && this.request.query.next.length > 0) {
+            nextTo = this.request.query.next;
+        }
+
+        var setLocalToken = (this.request.query && this.request.query.setLocalToken && this.request.query.setLocalToken == '1') ? true : false;
+        if (setLocalToken) {
+            model.Token.findOne({ user: this.req.user._id }).exec(function(err, token) {
+                if (!err && token) {
+                    // Set local token 
+                    that.cookies.set('remember_me', token.token, 
+                        { signed: true, path: '/', httpOnly: true, maxAge: config.cookieMaxAge }); // 7 days
+                }
+            })
         }
 
         yield this.render('utils/redirect', {
-            next: next
+            next: nextTo
         });
         return;
+    } else {
+        if (this.req.isAuthenticated()) {
+            // Authenticated, why still here?
+            return this.redirect('/');
+        }
     }
 
-    var next = (this.request.query && typeof this.request.query.next != undefined) ? this.request.query.next : this.req.headers['referer'] || '/';
-    this.session.returnTo = next;
+    var nextTo = (this.request.query && typeof this.request.query.next != undefined) ? this.request.query.next : this.req.headers['referer'] || '/';
+    this.session.nextTo = nextTo;
 
     var error = (typeof this.request.query.error != undefined && this.request.query.error == '1') ? true : false;
     yield this.render('user/login', {
@@ -53,7 +66,7 @@ exports.loginAction = function*(next) {
     var returnTo = this.session.returnTo || '/';
 
     yield passport.authenticate('login', {
-        successRedirect: '/login?success=1&next=' + returnTo,
+        successRedirect: '/login?success=1&setLocalToken=1&next=' + returnTo,
         failureRedirect: '/login?error=1'
     })
 };

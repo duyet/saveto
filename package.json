@@ -45,6 +45,7 @@
     "node-metainspector": "git+https://github.com/duyetdev/node-metainspector.git",
     "passport-github": "^1.1.0",
     "passport-local": "^1.0.0",
+    "passport-remember-me": "0.0.1",
     "pmx": "^0.6.0",
     "randomstring": "^1.1.4",
     "slug": "^0.9.1",

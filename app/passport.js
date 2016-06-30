@@ -2,6 +2,7 @@ var process = require('process');
 var passport = require('koa-passport');
 var model = require('./model');
 var utils = require('./utils');
+var config = require('./config');
 
 passport.serializeUser(function(user, done) {
     done(null, user.id)
@@ -40,9 +41,20 @@ passport.use('login', new LocalStrategy({passReqToCallback : true}, function(req
                 return done(null, false);
             }
 
+            req.session.cookie.maxage = config.cookieMaxAge; // Cookie expires after 30 days
+            
             // Ok
             utils.userLog(user, req, 'user_login');
-            return done(null, user);
+
+            var token = utils.accessTokenGenerator(64);
+            var tokenModel = new model.Token({ token: token, user: user.id });
+            tokenModel.save(function(err) {
+                if (err) { return done(err); }
+
+                console.log(req)
+                user.setLocalToken = token;
+                return done(null, user);
+            });
         })
 }));
 
@@ -101,16 +113,37 @@ passport.use('register', new LocalStrategy({passReqToCallback : true}, function(
     process.nextTick(findOrCreateUser);
 }));
 
-var GitHubStrategy = require('passport-github').Strategy
-passport.use(new GitHubStrategy({
-        clientID: 'cc029092e4a9ef007b37',
-        clientSecret: '456b1e1f3de91c70401e967dfdc497d3d97a9c47',
-        callbackURL: "http://localhost:6969/auth/github/callback"
+var RememberMeStrategy = require('passport-remember-me').Strategy
+passport.use(new RememberMeStrategy(
+    function(token, done) {
+        model.Token.findOne({ token: token }).populate('user').exec(function (err, user) {
+            if (err) { return done(err); }
+            if (!user) { return done(null, false); }
+            return done(null, user.user);
+        });
     },
-    function(accessToken, refreshToken, profile, done) {
-        console.log(profile)
-        done(null, profile);
+
+    function(user, done) {
+        var token = utils.accessTokenGenerator(64);
+        var tokenModel = new model.Token({ token: token, user: user.id });
+
+        tokenModel.save(function(err) {
+            if (err) { return done(err); }
+            return done(null, token);
+        });
     }
 ));
+
+// var GitHubStrategy = require('passport-github').Strategy
+// passport.use(new GitHubStrategy({
+//         clientID: 'cc029092e4a9ef007b37',
+//         clientSecret: '456b1e1f3de91c70401e967dfdc497d3d97a9c47',
+//         callbackURL: "http://localhost:6969/auth/github/callback"
+//     },
+//     function(accessToken, refreshToken, profile, done) {
+//         console.log(profile)
+//         done(null, profile);
+//     }
+// ));
 
 module.exports = passport;

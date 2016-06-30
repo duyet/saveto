@@ -132,3 +132,10 @@ exports.QueryLog = mongoose.model('QueryLog', {
     path: String,
     header: mongoose.Schema.Types.Mixed
 });
+
+// Auth token
+var TokenSchema = new mongoose.Schema({
+    token: String,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+});
+exports.Token = mongoose.model('AccessToken', TokenSchema);

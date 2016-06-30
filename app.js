@@ -76,6 +76,7 @@ app.use(hbs.middleware({
 var passport = require('./app/passport');
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.authenticate('remember-me'));
 app.use(function* (next) {
 	this.state.config = config.view;
 	this.state.request = this.request;
