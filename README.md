@@ -14,7 +14,8 @@ Release: https://saveto.co or https://ahihi.club
 - [x] youtube review
 - [x] file-quick: save file and hightlight 
 - [x] TIL
-- [ ] Improve login (cookie or localStorage)
+- [x] Improve login (cookie or localStorage)
+- [x] /trend
 - [ ] /note template 
 - [ ] /url can be show as screenshot, og:image 
 - [ ] todo checklist 
