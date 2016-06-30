@@ -13,6 +13,10 @@ Handlebars.registerHelper('json', function(context) {
     return JSON.stringify(context);
 });
 
+Handlebars.registerHelper('url', function(context) {
+    return encodeURIComponent(context);
+});
+
 Handlebars.registerHelper('is_of', function(uid, user, opts) {
     if (!uid || !user || !user._id || user._id == '-' || uid != user._id)
         return opts.inverse(this);
