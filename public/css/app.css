@@ -450,3 +450,7 @@ body {
 .tags .list-tags a.update-tags:hover {
     background-color: #F0FCFF;
 }
+
+.url-meta-image-wrapper {
+    display: inline-block;
+}
