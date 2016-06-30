@@ -173,16 +173,34 @@ hbs.registerHelper('trimString', function(passedString, length) {
 });
 
 hbs.registerHelper('tagSize', function(current, max, min) {
-    var max_value = 6; // 6 em
-
     var current = parseInt(current);
     var max = parseInt(max);
     var min = parseInt(min);
 
-    var value = current - min + 1;
-    var max  = max - min;
+    var max_value = 6; // 6 em
+    var min_value = 1; // 1 em
 
-    var value = value * max_value / max;
+
+    if (max_value < (max - min)) {
+        // 1em  -->  6em 
+        // 1    -->  9 
+
+        // ==> 9 ~ 6em 
+        //     x ~ ?em 
+        var value = Math.max( current * ( max_value / max ), 1);
+    } else {
+        // 1em  -->  6em 
+        // 1    -->  4
+
+        // ===> 4 ~ 6em 
+        //      x ~ ? 
+
+        var value = Math.max( current / ( max / max_value ), 1);
+    }
 
     return value
 });
+
+
+
+
