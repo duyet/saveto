@@ -5,11 +5,11 @@
 	<div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}" data-url-alias="{{alias}}" data-raw="{{json .}}">
 		<div class="row">
 			{{#if meta.image}}
-			<div class="col-xs-3 url-meta-image-wrapper">
-				<a href="{{tracker_link url _id}}" target="_blank" title="Visit ">
-					<img src="{{resize_w meta.image}}" data-image="{{meta.image}}" class="img-fluid url-meta-image" />
-				</a>
-			</div>
+				<div class="col-xs-3 url-meta-image-wrapper">
+					<a href="{{tracker_link url _id}}" target="_blank" title="Visit ">
+						<img src="{{resize_w meta.image}}" data-image="{{meta.image}}" class="img-fluid url-meta-image" />
+					</a>
+				</div>
 			{{/if}}
 
 			<div class="{{~#if meta.image}}col-xs-9{{else}}col-xs-12{{/if}} url-info">

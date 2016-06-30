@@ -172,6 +172,18 @@ hbs.registerHelper('trimString', function(passedString, length) {
     return new hbs.SafeString(theString)
 });
 
+hbs.registerHelper('resize_w', function(resize_w, url) {
+    if (typeof url == 'object') { // not defined
+        url = resize_w;
+        resize_w = 300; // default
+    }
+
+    var result = '//images1-focus-opensocial.googleusercontent.com/gadgets/proxy?resize_w=' 
+        + resize_w +'&container=focus&url=' + encodeURIComponent(url);
+    return new hbs.SafeString(result);
+});
+
+
 hbs.registerHelper('tagSize', function(current, max, min) {
     var current = parseInt(current);
     var max = parseInt(max);

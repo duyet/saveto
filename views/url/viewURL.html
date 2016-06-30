@@ -21,40 +21,53 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="feed inpage">
                 <div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}">
-                    <div class="link-text">
-    					<a href="{{url_tracker url _id}}" id="link-title">
-    						{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
-    					</a>
-                        <span class="external-link">
-                            <a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
-                                <i class="fa fa-external-link"></i>
-                            </a>
-                        </span>
-                    </div>
-                    <div class="link-host-url">
-                        <span>{{host}}</span>
-                        <span class="alias">
-                            <a href="javascript:;" class="short_url_item" data-toggle="tooltip" title="Shorten URL, click to copy. Ctrl + Click to go." data-clipboard-text="{{../request.origin}}/{{alias}}" data-alias="{{alias}}">/{{alias}}</a>
-                        </span>
-                    </div>
-                    <div class="link-meta">
-                    	<span class="edit">
-                    		{{#equal ../user.id ./user_id}}
-    	                		<a href="/{{_id}}/edit"><i class="fa fa-pencil-square"></i></a>
-    	                	{{/equal}}
-                    	</span>
-                    	<span class="share">
-                    		<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../request.origin}}/{{_id}}/view">
-                    			<i class="fa fa-share-alt-square"></i>
-                    		</a>
-                    	</span>
+                    <div class="row">
 
-                    	<span class="external-link">
-                    		<a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
-    							<i class="fa fa-external-link-square"></i>
-    						</a>
-                    	</span>
-                        <span class="created" title="{{created}}">{{created}}</span>
+                        {{#if meta.image}}
+                            <div class="col-xs-3 url-meta-image-wrapper">
+                                <a href="{{url_tracker url _id}}" target="_blank" title="Visit ">
+                                    <img src="{{resize_w meta.image}}" data-image="{{meta.image}}" class="img-fluid url-meta-image" />
+                                </a>
+                            </div>
+                        {{/if}}
+
+                        <div class="{{~#if meta.image}}col-xs-9{{else}}col-xs-12{{/if}} url-info">
+                            <div class="link-text">
+            					<a href="{{url_tracker url _id}}" id="link-title">
+            						{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
+            					</a>
+                                <span class="external-link">
+                                    <a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
+                                        <i class="fa fa-external-link"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="link-host-url">
+                                <span>{{host}}</span>
+                                <span class="alias">
+                                    <a href="javascript:;" class="short_url_item" data-toggle="tooltip" title="Shorten URL, click to copy. Ctrl + Click to go." data-clipboard-text="{{../request.origin}}/{{alias}}" data-alias="{{alias}}">/{{alias}}</a>
+                                </span>
+                            </div>
+                            <div class="link-meta">
+                            	<span class="edit">
+                            		{{#equal ../user.id ./user_id}}
+            	                		<a href="/{{_id}}/edit"><i class="fa fa-pencil-square"></i></a>
+            	                	{{/equal}}
+                            	</span>
+                            	<span class="share">
+                            		<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../request.origin}}/{{_id}}/view">
+                            			<i class="fa fa-share-alt-square"></i>
+                            		</a>
+                            	</span>
+
+                            	<span class="external-link">
+                            		<a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
+            							<i class="fa fa-external-link-square"></i>
+            						</a>
+                            	</span>
+                                <span class="created" title="{{created}}">{{created}}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
