@@ -3,10 +3,10 @@
         <a class="nav-link" href="/"><i class="fa fa-home"></i> <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/trend">trend</a>
+        <a class="nav-link" href="/trend"><i class="fa fa-line-chart" aria-hidden="true"></i> trend</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/note">note</a>
+        <a class="nav-link" href="/note"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> note</a>
     </li>
     {{#if user.username}}
     <!-- <li class="nav-item ">
@@ -14,7 +14,15 @@
     </li> -->
     {{/if}}
     <li class="nav-item">
-        <a class="nav-link" href="/me">{{#if user.username}}@{{user.username}}{{else}}login{{/if}}</a>
+        {{#if user.username}}
+            <a class="nav-link" href="/me">
+                @{{user.username}}
+            </a>
+        {{else}}
+            <a class="nav-link" href="/login?next=/">
+                <i class="fa fa-sign-in" aria-hidden="true"></i> login
+            </a>
+        {{/if}}
     </li>
 
     <li class="nav-item">
