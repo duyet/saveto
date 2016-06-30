@@ -345,6 +345,16 @@ body {
     margin-right: 0.5rem;
 }
 
+.feed .url-item .link-meta span.comment {
+    background: #737373;
+    border-radius: 4px;
+    padding: 1px 7px;
+}
+
+.feed .url-item .link-meta span.comment a {
+    color: #FFF;
+}
+
 .feed .url-item .link-meta,
 .feed .url-item .link-meta a {
     color: #6B6A6A;

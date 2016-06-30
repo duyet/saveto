@@ -60,6 +60,12 @@ var config = {
         // Google Analytics tracking code
         ga: 'UA-18218315-55',
 
+        // Facebook AppId for share, like, comments, ... 
+        fbAppId: '942271679216102',
+        fbLike: true,
+        fbSave: true,
+        fbSend: true,
+
         // Server
         version: version,
         

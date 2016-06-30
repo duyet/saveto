@@ -1,95 +1,127 @@
 {{#with collection}}
 
-{{#if ../request.query.redirect}}
-    <script type="text/javascript">
-        window.setTimeout(function() {
-            window.location.href = "{{url}}";
-        }, 100);
-    </script>
-{{/if}}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId={{../config.fbAppId}}";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="feed inpage">
-            <div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}">
-                <div class="link-text">
-					<a href="{{url_tracker url _id}}" id="link-title">
-						{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
-					</a>
-                    <span class="external-link">
-                        <a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
-                            <i class="fa fa-external-link"></i>
-                        </a>
-                    </span>
-                </div>
-                <div class="link-host-url">
-                    <span>{{host}}</span>
-                    <span class="alias">
-                        <a href="javascript:;" class="short_url_item" data-toggle="tooltip" title="Shorten URL, click to copy. Ctrl + Click to go." data-clipboard-text="{{../request.origin}}/{{alias}}" data-alias="{{alias}}">/{{alias}}</a>
-                    </span>
-                </div>
-                <div class="link-meta">
-                	<span class="edit">
-                		{{#equal ../user.id ./user_id}}
-	                		<a href="/{{_id}}/edit"><i class="fa fa-pencil-square"></i></a>
-	                	{{/equal}}
-                	</span>
-                	<span class="share">
-                		<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../request.origin}}/{{_id}}/view">
-                			<i class="fa fa-share-alt-square"></i>
-                		</a>
-                	</span>
+    {{#if ../request.query.redirect}}
+        <script type="text/javascript">
+            window.setTimeout(function() {
+                window.location.href = "{{url}}";
+            }, 100);
+        </script>
+    {{/if}}
 
-                	<span class="external-link">
-                		<a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
-							<i class="fa fa-external-link-square"></i>
-						</a>
-                	</span>
-                    <span class="created" title="{{created}}">{{created}}</span>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="feed inpage">
+                <div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}">
+                    <div class="link-text">
+    					<a href="{{url_tracker url _id}}" id="link-title">
+    						{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
+    					</a>
+                        <span class="external-link">
+                            <a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
+                                <i class="fa fa-external-link"></i>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="link-host-url">
+                        <span>{{host}}</span>
+                        <span class="alias">
+                            <a href="javascript:;" class="short_url_item" data-toggle="tooltip" title="Shorten URL, click to copy. Ctrl + Click to go." data-clipboard-text="{{../request.origin}}/{{alias}}" data-alias="{{alias}}">/{{alias}}</a>
+                        </span>
+                    </div>
+                    <div class="link-meta">
+                    	<span class="edit">
+                    		{{#equal ../user.id ./user_id}}
+    	                		<a href="/{{_id}}/edit"><i class="fa fa-pencil-square"></i></a>
+    	                	{{/equal}}
+                    	</span>
+                    	<span class="share">
+                    		<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../request.origin}}/{{_id}}/view">
+                    			<i class="fa fa-share-alt-square"></i>
+                    		</a>
+                    	</span>
+
+                    	<span class="external-link">
+                    		<a href="{{url_tracker url _id}}" target="_blank" class="text-muted">
+    							<i class="fa fa-external-link-square"></i>
+    						</a>
+                    	</span>
+                        <span class="created" title="{{created}}">{{created}}</span>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="review">
+            {{#if review_raw_url}}
+                {{#equal review_type 'markdown'}}
+            	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
+            	    	<div class="markdown_preview">
+            	    		<div class="card card-block">
+            	    			<!-- <h4 class="card-title">Preview</h4> -->
+            	    			<!-- <p class="card-text"> -->
+            	    				<div id="md2html" data-md-url="{{review_raw_url}}">fetching...</div>
+            	    			<!-- </p> -->
+            	    		</div>
+            	    	</div>
+            	    </div>
+                {{/equal}}
+
+                {{#equal review_type 'youtube'}}
+                    <div class="col-xs-12 ">
+                        <div class="review-embed">
+                            <iframe class="embed-responsive-item" width="853" height="480" src="https:{{review_raw_url}}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                {{/equal}}
+
+                {{#equal review_type 'image'}}
+                    <div class="col-xs-12 ">
+                        <div class="review-embed">
+                            <img src="{{review_raw_url}}" class="img-fluid" />
+                        </div>
+                    </div>
+                {{/equal}}
+
+                {{#equal review_type 'gif'}}
+                    <div class="col-xs-12 ">
+                        <div class="review-embed">
+                            <img src="{{review_raw_url}}" class="img-fluid" />
+                        </div>
+                    </div>
+                {{/equal}}
+
+            {{/if}}
+        </div>
     </div>
 
-    <div class="review">
-        {{#if review_raw_url}}
-            {{#equal review_type 'markdown'}}
-        	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 m-t-1">
-        	    	<div class="markdown_preview">
-        	    		<div class="card card-block">
-        	    			<!-- <h4 class="card-title">Preview</h4> -->
-        	    			<!-- <p class="card-text"> -->
-        	    				<div id="md2html" data-md-url="{{review_raw_url}}">fetching...</div>
-        	    			<!-- </p> -->
-        	    		</div>
-        	    	</div>
-        	    </div>
-            {{/equal}}
+    <div class="row">
+        <div class="col-md-12">
+            <div id="like-share">
+                {{#if ../config.fbLike}}
+                    <div class="fb-like" data-href="{{../request.origin}}/{{_id}}/view" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+                {{/if}}
+                
+                {{#if ../config.fbSave}}
+                    <div class="fb-save" data-uri="{{../request.origin}}/{{_id}}/view" data-size="small"></div>
+                {{/if}}
 
-            {{#equal review_type 'youtube'}}
-                <div class="col-xs-12 ">
-                    <div class="review-embed">
-                        <iframe class="embed-responsive-item" width="853" height="480" src="https:{{review_raw_url}}" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            {{/equal}}
+                {{#if ../config.fbSend}}
+                    <div class="fb-send" data-href="{{../request.origin}}/{{_id}}/view" data-size="small"></div>
+                {{/if}}
+            </div>
 
-            {{#equal review_type 'image'}}
-                <div class="col-xs-12 ">
-                    <div class="review-embed">
-                        <img src="{{review_raw_url}}" class="img-fluid" />
-                    </div>
-                </div>
-            {{/equal}}
-
-            {{#equal review_type 'gif'}}
-                <div class="col-xs-12 ">
-                    <div class="review-embed">
-                        <img src="{{review_raw_url}}" class="img-fluid" />
-                    </div>
-                </div>
-            {{/equal}}
-
-        {{/if}}
+            <div class="comments">
+                <div class="fb-comments" data-href="{{../request.origin}}/{{_id}}/view" data-numposts="10"></div>
+            </div>
+        </div>
     </div>
 {{/with}}
