@@ -555,6 +555,7 @@ body {
 #viewSavetoNote .modal-content {
     border-radius: 0;
     -webkit-border-radius: 0;
+    min-height: 190px;
 }
 
 /* Color picker =================== */
