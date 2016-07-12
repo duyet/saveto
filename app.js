@@ -67,7 +67,7 @@ require('./app/hbs');
 app.context.viewExtName = '.html';
 app.use(hbs.middleware({
 	viewPath: app.context.viewpath,
-	partialsPath: ['partials', 'handlebars', 'note', 'til'].map(function(t) { return app.context.viewpath + '/' + t; }),
+	partialsPath: ['partials', 'handlebars', 'note', 'til', 'components'].map(function(t) { return app.context.viewpath + '/' + t; }),
 	extname: app.context.viewExtName,
 	defaultLayout: 'index'
 }));

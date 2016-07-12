@@ -18,6 +18,7 @@ exports.home = function*(next) {
             '@copy/dist/copy.min',
             '@gifffer/build/gifffer.min',
             'hbs',
+            'colorPicker',
             'home'
         ],
         custom_css: [

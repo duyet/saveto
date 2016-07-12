@@ -13,6 +13,16 @@ $(document).ready(function() {
     var isInitial = false;
     var lasted_url_item = null;
     var feed_per_page = 10;
+    var colorPicker = '';
+
+    // Initial plugin 
+    $('#colorPicker').colorPicker({
+        onChange: function (color) {
+            colorPicker = color;
+            console.log('test', color);
+        }
+    });
+
     // Load timeline
     function loadFeed(start_at, limit) {
         var conditions = {};
@@ -63,33 +73,44 @@ $(document).ready(function() {
         if (lasted_url_item) loadFeed(lasted_url_item.created, 5);
     });
 
-    // Add new
+    // ======================================
+    // Add new note 
+    $('#noteSubmit').click(function(e) {
+        e.preventDefault();
+        doAdd('note');
+    });
+
+    // ======================================
+    // Add new URL
     $('#quickForm').on('submit', function(e) {
         e.preventDefault();
+        doAdd('url');
+    });
 
-        var mode = 'url';
-        var url = $('#quick-url').val();
+    function doAdd(mode) {
+
+        var mode = mode || 'url';
+        var dataInput = $('#quick-url').val();
         var is_url = false;
         var error = false;
 
-        if (!url) error = true;
-        else if (isURL && isURL(url)) is_url = true;
-        // else if (isURL && isURL('http://' + url)) {
-        //     is_url = true;
-        //     url = 'http://' + url;
-        // }
-
-        if (error) {
-            $('.quick-url-input').addClass('has-danger');
-            return;
+        // Add URL or search
+        if (dataInput && isURL && isURL(dataInput)) is_url = true;
+        if (mode == 'url' && true !== is_url) {
+            mode = 'search';
         }
 
-        if (true !== is_url) {
-            var mode = 'search';
+        // Add note
+        if (mode == 'note') {
+            dataInput = $('#saveto-note').val();
+            if (!dataInput || dataInput.length < 2) {
+                return alertify.error('please enter your content');
+            }
         }
 
         var data = {
-            data: url,
+            data: dataInput,
+            color: colorPicker,
             user_id: app.user._id,
             access_token: app.user.access_token
         };
@@ -100,8 +121,9 @@ $(document).ready(function() {
         }
         
         $.post(app.api_endpoint + '/' + mode, data, function(data) {
-            if (data && mode == 'url') {
-                $('#quick-url').val('');
+            if (data && (mode == 'url' || mode == 'note')) {
+                $('#quick-url').val(''); // clear URL box
+                $('#saveto-note').val(''); // clear note box
 
                 data.is_loading = true;
                 $('.feed').prepend(feedItemTemplate({
@@ -111,29 +133,33 @@ $(document).ready(function() {
 
                 initialFeedScript();
 
-                fetchUrlData(url, function(err, data_fetched) {
-                    if (err || !data_fetched) {
-                        $('.fa.fa-spinner.fa-pulse').hide();
-                        return;
-                    }
+                // Fetch URL Meta Tab
+                if (mode == 'url') {
+                    fetchUrlData(dataInput, function(err, data_fetched) {
+                        if (err || !data_fetched) {
+                            $('.fa.fa-spinner.fa-pulse').hide();
+                            return;
+                        }
 
-                    // Update data
-                    data = $.extend(data, data_fetched);
-                    data.is_loading = false;
+                        // Update data
+                        data = $.extend(data, data_fetched);
+                        data.is_loading = false;
 
-                    // Sync back server
-                    updateUrlItem(data);
+                        // Sync back server
+                        updateUrlItem(data);
 
-                    var newrender = feedItemTemplate({
-                        urls: [data],
-                        user: app.user
+                        var newrender = feedItemTemplate({
+                            urls: [data],
+                            user: app.user
+                        });
+                        
+                        $('#item-' + data._id).html($(newrender).html());
+                        $('#item-' + data._id).attr('data-raw', JSON.stringify(data));
+
+                        initialFeedScript();
                     });
-                    
-                    $('#item-' + data._id).html($(newrender).html());
-                    $('#item-' + data._id).attr('data-raw', JSON.stringify(data));
-
-                    initialFeedScript();
-                });
+                }
+                
             } else if (data && mode == 'search') {
                 console.info(data);
                 $('.feed').html('');
@@ -150,8 +176,6 @@ $(document).ready(function() {
                     $('.load-more').text('');
                     data.shift();
                 }
-
-                console.log(data);
                 
                 if (data && data.length == 1) {
                     $('.feed').append(feedItemTemplate({
@@ -167,7 +191,7 @@ $(document).ready(function() {
             alertify.error('ops, try again.');
             if (!app.user || !app.user._id) alertify.error('please login');
         });
-    });
+    }
 
     function fetchUrlData(url, cb) {
         $.get(app.base_url + 'api/v1/url/parser', {
@@ -199,6 +223,18 @@ $(document).ready(function() {
     function initialFeedScript() {
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
+
+        // Note
+        $('.card-note').click(function(event) {
+            var card_content = $(this).find('.card-note-content');
+            var content = card_content.html();
+            var data = card_content.data('data');
+            var color = card_content.data('color');
+            $('.note-modal-content').html(content);
+
+            $('#viewSavetoNote').find('.modal-content').removeClass().addClass('modal-content');
+            if (color) $('#viewSavetoNote').find('.modal-content').addClass('modal-inverse modal-' + color);
+        });
 
         // Start GIF
         if (typeof Gifffer != undefined) Gifffer();
