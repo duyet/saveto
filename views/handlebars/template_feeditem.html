@@ -6,14 +6,14 @@
 		<div class="row">
 			{{#equal type 'note'}}
 				<div class="col-xs-12">
-					<div class="card card-block card-note {{#if note_color}}card-inverse card-color{{/if}} card-{{note_color}} text-xs-left">
-						<p class="card-text">{{nl2br note_content}}</p>
+					<div class="card card-block card-note {{#if note_color}}card-inverse card-color{{/if}} card-{{note_color}} text-xs-left" data-toggle="modal" data-target="#viewSavetoNote">
+						<p class="card-text card-note-content" data-color="{{note_color}}">{{renderNote note_content}}</p>
 						
 						<p class="card-text">
 							<small class="text-muted">{{fromNow created}}</small>
 							{{#is_of user_id ../user}}
 								<small class="text-muted">
-									<a href="#">delete</a>
+									&middot; <a href="/{{_id}}/delete">delete</a>
 								</small>
 							{{/is_of}}
 						</p>

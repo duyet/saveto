@@ -90,7 +90,17 @@ Handlebars.registerHelper('equal', function(var1, var2, context) {
     return context.inverse(this);
 });
 
-Handlebars.registerHelper('nl2br', function(text) {
-    var nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2');
-    return new Handlebars.SafeString(nl2br);
+
+function nl2br(text) {
+    var nl2br_regex = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2');
+    return new Handlebars.SafeString(nl2br_regex);
+}
+
+Handlebars.registerHelper('nl2br', nl2br);
+
+Handlebars.registerHelper('renderNote', function renderNote (text) {
+    if (text.length < 40) text = '<span style="font-size: 2em">' + text + '</span>';
+    if (text.length < 20) text = '<span style="font-size: 2.5em">' + text + '</span>';
+
+    return new Handlebars.SafeString(nl2br(text));
 });

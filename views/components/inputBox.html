@@ -1,20 +1,26 @@
 <form action="/add" method="POST" class="form-horizontal" role="form" id="quickForm">
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs saveto-input-tab-icon" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="pill" href="#input-url" role="tab">URL</a>
+            <a class="nav-link active" data-toggle="pill" href="#input-url" role="tab">
+                <i class="fa fa-link"></i>
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#input-note" role="tab">Note</a>
+            <a class="nav-link" data-toggle="pill" href="#input-note" role="tab">
+                <i class="fa fa-list"></i>
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/note">Code</a>
+            <a class="nav-link" href="/note">
+                <i class="fa fa-code"></i>
+            </a>
         </li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content saveto-input-tab-content">
         <div class="tab-pane fade in active" id="input-url" role="tabpanel">
             <div class="form-group saveto-input-url-input">
-                <input type="text" name="text" id="quick-url" class="form-control" value="" required="required" placeholder="URL or everything" autofocus>
+                <input type="text" name="text" id="quick-url" class="form-control" value="" required="required" placeholder="URL or everything" autofocus="autofocus">
             </div>
         </div>
         <div class="tab-pane fade" id="input-note" role="tabpanel">

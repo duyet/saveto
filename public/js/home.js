@@ -13,9 +13,15 @@ $(document).ready(function() {
     var isInitial = false;
     var lasted_url_item = null;
     var feed_per_page = 10;
+    var colorPicker = '';
 
     // Initial plugin 
-    $('.saveto-input-note-btn').colorPicker();
+    $('#colorPicker').colorPicker({
+        onChange: function (color) {
+            colorPicker = color;
+            console.log('test', color);
+        }
+    });
 
     // Load timeline
     function loadFeed(start_at, limit) {
@@ -104,6 +110,7 @@ $(document).ready(function() {
 
         var data = {
             data: dataInput,
+            color: colorPicker,
             user_id: app.user._id,
             access_token: app.user.access_token
         };
@@ -216,6 +223,18 @@ $(document).ready(function() {
     function initialFeedScript() {
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
+
+        // Note
+        $('.card-note').click(function(event) {
+            var card_content = $(this).find('.card-note-content');
+            var content = card_content.html();
+            var data = card_content.data('data');
+            var color = card_content.data('color');
+            $('.note-modal-content').html(content);
+
+            $('#viewSavetoNote').find('.modal-content').removeClass().addClass('modal-content');
+            if (color) $('#viewSavetoNote').find('.modal-content').addClass('modal-inverse modal-' + color);
+        });
 
         // Start GIF
         if (typeof Gifffer != undefined) Gifffer();

@@ -148,9 +148,11 @@ exports.newNote = function*(next) {
         return api_error(this, 'access deny');
 
     var noteContent = this.request.body.data || '';
+    var noteColor = this.request.body.color || '';
     
     var collection = new model.Collection();
     collection.note_content = noteContent;
+    collection.note_color = noteColor;
     // collection.title = title;
     // collection.host = (parser && parser.host) ? parser.host : '';
     collection.alias = utils.aliasGenerator();

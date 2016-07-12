@@ -507,6 +507,11 @@ body {
     border-color: #E6E6E6;
 }
 
+.saveto-input-tab-icon i {
+    color: #676767;
+    font-size: 0.8em;
+}
+
 /* Note render list ========================= */
 .card-note {
 
@@ -516,24 +521,32 @@ body {
     color: #fff;
 }
 
-.card-green {
+.card-green, .modal-green {
     background-color: #5cb85c;
     border-color: #5cb85c;
 }
 
-.card-blue {
+.card-blue, .modal-blue {
     background-color: #5bc0de;
     border-color: #5bc0de;
 }
 
-.card-orange {
+.card-orange, .modal-orange {
     background-color: #f0ad4e;
     border-color: #f0ad4e;
 }
 
-.card-red {
+.card-red, .modal-red {
     background-color: #d9534f;
     border-color: #d9534f;
+}
+
+.modal-inverse, .modal-inverse a, .card-inverse .text-muted, .card-inverse .text-muted a {
+    color: #FFF;
+}
+
+.modal-inverse, .card-inverse .card-text {
+    color: #FFF;
 }
 
 /* Color picker =================== */
