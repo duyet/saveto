@@ -1,0 +1,41 @@
+<form action="/add" method="POST" class="form-horizontal" role="form" id="quickForm">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#input-url" role="tab">URL</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#input-note" role="tab">Note</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/note">Code</a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content saveto-input-tab-content">
+        <div class="tab-pane fade in active" id="input-url" role="tabpanel">
+            <div class="form-group saveto-input-url-input">
+                <input type="text" name="text" id="quick-url" class="form-control" value="" required="required" placeholder="URL or everything" autofocus>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="input-note" role="tabpanel">
+        	<div class="form-group saveto-input-note-input">
+                <textarea onkeyup="textAreaAdjust(this)" id="saveto-note" class="form-control" placeholder="Your note ...."></textarea>
+                <div class="saveto-input-note-btn row">
+                    <div class="col-xs-10 text-xs-left">
+                        {{> color_picker}}
+                    </div>
+                    <div class="col-xs-2">
+                        <a href="javascript:;" id="noteSubmit" class="btn btn-info btn-sm btn-note-submit">saveto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+	function textAreaAdjust(o) {
+		o.style.height = '1px';
+		o.style.height = (25 + o.scrollHeight) + 'px';
+	}
+</script>

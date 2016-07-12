@@ -53,8 +53,17 @@ var URLSchema = new mongoose.Schema({
     is_public: { type: Boolean, default: true },
 
     // features
+    // Review type: none, image, markdown, gif
     review_type: { type: String, default: 'none' },
     review_raw_url: { type: String, default: '' },
+
+    // Collection type: url, note, image, markdown, gif
+    type: { type: String, default: 'url' },
+
+    // Note data
+    note_content: { type: String, default: '' },
+    note_color: { type: String, default: '' }
+
 });
 URLSchema.index({ alias: 1 }, { unique: true });
 exports.Collection = mongoose.model('URL', URLSchema);

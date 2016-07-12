@@ -4,139 +4,157 @@
 	
 	<div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}" data-url-alias="{{alias}}" data-raw="{{json .}}">
 		<div class="row">
-			{{#if meta.image}}
-				<div class="col-xs-3 url-meta-image-wrapper">
-					<a href="{{tracker_link url _id}}" target="_blank" title="Visit ">
-						<img src="{{resize_w meta.image}}" data-image="{{meta.image}}" class="img-fluid url-meta-image" />
-					</a>
+			{{#equal type 'note'}}
+				<div class="col-xs-12">
+					<div class="card card-block card-note {{#if note_color}}card-inverse card-color{{/if}} card-{{note_color}} text-xs-left">
+						<p class="card-text">{{nl2br note_content}}</p>
+						
+						<p class="card-text">
+							<small class="text-muted">{{fromNow created}}</small>
+							{{#is_of user_id ../user}}
+								<small class="text-muted">
+									<a href="#">delete</a>
+								</small>
+							{{/is_of}}
+						</p>
+					</div>
+					
 				</div>
-			{{/if}}
+			{{else}}
+				{{#if meta.image}}
+					<div class="col-xs-3 url-meta-image-wrapper">
+						<a href="{{tracker_link url _id}}" target="_blank" title="Visit ">
+							<img src="{{resize_w meta.image}}" data-image="{{meta.image}}" class="img-fluid url-meta-image" />
+						</a>
+					</div>
+				{{/if}}
 
-			<div class="{{~#if meta.image}}col-xs-9{{else}}col-xs-12{{/if}} url-info">
-				<div class="link-host-url">
-					<span>{{link_icon host}}  {{host}}</span>
-					<span class="alias label label-success">
-						{{shorten_url alias}}
-					</span>
-				</div>
-
-				{{#equal review_type 'gif'}}
-					<div class="col-xs-12 ">
-						<div class="review-embed">
-							<center>
-								<img data-gifffer="{{img_proxy review_raw_url}}" 
-									data-gifffer-width="50%"
-									class="img-fluid gif-review" 
-									style="max-height: 350px" />
-							</center>
-						</div>
+				<div class="{{~#if meta.image}}col-xs-9{{else}}col-xs-12{{/if}} url-info">
+					<div class="link-host-url">
+						<span>{{link_icon host}}  {{host}}</span>
+						<span class="alias label label-success">
+							{{shorten_url alias}}
+						</span>
 					</div>
 
-				{{else}}
-
-					{{#equal review_type 'image'}}
+					{{#equal review_type 'gif'}}
 						<div class="col-xs-12 ">
 							<div class="review-embed">
 								<center>
-									<a href="{{url}}" target="_blank">
-										<img src="{{img_proxy review_raw_url}}" 
-											class="img-fluid gif-review" 
-											style="max-height: 350px" />
-									</a>
+									<img data-gifffer="{{img_proxy review_raw_url}}" 
+										data-gifffer-width="50%"
+										class="img-fluid gif-review" 
+										style="max-height: 350px" />
 								</center>
 							</div>
 						</div>
 
 					{{else}}
 
-						<div class="link-text">
-							{{#equal review_type 'markdown'}}
-							<a href="#" class="is_markdown">
-								{{icon_markdown 'icon-md'}}
-							</a>
-							{{else}}
-								{{#if review_type}}
-									{{#equal review_type 'none'}}
-										<span class="url-favicon">
-											<img src="//www.google.com/s2/favicons?domain_url={{url url}}" width="16" height="16" />
-										</span>
-									{{else}}
-										<i class="fa fa-{{review_type}}"></i>
-									{{/equal}}
-								{{/if}}
-							{{/equal}}
+						{{#equal review_type 'image'}}
+							<div class="col-xs-12 ">
+								<div class="review-embed">
+									<center>
+										<a href="{{url}}" target="_blank">
+											<img src="{{img_proxy review_raw_url}}" 
+												class="img-fluid gif-review" 
+												style="max-height: 350px" />
+										</a>
+									</center>
+								</div>
+							</div>
 
-							{{#is_review review_type}}
-								<a href="/{{_id}}/view" tite="preview" onHover="window.status='{{url}}'; return true;">
-							{{else}}
-								<a href="{{tracker_link url _id}}" onHover="window.status='{{url}}'; return true;">
-							{{/is_review}}
-								{{#if is_loading}}<i class="fa fa-spinner fa-pulse"></i>{{/if}}
-								{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
-							</a>
-							<span class="external-link">
-								<a href="{{tracker_link url _id}}" target="_blank" class="text-muted">
-									<i class="fa fa-external-link"></i>
+						{{else}}
+
+							<div class="link-text">
+								{{#equal review_type 'markdown'}}
+								<a href="#" class="is_markdown">
+									{{icon_markdown 'icon-md'}}
 								</a>
-							</span>
-						</div>
+								{{else}}
+									{{#if review_type}}
+										{{#equal review_type 'none'}}
+											<span class="url-favicon">
+												<img src="//www.google.com/s2/favicons?domain_url={{url url}}" width="16" height="16" />
+											</span>
+										{{else}}
+											<i class="fa fa-{{review_type}}"></i>
+										{{/equal}}
+									{{/if}}
+								{{/equal}}
+
+								{{#is_review review_type}}
+									<a href="/{{_id}}/view" tite="preview" onHover="window.status='{{url}}'; return true;">
+								{{else}}
+									<a href="{{tracker_link url _id}}" onHover="window.status='{{url}}'; return true;">
+								{{/is_review}}
+									{{#if is_loading}}<i class="fa fa-spinner fa-pulse"></i>{{/if}}
+									{{#unless title}}{{url}}{{else}}{{{title}}}{{/unless}}
+								</a>
+								<span class="external-link">
+									<a href="{{tracker_link url _id}}" target="_blank" class="text-muted">
+										<i class="fa fa-external-link"></i>
+									</a>
+								</span>
+							</div>
+
+						{{/equal}}
 
 					{{/equal}}
 
-				{{/equal}}
+					<div class="link-meta">
+						{{#unless is_public}}
+							<span class="text-danger">not published</span>
+						{{/unless}}
+						
+						{{#is_review review_type}}
+							<span class="view-markdown">
+								<a class="text-info" href="/{{_id}}/view">preview</a>
+							</span>
+						{{/is_review}}
 
-				<div class="link-meta">
-					{{#unless is_public}}
-						<span class="text-danger">not published</span>
-					{{/unless}}
-					
-					{{#is_review review_type}}
-						<span class="view-markdown">
-							<a class="text-info" href="/{{_id}}/view">preview</a>
+						<span class="click">{{click}} hits</span>
+
+						<span class="tags">
+							<span class="list-tags">
+								{{#each tags}}
+									<a href="/t/{{this}}" title="{{ this }}">{{ this }}</a>
+								{{/each}}
+								{{#is_of user_id ../user}}
+									<a href="javascript:;" class="update-tags" data-url-id="{{_id}}">+tag</a>
+								{{/is_of}}
+							</span>
+							<span class="input-tags" style="display: none">
+								<input name="input-tags-form" class="input-tags-form" value="{{tags}}" />
+							</span>
 						</span>
-					{{/is_review}}
 
-					<span class="click">{{click}} hits</span>
+						{{#is_of user_id ../user}}
+							<span class="edit">
+								<a href="/{{_id}}/edit" class="editBtn" data-item="{{json this}}" data-toggle="tooltip" title="edit">
+									<i class="fa fa-pencil-square"></i>
+								</a>
+							</span>
+						{{/is_of}}
 
-					<span class="tags">
-						<span class="list-tags">
-							{{#each tags}}
-								<a href="/t/{{this}}" title="{{ this }}">{{ this }}</a>
-							{{/each}}
-							{{#is_of user_id ../user}}
-								<a href="javascript:;" class="update-tags" data-url-id="{{_id}}">+tag</a>
-							{{/is_of}}
-						</span>
-						<span class="input-tags" style="display: none">
-							<input name="input-tags-form" class="input-tags-form" value="{{tags}}" />
-						</span>
-					</span>
-
-					{{#is_of user_id ../user}}
-						<span class="edit">
-							<a href="/{{_id}}/edit" class="editBtn" data-item="{{json this}}" data-toggle="tooltip" title="edit">
-								<i class="fa fa-pencil-square"></i>
+						<span class="share">
+							<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../app.basepath}}/{{_id}}/view">
+								<i class="fa fa-share-alt-square"></i>
 							</a>
 						</span>
-					{{/is_of}}
 
-					<span class="share">
-						<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../app.basepath}}/{{_id}}/view">
-							<i class="fa fa-share-alt-square"></i>
+						<span class="comment" data-toggle="tooltip" title="comment">
+							<a href="{{../app.basepath}}/{{_id}}/view"><i class="fa fa-comments-o"></i> comment</a>
+						</span>
+						
+						<a href="javascript:;">
+							<i class="fa fa-calendar-times-o"></i>
+							<span class="created" title="{{created}}">{{fromNow created}}</span>
 						</a>
-					</span>
 
-					<span class="comment" data-toggle="tooltip" title="comment">
-						<a href="{{../app.basepath}}/{{_id}}/view"><i class="fa fa-comments-o"></i> comment</a>
-					</span>
-					
-					<a href="javascript:;">
-						<i class="fa fa-calendar-times-o"></i>
-						<span class="created" title="{{created}}">{{fromNow created}}</span>
-					</a>
-
+					</div>
 				</div>
-			</div>
+			{{/equal}}
 		</div>
 	</div>
 {{/each}}

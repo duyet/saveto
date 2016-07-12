@@ -89,3 +89,8 @@ Handlebars.registerHelper('equal', function(var1, var2, context) {
     
     return context.inverse(this);
 });
+
+Handlebars.registerHelper('nl2br', function(text) {
+    var nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2');
+    return new Handlebars.SafeString(nl2br);
+});

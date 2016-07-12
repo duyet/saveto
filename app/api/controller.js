@@ -105,11 +105,11 @@ exports.URL = function*(next) {
 }
 
 exports.newURL = function*(next) {
-	var user_id = this.request.body.user_id || '';
-	var access_token = this.request.body.access_token || '';
+    var user_id = this.request.body.user_id || '';
+    var access_token = this.request.body.access_token || '';
 
     // TODO: poor security, JWT instead of
-	if (!utils.checkAccessTokenUID(user_id, access_token)) 
+    if (!utils.checkAccessTokenUID(user_id, access_token)) 
         return api_error(this, 'access deny');
 
     var url = this.request.body.data || '';
@@ -130,10 +130,37 @@ exports.newURL = function*(next) {
     collection.tags = utils.getTags(url);
     collection.created = new Date();
     collection.review_type = utils.reviewType(url);
+    collection.type = utils.reviewType(url);
     collection.review_raw_url = utils.getReviewRawUrl(url);
 
     // collection.is_github_markdown_raw = utils.isGithubMarkdownRaw(url);
 
+    collection.save();
+    this.body = collection;
+}
+
+exports.newNote = function*(next) {
+	var user_id = this.request.body.user_id || '';
+	var access_token = this.request.body.access_token || '';
+
+    // TODO: poor security, JWT instead of
+	if (!utils.checkAccessTokenUID(user_id, access_token)) 
+        return api_error(this, 'access deny');
+
+    var noteContent = this.request.body.data || '';
+    
+    var collection = new model.Collection();
+    collection.note_content = noteContent;
+    // collection.title = title;
+    // collection.host = (parser && parser.host) ? parser.host : '';
+    collection.alias = utils.aliasGenerator();
+    collection.user_id = user_id || '';
+    collection.is_guest = utils.is_guest(user_id, access_token);
+    collection.delete_token = utils.getDeleteToken();
+    collection.tags = ['note'];
+    collection.created = new Date();
+    collection.review_type = 'note';
+    collection.type = 'note';
     collection.save();
     this.body = collection;
 }
