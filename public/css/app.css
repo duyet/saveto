@@ -308,6 +308,9 @@ body {
     padding: 16px 0;
     border-bottom: 1px solid #ddd
 }
+.feed .url-item.no-bottom-border {
+    border-bottom: 0;
+}
 
 .feed .url-item .review-embed {
     margin-bottom: 12px;
@@ -547,6 +550,11 @@ body {
 
 .modal-inverse, .card-inverse .card-text {
     color: #FFF;
+}
+
+#viewSavetoNote .modal-content {
+    border-radius: 0;
+    -webkit-border-radius: 0;
 }
 
 /* Color picker =================== */

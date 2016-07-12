@@ -2,7 +2,7 @@
 <script id="feeditem" type="text/x-handlebars-template">
 {{#each urls}}
 	
-	<div class="url-item" id="item-{{_id}}" data-url-id="{{_id}}" data-url-alias="{{alias}}" data-raw="{{json .}}">
+	<div class="url-item {{#equal type 'note'}}no-bottom-border{{/equal}}" id="item-{{_id}}" data-url-id="{{_id}}" data-url-alias="{{alias}}" data-raw="{{json .}}">
 		<div class="row">
 			{{#equal type 'note'}}
 				<div class="col-xs-12">
