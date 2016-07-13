@@ -105,6 +105,12 @@ body {
     border-color: #FFCC00;
 }
 
+.form-control {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -o-border-radius: 0;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 

@@ -13,6 +13,7 @@ ace.define("quick/note", ["require"],
 	editor.setHighlightActiveLine(false);
 	editor.setShowPrintMargin(false);
 	editor.resize();
+	editor.$blockScrolling = Infinity;
 	
 	// Fix text size
 	document.getElementById('quick-note-editor').style.fontSize='14px';
@@ -28,9 +29,20 @@ ace.define("quick/note", ["require"],
 		var mode = modelist.getModeForPath($(this).val()).mode;
 		editor.session.setMode(mode);
 		$('input[name="language"]').val(mode);
+
+		var language = mode.split('/').pop();
+		if (language == 'text') language = 'Markdown';
+
+		$('.note-info').html('Language: <strong>'+ language +'</strong>');
 	});
 });
 
 (function() {
     ace.require(["quick/note"], function() {});
+
+	$('.container.app').css({
+		'maxWidth': '70rem',
+		'marginTop': '15px'
+	});
+	
 })();

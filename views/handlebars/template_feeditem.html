@@ -6,8 +6,8 @@
 		<div class="row">
 			{{#equal type 'note'}}
 				<div class="col-xs-12">
-					<div class="card card-block card-note {{#if note_color}}card-inverse card-color{{/if}} card-{{note_color}} text-xs-left" data-toggle="modal" data-target="#viewSavetoNote">
-						<p class="card-text card-note-content" data-color="{{note_color}}">{{renderNote note_content}}</p>
+					<div class="card card-block card-note {{#if note_color}}card-inverse card-color{{/if}} card-{{note_color}} text-xs-left" data-toggle="modal" data-target="#viewSavetoNote" data-slug="{{alias}}" data-root="1">
+						<p class="card-text card-note-content" data-color="{{note_color}}" data-slug="{{alias}}">{{renderNote note_content}}</p>
 						
 						<p class="card-text">
 							<small class="text-muted">{{fromNow created}}</small>

@@ -33,9 +33,10 @@ jQuery(document).ready(function($) {
     });
 
     $('.container.app').css({
-    	'maxWidth': '70rem',
-    	'marginTop': '15px'
+        'maxWidth': '70rem',
+        'marginTop': '15px'
     });
+
 
     if (ace) {
         ace.require(["quick/note/review"], function() {
