@@ -220,21 +220,58 @@ $(document).ready(function() {
         });
     }
 
+    function onNoteCardModalShow(ele) {
+        var card_content = $(ele).find('.card-note-content');
+
+        if (!ele || !card_content) {
+            return $('#viewSavetoNote').modal('hide');
+        }
+
+        var content = card_content.html();
+        var data = card_content.data('data');
+        var color = card_content.data('color');
+        var slug = card_content.data('slug');
+
+        $('.note-modal-content').html(content);
+
+        // Update URL Slug
+        window.location.hash = slug;
+
+        $('#viewSavetoNote').find('.modal-content').removeClass().addClass('modal-content');
+        if (color) $('#viewSavetoNote').find('.modal-content').addClass('modal-inverse modal-' + color);
+    }
+
     function initialFeedScript() {
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
 
-        // Note
+        // Show note card modal
         $('.card-note').click(function(event) {
-            var card_content = $(this).find('.card-note-content');
-            var content = card_content.html();
-            var data = card_content.data('data');
-            var color = card_content.data('color');
-            $('.note-modal-content').html(content);
-
-            $('#viewSavetoNote').find('.modal-content').removeClass().addClass('modal-content');
-            if (color) $('#viewSavetoNote').find('.modal-content').addClass('modal-inverse modal-' + color);
+            onNoteCardModalShow(this, true /* hack = true */);
         });
+
+        // Remove hash when hidden model review
+        $('#viewSavetoNote').on('hidden.bs.modal', function () {
+            window.location.hash = '';
+        });
+
+        // View modal when reload (F5)
+        if (!!window.location.hash) {
+            var slug = window.location.hash.substr(1);
+            if (!!slug && slug != 'undefined') {
+                var ele = $('.card-note[data-slug='+ slug +'][data-root=1]');
+                console.log(ele)
+                if (!!ele) {
+                    $('#viewSavetoNote').modal('show');
+                    onNoteCardModalShow(ele);
+                } else {
+                    // TODO: Load ajax 
+                    window.location.hash = '';
+                }
+            } else {
+                window.location.hash = '';
+            }
+        }
 
         // Start GIF
         if (typeof Gifffer != undefined) Gifffer();

@@ -17,7 +17,8 @@ Release: https://saveto.co or https://ahihi.club
 - [x] Improve login (cookie or localStorage)
 - [x] /trend
 - [ ] /note template 
-- [ ] /url can be show as screenshot, og:image 
+- [x] /url can be show as screenshot, og:image 
+- [x] note card 
 - [ ] todo checklist 
 - [ ] Socket.io 
 - [ ] report flag

@@ -7,6 +7,7 @@ var page_router = require('./page/router');
 var url_router = require('./url/router');
 var search_router = require('./search/router');
 var note_router = require('./note/router');
+var code_router = require('./note/router');
 var user_router = require('./user/router');
 var api_router = require('./api/router');
 var til_router = require('./til/router');
@@ -20,22 +21,24 @@ root_router
 	.use('', url_router.routes(), url_router.allowedMethods())
 	.use('', user_router.routes(), user_router.allowedMethods())
 	
+	// Note
+	.use('/note', code_router.routes(), code_router.allowedMethods())
+	
+	.get('/', controller.home)
+
 	// Api
 	.use('/api/v1', search_router.routes(), search_router.allowedMethods())
 	.use('/api/v1', api_router.routes(), api_router.allowedMethods())
 	.use('/helper/v1', helper_router.routes(), helper_router.allowedMethods())
 	
-	// Note
-	.use('/note', note_router.routes(), note_router.allowedMethods())
 	
 	// Today I learned
 	.use('/til', til_router.routes(), til_router.allowedMethods())
 	
-	.get('/', controller.home)
 	.get('/explore', controller.explore)
-	
 	// Rss feed
 	.get('/rss', controller.RSS)
+	
 
 	// Helper 
 	.get('/click', controller.click)

@@ -1,5 +1,6 @@
 var sanitize = require('mongo-sanitize');
 var marked = require('marked');
+var ObjectId = require('mongoose').Types.ObjectId;
 var Renderer = require('marked-sanitized')(marked.Renderer);
 
 // Synchronous highlighting with highlight.js
@@ -76,6 +77,9 @@ exports.update = function*(next) {
     var note_language = this.request.body.language || '';
     var is_private = this.request.body.is_private == 'true' || false;
 
+    // Fix for missing alias 
+    if (!note.alias) note.alias = utils.aliasGenerator();
+
     note.title = note_title;
     note.content = note_content;
     note.tags = [];
@@ -133,6 +137,7 @@ exports.add = function*(next) {
     var collection = new model.Note();
     collection.title = note_title;
     collection.content = note_content;
+    collection.alias = utils.aliasGenerator();
     collection.user_id = user_id;
     collection.is_guest = utils.is_guest(user_id, access_token);
     collection.delete_token = utils.getDeleteToken();
@@ -151,12 +156,15 @@ exports.view = function*(next) {
         return utils.e404(ctx, 'not found');
     };
 
-    if (!utils.isUserID('' + this.params.note_id)) return yield throw_notfound(this);
+    var alias = '' + this.params.note_id;
+    var noteId = new ObjectId( (alias.length < 12) ? "123456789012" : alias );
+
+    // if (!utils.isUserID('' + this.params.note_id)) return yield throw_notfound(this);
 
     var note = null;
-    note = yield model.Note.findById('' + this.params.note_id).exec();
+    note = yield model.Note.findOne({ $or : [ { '_id': noteId}, {'alias': alias } ] }).exec();
     if (!note) return yield throw_notfound(this);
-
+    
     note.view_counter += 1;
     note.save();
 
