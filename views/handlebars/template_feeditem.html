@@ -13,7 +13,7 @@
 							<small class="text-muted">{{fromNow created}}</small>
 							{{#is_of user_id ../user}}
 								<small class="text-muted">
-									&middot; <a href="/{{_id}}/delete">delete</a>
+									&middot; <a href="/{{_id}}/delete?token={{delete_token}}">delete</a>
 								</small>
 							{{/is_of}}
 						</p>
