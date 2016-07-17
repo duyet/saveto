@@ -558,6 +558,14 @@ body {
     overflow-wrap: break-word;
 }
 
+.card-note .card-text {
+    max-height: 363px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    display: block;
+}
+
 .modal-inverse, .card-inverse .card-text {
     color: #FFF;
 }
