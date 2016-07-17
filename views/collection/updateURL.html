@@ -54,7 +54,7 @@
 			
 			<button type="submit" class="btn btn-dd btn-dd-outline">save</button>
 			
-			<div class="text-xs-right"><a href="/{{item._id}}/delete" onclick="return confirm('are you sure?')">delete</a></div>
+			<div class="text-xs-right"><a href="/{{item._id}}/delete?token={{item.delete_token}}" onclick="return confirm('are you sure?')">delete</a></div>
 		</form>
 	</div>
 </div>
