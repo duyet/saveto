@@ -198,9 +198,11 @@ exports.updateURL = function*(next) {
 
 exports.deleteURL = function*(next) {
     var remove = null;
+    var token = '' + this.params.token;
     if (utils.isUserID('' + this.params.id)) {
         remove = yield model.Collection.remove({
-            _id: '' + this.params.id
+            _id: '' + this.params.id,
+            delete_token: token
         }).exec();
     }
 
