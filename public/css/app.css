@@ -554,6 +554,10 @@ body {
     color: #FFF;
 }
 
+.card-text {
+    overflow-wrap: break-word;
+}
+
 .modal-inverse, .card-inverse .card-text {
     color: #FFF;
 }

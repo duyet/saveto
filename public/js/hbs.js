@@ -92,6 +92,7 @@ Handlebars.registerHelper('equal', function(var1, var2, context) {
 
 
 function nl2br(text) {
+    var text = Handlebars.escapeExpression(text);
     var nl2br_regex = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2');
     return new Handlebars.SafeString(nl2br_regex);
 }
@@ -99,8 +100,12 @@ function nl2br(text) {
 Handlebars.registerHelper('nl2br', nl2br);
 
 Handlebars.registerHelper('renderNote', function renderNote (text) {
-    if (text.length < 40) text = '<span style="font-size: 2em">' + text + '</span>';
-    if (text.length < 20) text = '<span style="font-size: 2.5em">' + text + '</span>';
+    // var text = Handlebars.escapeExpression(text);
 
-    return new Handlebars.SafeString(nl2br(text));
+    var text = nl2br(text);
+
+    if (text.length < 50) text = '<span style="font-size: 2em">' + text + '</span>';
+    if (text.length < 30) text = '<span style="font-size: 2.5em">' + text + '</span>';
+
+    return new Handlebars.SafeString(text);
 });
