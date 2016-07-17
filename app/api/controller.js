@@ -84,10 +84,11 @@ exports.URL = function*(next) {
 
             var result = yield builder.exec();
 
-            // Remove another userid, or remove all
+            // Remove userid, delete_token, or remove all
             for (var i in result) {
                 if (!uid.length || uid != result[i].user_id) {
                     result[i].user_id = ''; // remove
+                    result[i].delete_token = ''; // remove
                 }
             }
             this.body = result;
