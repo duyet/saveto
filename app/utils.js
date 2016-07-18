@@ -253,6 +253,7 @@ exports.getTags = function (url_path) {
 
     if (exports.isGIF(url_path)) tags.push('gif');
     if (url_path.indexOf('github') > -1) tags.push('github');
+    if (url_path.indexOf('thenextweb.com') > -1) tags.push('thenextweb');
     if (url_path.indexOf('youtube.com') > -1 || url_path.indexOf('youtu.be') > -1) tags.push('youtube');
 
     return tags;
