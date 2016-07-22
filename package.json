@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "./node_modules/.bin/nodemon app.js",
+    "gendoc": "./node_modules/.bin/jsdoc --configure jsdoc.json ./app app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -52,6 +53,7 @@
     "validator": "^4.8.0"
   },
   "devDependencies": {
+    "jsdoc": "^3.4.0",
     "nodemon": "^1.8.1",
     "uglify-js": "2.6.2"
   }
