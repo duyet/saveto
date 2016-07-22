@@ -241,6 +241,10 @@ $(document).ready(function() {
         if (color) $('#viewSavetoNote').find('.modal-content').addClass('modal-inverse modal-' + color);
     }
 
+    function removeHash () { 
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+    }
+
     function initialFeedScript() {
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
@@ -252,7 +256,7 @@ $(document).ready(function() {
 
         // Remove hash when hidden model review
         $('#viewSavetoNote').on('hidden.bs.modal', function () {
-            window.location.hash = '';
+            removeHash();
         });
 
         // View modal when reload (F5)
@@ -266,10 +270,10 @@ $(document).ready(function() {
                     onNoteCardModalShow(ele);
                 } else {
                     // TODO: Load ajax 
-                    window.location.hash = '';
+                    removeHash();
                 }
             } else {
-                window.location.hash = '';
+                removeHash();
             }
         }
 
