@@ -62,7 +62,12 @@ var URLSchema = new mongoose.Schema({
 
     // Note data
     note_content: { type: String, default: '' },
-    note_color: { type: String, default: '' }
+    note_color: { type: String, default: '' },
+
+    // Status 
+    status: { type: String, default: 'active' },
+    deleted: { type: Boolean, default: false },
+    deleted_date: { type: Date },
 
 });
 URLSchema.index({ alias: 1 }, { unique: true });

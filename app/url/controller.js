@@ -198,15 +198,27 @@ exports.updateURL = function*(next) {
 
 exports.deleteURL = function*(next) {
     var remove = null;
-    var token = '' + this.params.token;
+    var message = '';
+    var token = '' + (this.params.token || this.query.token);
     if (utils.isUserID('' + this.params.id)) {
-        remove = yield model.Collection.remove({
+        remove = yield model.Collection.findOne({
             _id: '' + this.params.id,
             delete_token: token
         }).exec();
+
+        if (remove) {
+            remove.status = 'deleted';
+            remove.deleted = true;
+            remove.deleted_date = new Date();
+            
+            if (remove.save()) 
+                message = 'delete success'
+        }
     }
 
-    var message = remove ? 'delete success' : 'delete fail';
+    if (message.length == 0) 
+        message = 'delete fail';
+
     if (this.is('application/*')) return yield this.body = message;
 
     return yield this.render('utils/message', {

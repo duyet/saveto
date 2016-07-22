@@ -69,6 +69,9 @@ exports.URL = function*(next) {
             var uid = query.uid || '';
             if (!uid.length && user && user._id) uid = user._id; 
 
+            // Do not include deleted Collection 
+            conditions.deleted = false;
+
             var builder = model.Collection.find(conditions);
             
             ['limit', 'skip', 'sort'].forEach(function(key) {
