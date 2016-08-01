@@ -165,6 +165,7 @@ exports.me = function*(next) {
         me: me,
         app: app,
         ApiToken: token,
+        api_status: config.api_status,
         error: error,
         custom_script: ['@copy/dist/copy.min', 'me']
     });

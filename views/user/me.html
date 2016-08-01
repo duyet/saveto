@@ -22,8 +22,18 @@
             
         </div>
         <div class="list-group-item">
+            <h5>Saveto's API</h5>
+
+            <strong>API Status: </strong> <span id="api_status" class="api-status normal {{#if api_status}}green{{/if}}"></span>
+
+            <br />
             <strong>API Token:</strong> <span id="api_token" data-token="{{ApiToken.token}}" data-isshow="true">xxxxxxxxxxxxxxxxxxx</span>
             (<a href="javascript:;" id="copy_api_token" title="Copy">Copy</a> | <a href="javascript:;" id="toggle_api_token" title="Toggle">Show</a>)
+        </div>
+        
+        <div class="list-group-item">
+            <h5>Application</h5>
+            <i>N/A</i>
         </div>
     </div>
     <br />

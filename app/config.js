@@ -42,6 +42,14 @@ var config = {
      * @default false
      */
     maintain: false,
+
+    /**
+     * API Status 
+     *
+     * @type    {boolean}
+     * @default false
+     */
+    api_status: true,
     
     /**
      * MongoDB database connection string.

@@ -620,3 +620,18 @@ body {
     background-color: #d9534f;
     border-color: #d9534f;
 }
+
+.api-status {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #FF9800;
+    border-radius: 50%;
+    margin: 0;
+    padding: 0;
+}
+
+.api-status.green {
+    border-color: #4CAF50;
+    background: #4CAF50;
+}
