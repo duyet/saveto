@@ -157,3 +157,9 @@ var TokenSchema = new mongoose.Schema({
     active: { type: Boolean, default: true }
 });
 exports.Token = mongoose.model('App_Token', TokenSchema);
+
+
+exports.SystemConfig = mongoose.model('System_Config', {
+    key: { type: String },
+    value: { type: mongoose.Schema.Types.Mixed },
+});
