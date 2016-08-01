@@ -18,4 +18,22 @@ $(document).ready(function() {
     }
 
     trimAccessToken();
+
+    $('#copy_api_token').click(function() {
+        var token = $('#api_token').data('token');
+        copy(token, function(err) {
+            if (!err) alert('Success!');
+            else alert('Error, please using Right Click > Copy!')
+        });
+    });
+    $('#toggle_api_token').click(function() {
+        var isshow = $('#api_token').data('isshow') ? true : false;
+        var token = $('#api_token').data('token');
+
+        if (isshow) $('#api_token').html('xxxxxxxxxxxxxxxxxxx');
+        else $('#api_token').html(token);
+
+        $('#api_token').data('isshow', !isshow);
+        $(this).text(isshow ? 'Hide' : 'Show')
+    });
 });

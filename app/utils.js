@@ -42,11 +42,16 @@ exports.accessTokenGenerator = function(length) {
         charset: 'alphabetic'
     });
 }
+
 exports.appAccessTokenGenerator = function() {
     return randomstring.generate({
         length: 32,
         charset: 'alphabetic'
     });
+}
+
+exports.apiAccessTokenGenerator = function() {
+    return exports.accessTokenGenerator(64);
 }
 
 exports.getDeleteToken = function() {

@@ -1,4 +1,11 @@
 <div>
+
+    {{#if error}}
+        <div class="alert alert-danger">
+            {{error}}
+        </div>
+    {{/if}}
+
     <div class="list-group">
         <div class="list-group-item">
             <!-- <img src="http://www.gravatar.com/avatar/{{me.md5_email}}?r=x&s=100" width="50"> -->
@@ -14,10 +21,12 @@
             
             
         </div>
+        <div class="list-group-item">
+            <strong>API Token:</strong> <span id="api_token" data-token="{{ApiToken.token}}" data-isshow="true">xxxxxxxxxxxxxxxxxxx</span>
+            (<a href="javascript:;" id="copy_api_token" title="Copy">Copy</a> | <a href="javascript:;" id="toggle_api_token" title="Toggle">Show</a>)
+        </div>
     </div>
     <br />
-
-    
 
     <br />
     <a href="/me/log">log</a> | <a href="/me/info">dump</a><br />

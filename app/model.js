@@ -8,7 +8,8 @@ exports.User = mongoose.model('User', {
     gender: String,
     address: String,
     created: { type: Date, default: new Date() },
-    access_token: String
+    access_token: String,
+    api_token: String
 });
 
 // Application
@@ -149,7 +150,10 @@ exports.QueryLog = mongoose.model('QueryLog', {
 
 // Auth token
 var TokenSchema = new mongoose.Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    type: { type: String, default: 'access_token', enum: ['api_token', 'access_token', 'reset_token'] },
     token: String,
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    expired: { type: Number, default: -1 }, // -1 mean will never exprired 
+    active: { type: Boolean, default: true }
 });
-exports.Token = mongoose.model('AccessToken', TokenSchema);
+exports.Token = mongoose.model('App_Token', TokenSchema);

@@ -140,16 +140,35 @@ exports.authed = function*(next) {
 
 exports.me = function*(next) {
     var me = this.req.user || {};
+    var error = '';
     if (me.email) me.md5_mail = utils.md5(me.mail);
-    var app = yield model.Application.find({ user_id: me._id, is_remove: false }).exec( );
+    var app = yield model.Application.find({ user_id: me._id, is_remove: false }).exec();
+
+    if (true) {
+        var token = yield model.Token.findOne({ user: me._id, type: 'api_token' }).exec();
+        console.log('token', token)
+        if (!token) {
+            
+            // Update API Token 
+            tokenGen = utils.apiAccessTokenGenerator();
+            var tokenModel = new model.Token({
+                user: me._id, type: 'api_token', token: tokenGen, active: true });
+            if (tokenModel.save()) {
+                token = tokenModel;
+            } else {
+                error = 'Can not update API Token.';
+            }
+        }
+    }
 
     yield this.render('user/me', {
         me: me,
         app: app,
-        custom_script: ['me']
+        ApiToken: token,
+        error: error,
+        custom_script: ['@copy/dist/copy.min', 'me']
     });
 };
-
 exports.mePassword = function*(next) {
     yield this.render('user/mePassword', {
         error_message: this.flash.error_message,
