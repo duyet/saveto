@@ -137,6 +137,14 @@
 							</span>
 						{{/is_of}}
 
+						{{#if ../user}}
+							<span class="report">
+								<a href="#" class="flag-this" data-toggle="tooltip" title="report this" data-url="{{../app.basepath}}/{{_id}}/flag" data-id={{_id}}>
+									<i class="fa fa-flag"></i>
+								</a>
+							</span>
+						{{/if}}
+
 						<span class="share">
 							<a href="#" class="share-this" data-toggle="tooltip" title="share this page" data-url="{{../app.basepath}}/{{_id}}/view">
 								<i class="fa fa-share-alt-square"></i>

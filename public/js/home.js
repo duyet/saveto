@@ -245,6 +245,22 @@ $(document).ready(function() {
         history.pushState("", document.title, window.location.pathname + window.location.search);
     }
 
+    function doReport(itemId, cb) {
+        if (!itemId) cb('Missing ID');
+
+        var data = {
+            user_id: app.user ? (app.user._id || '') : '',
+            access_token: app.user.access_token,
+            itemId: itemId
+        };
+
+        $.post(app.api_endpoint + '/report/' + itemId, data, function(result) {
+            cb();
+        }).error(function() {
+            cb('sync is currently experiencing problems');
+        });
+    }
+
     function initialFeedScript() {
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
@@ -326,6 +342,21 @@ $(document).ready(function() {
                 updateFormDialog = alertify.itemEditBox(data, app.user, function(box) {
                     var root = $(box.elements.body);
                 });
+            }
+            else alertify.message('Ops, error!');
+        });
+
+        // Flag 
+        $('.url-item .flag-this').click(function(e) {
+            // TODO: Open modal to edit 
+
+            e.preventDefault();
+            var itemId = $(this).data('id');
+            if (itemId) {
+                doReport(itemId, function(err) {
+                    if (err) alertify.message(err);
+                    else alertify.message('Reported!');
+                })
             }
             else alertify.message('Ops, error!');
         });

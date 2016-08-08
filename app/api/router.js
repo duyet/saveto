@@ -11,6 +11,7 @@ api_router
 	.post('/note', controller.newNote) 
 	.all('/url', controller.URL)
 	.all('/url/:id', controller.URLItem)
+	.all('/report/:id', controller.reportItem)
 	.all('/:path', function *(next) { this.body = { message: 'Nothing at /' + this.params.path }; })
 
 module.exports = api_router;

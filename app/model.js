@@ -118,6 +118,14 @@ var TilSchema = new mongoose.Schema({
 });
 exports.Til = mongoose.model('Til', TilSchema);
 
+// Report
+var ReportSchema = new mongoose.Schema({
+    collection_id: { type: mongoose.Schema.Types.ObjectId, ref: 'URL' },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    created: { type: Date, default: new Date() },
+});
+exports.Report = mongoose.model('Report', ReportSchema);
+
 // User settings
 exports.Setting = mongoose.model('Setting', {
     user_id: String,

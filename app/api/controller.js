@@ -171,6 +171,27 @@ exports.newNote = function*(next) {
     this.body = collection;
 }
 
+exports.reportItem = function *(next) {
+    var user_id = this.request.body.user_id || '';
+    var access_token = this.request.body.access_token || '';
+    var itemId = this.request.body.itemId || '';
+
+    // First, only accept signed user report 
+    if (!utils.checkAccessTokenUID(user_id, access_token)) {
+        return api_error(this, 'access deny');
+    }
+
+    var report = new model.Report();
+    report.collection_id = itemId;
+    report.user_id = user_id;
+    
+    if (report.save()) {
+        this.body = report;
+    } else {
+        return api_error(this, 'something went wrong');
+    }
+}
+
 exports.URLItem = function*(next) {
     var id = this.params.id || '';
     if (!id.length || !utils.isUserID(id)) {
