@@ -6,9 +6,16 @@ Build with Koajs
 
 Release: https://saveto.co or https://ahihi.club 
 
-[![](https://i.imgur.com/uI0TXPY.png)](https://saveto.co)
 
 [![](.github/screencapture-saveto-co-me-1472219333280.png)](https://saveto.co)
+
+[![](.github/screencapture-saveto-co-trend-1472219732376.png)](https://saveto.co)
+
+[![](.github/screencapture-saveto-view-1472220400244.png)](https://saveto.co)
+
+[![](.github/screencapture-saveto-co-note-1472219805542.png)](https://saveto.co)
+
+
 
 
 ## Coming soon
