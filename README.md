@@ -1,5 +1,7 @@
 # saveto
 
+[![Docker Repository on Quay](https://quay.io/repository/duyetdev/saveto/status "Docker Repository on Quay")](https://quay.io/repository/duyetdev/saveto)
+
 Saveto.co - Home for the best links on the web.
 
 Build with Koajs
