@@ -8,7 +8,8 @@
     "gendoc": "./node_modules/.bin/jsdoc --configure jsdoc.json ./app app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "npm run snyk-protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "Quick",
@@ -52,7 +53,7 @@
     "pmx": "^0.6.0",
     "randomstring": "^1.1.4",
     "slug": "^0.9.1",
-    "snyk": "^1.30.1",
+    "snyk": "^1.88.0",
     "validator": "^4.8.0"
   },
   "devDependencies": {
