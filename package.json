@@ -8,7 +8,8 @@
     "gendoc": "./node_modules/.bin/jsdoc --configure jsdoc.json ./app app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "npm run snyk-protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "Quick",
@@ -31,7 +32,7 @@
     "highlight.js": "^9.2.0",
     "koa": "^1.1.2",
     "koa-flash": "^1.0.0",
-    "koa-hbs": "^0.7.0",
+    "koa-hbs": "^0.8.2",
     "koa-helmet": "^1.0.0",
     "koa-middlewares": "git+https://github.com/saveto-co/koa-middlewares.git",
     "koa-passport": "^1.2.0",
@@ -52,7 +53,7 @@
     "pmx": "^0.6.0",
     "randomstring": "^1.1.4",
     "slug": "^0.9.1",
-    "snyk": "^1.30.1",
+    "snyk": "^1.105.0",
     "validator": "^4.8.0"
   },
   "devDependencies": {
