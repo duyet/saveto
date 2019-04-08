@@ -39,7 +39,7 @@
     "koa-session": "^3.3.1",
     "koa-static-cache": "^3.2.0",
     "koa-static-folder": "^0.1.6",
-    "marked": "^0.3.5",
+    "marked": "^0.6.2",
     "marked-sanitized": "^0.1.1",
     "mathjs": "^3.1.4",
     "md5": "^2.0.0",
