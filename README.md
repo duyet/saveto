@@ -2,6 +2,11 @@
 
 [![Docker Repository on Quay](https://quay.io/repository/duyetdev/saveto/status "Docker Repository on Quay")](https://quay.io/repository/duyetdev/saveto)
 
+**Support**
+
+<a href="https://s.duyet.net/r/patreon"><img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160"></a>
+
+
 Saveto.co - Home for the best links on the web.
 
 Build with Koajs
