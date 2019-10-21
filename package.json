@@ -44,7 +44,7 @@
     "mathjs": "^3.1.4",
     "md5": "^2.0.0",
     "mongo-sanitize": "^1.0.0",
-    "mongoose": "^4.4.0",
+    "mongoose": "^5.7.5",
     "node-metainspector": "git+https://github.com/duyetdev/node-metainspector.git",
     "passport-github": "^1.1.0",
     "passport-local": "^1.0.0",
