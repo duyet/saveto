@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.1
+version: v1.14.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -11,3 +11,6 @@ patch:
   'npm:debug:20170905':
     - koa-middlewares > koa-redis > debug:
         patched: '2017-10-02T03:39:08.302Z'
+  SNYK-JS-LODASH-567746:
+    - node-metainspector > request > form-data > async > lodash:
+        patched: '2020-05-04T06:47:41.998Z'
