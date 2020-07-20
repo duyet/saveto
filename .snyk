@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.1
+version: v1.16.0
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -11,3 +11,24 @@ patch:
   'npm:debug:20170905':
     - koa-middlewares > koa-redis > debug:
         patched: '2017-10-02T03:39:08.302Z'
+  'npm:hawk:20160119':
+    - node-metainspector > request > hawk:
+        patched: '2020-07-20T06:47:06.282Z'
+  'npm:hoek:20180212':
+    - node-metainspector > request > hawk > hoek:
+        patched: '2020-07-20T06:47:06.282Z'
+    - node-metainspector > request > hawk > boom > hoek:
+        patched: '2020-07-20T06:47:06.282Z'
+    - node-metainspector > request > hawk > sntp > hoek:
+        patched: '2020-07-20T06:47:06.282Z'
+    - node-metainspector > request > hawk > cryptiles > boom > hoek:
+        patched: '2020-07-20T06:47:06.282Z'
+  'npm:lodash:20180130':
+    - node-metainspector > cheerio > lodash:
+        patched: '2020-07-20T06:47:06.282Z'
+  'npm:request:20160119':
+    - node-metainspector > request:
+        patched: '2020-07-20T06:47:06.282Z'
+  'npm:tunnel-agent:20170305':
+    - node-metainspector > request > tunnel-agent:
+        patched: '2020-07-20T06:47:06.282Z'
