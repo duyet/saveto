@@ -1,32 +1,17 @@
 # saveto
 
-[![Docker Repository on Quay](https://quay.io/repository/duyetdev/saveto/status "Docker Repository on Quay")](https://quay.io/repository/duyetdev/saveto)
+![](.github/screencapture-saveto-co-1472220247447.png)
 
-**Support**
+![](.github/screencapture-saveto-co-me-1472219333280.png)
 
-<a href="https://s.duyet.net/r/patreon"><img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160"></a>
+![](.github/screencapture-saveto-co-trend-1472219732376.png)
 
+![](.github/screencapture-saveto-view-1472220400244.png)
 
-Saveto.co - Home for the best links on the web.
-
-Build with Koajs
-
-Release: https://saveto.co or https://ahihi.club 
-
-[![](.github/screencapture-saveto-co-1472220247447.png)](https://saveto.co)
-
-[![](.github/screencapture-saveto-co-me-1472219333280.png)](https://saveto.co)
-
-[![](.github/screencapture-saveto-co-trend-1472219732376.png)](https://saveto.co)
-
-[![](.github/screencapture-saveto-view-1472220400244.png)](https://saveto.co)
-
-[![](.github/screencapture-saveto-co-note-1472219805542.png)](https://saveto.co)
+![](.github/screencapture-saveto-co-note-1472219805542.png)
 
 
-
-
-## Coming soon
+## Roadmap
 
 - [x] using without login. 
 - [x] youtube review
@@ -46,32 +31,28 @@ Release: https://saveto.co or https://ahihi.club
 
 1. Clone the source 
 
-	```sh
-	git clone https://github.com/saveto-co/saveto
-	cd saveto
-	```
-2. Install Nodejs (or skip to step 3)
+```sh
+git clone https://github.com/duyet/saveto
+cd saveto
+```
 
-	Run as root or insert `sudo -E` before `bash`:
-	```sh
-	wget -qO- http://saveto.co/node_5x | bash -
-	sudo apt-get install nodejs
-	```
+1. Install `npm`, `bower`, `mongodb`, `redis` package 
 
-3. Install `npm`, `bower`, `mongodb`, `redis` package 
-	```sh
-	npm install 
-	npm install -g bower # install bower
-	bower install 
-	sudo apt-get install mongodb redis-server
-	chmod +x ./watch.sh
-	```
+```sh
+npm install 
+npm install -g bower # install bower
+bower install 
+sudo apt-get install mongodb redis-server
+chmod +x ./watch.sh
+```
 
-4. Change database config in `app/config.js`
-5. Start server (support watch and reload)
-	```sh
-	npm start
-	```
+1. Change database config in `app/config.js`
+
+1. Start server (support live reload)
+
+```sh
+npm start
+```
 
 6. Visit [http://localhost:6969](http://localhost:6969)
 
@@ -80,20 +61,21 @@ Release: https://saveto.co or https://ahihi.club
 1. Install Docker and start Docker deamon
 2. Build Docker image
 
-	```
-	docker build --tag duyetdev/saveto.co .
-	```
+```
+docker build --tag duyet/saveto .
+```
+
 3. Deploy and run
 
-	```
-	docker run -p 6969:6969 --name saveto-app -d duyetdev/saveto.co
-	```
+```
+docker run -p 6969:6969 --name saveto-app -d duyet/saveto
+```
 
 4. Visit http://localhost:6969
 
 #  Production
 
-See how to deploy in production [wiki](https://github.com/saveto-co/saveto/wiki/Production).
+See how to deploy in production [wiki](https://github.com/duyet/saveto/wiki/Production).
 
 # How to contribute
 
