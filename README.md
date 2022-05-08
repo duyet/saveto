@@ -1,5 +1,7 @@
 # saveto
 
+*This project is under maintenance. PRs are welcome!*
+
 ![](.github/screencapture-saveto-co-1472220247447.png)
 
 ![](.github/screencapture-saveto-co-me-1472219333280.png)
