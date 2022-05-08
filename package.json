@@ -37,7 +37,7 @@
     "koa-passport": "^4.0.0",
     "koa-router": "^10.0.0",
     "koa-session": "^6.0.0",
-    "koa-static-cache": "^4.1.1",
+    "koa-static-cache": "^5.0.0",
     "koa-static-folder": "^0.1.6",
     "marked": "^4.0.0",
     "marked-sanitized": "^1.0.0",
