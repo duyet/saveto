@@ -58,7 +58,7 @@
   "devDependencies": {
     "jsdoc": "3.6.10",
     "nodemon": "2.0.16",
-    "uglify-js": "3.16.0"
+    "uglify-js": "3.16.1"
   },
   "snyk": true
 }
