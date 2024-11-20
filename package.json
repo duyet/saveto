@@ -41,7 +41,7 @@
     "koa-static-folder": "^0.1.6",
     "marked": "^15.0.0",
     "marked-sanitized": "^1.0.0",
-    "mathjs": "^13.0.0",
+    "mathjs": "^14.0.0",
     "md5": "^2.0.0",
     "mongo-sanitize": "^1.0.0",
     "mongoose": "^8.0.0",
