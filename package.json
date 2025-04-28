@@ -29,7 +29,7 @@
     "co-event": "^0.1.0",
     "handlebars-intl": "^1.1.2",
     "highlight.js": "^11.0.0",
-    "koa": "^2.2.0",
+    "koa": "^3.0.0",
     "koa-flash": "^1.0.0",
     "koa-hbs": "^0.9.0",
     "koa-helmet": "^8.0.0",
