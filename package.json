@@ -35,7 +35,7 @@
     "koa-helmet": "^8.0.0",
     "koa-middlewares": "git+https://github.com/saveto-co/koa-middlewares.git",
     "koa-passport": "^6.0.0",
-    "koa-router": "^13.0.0",
+    "koa-router": "^14.0.0",
     "koa-session": "^7.0.0",
     "koa-static-cache": "^5.0.0",
     "koa-static-folder": "^0.1.6",
