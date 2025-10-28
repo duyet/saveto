@@ -1,4 +1,4 @@
-FROM node:22
+FROM node:24
 
 MAINTAINER Van-Duyet Le <me@duyetdev.com>
 
