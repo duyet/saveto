@@ -68,7 +68,7 @@ print_info "Deploying to: ${ENVIRONMENT}"
 # Step 1: Create D1 database if it doesn't exist
 print_info "Step 1: Checking D1 database..."
 
-DB_NAME="saveto-db"
+DB_NAME="saveto"
 
 print_info "Database name: ${DB_NAME}"
 
