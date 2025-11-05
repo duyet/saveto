@@ -105,3 +105,28 @@ export const activityLogs = sqliteTable('activity_logs', {
   userAgent: text('user_agent'),
   createdAt: text('created_at').notNull().default("datetime('now')"),
 });
+
+// Type exports for easier usage
+export type Session = typeof sessions.$inferSelect;
+export type NewSession = typeof sessions.$inferInsert;
+
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+
+export type Url = typeof urls.$inferSelect;
+export type NewUrl = typeof urls.$inferInsert;
+
+export type Tag = typeof tags.$inferSelect;
+export type NewTag = typeof tags.$inferInsert;
+
+export type Note = typeof notes.$inferSelect;
+export type NewNote = typeof notes.$inferInsert;
+
+export type Til = typeof til.$inferSelect;
+export type NewTil = typeof til.$inferInsert;
+
+export type Application = typeof applications.$inferSelect;
+export type NewApplication = typeof applications.$inferInsert;
+
+export type ActivityLog = typeof activityLogs.$inferSelect;
+export type NewActivityLog = typeof activityLogs.$inferInsert;

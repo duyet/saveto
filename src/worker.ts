@@ -6,8 +6,19 @@
  */
 
 import { httpServerHandler } from 'cloudflare:node';
-import { initDB, schema } from './db/index.js';
+import { initDB, schema } from './db/index';
 import { lt } from 'drizzle-orm';
+import Koa from 'koa';
+
+/**
+ * Cloudflare Workers environment bindings
+ */
+export interface Env {
+  DB: D1Database;
+  CACHE: KVNamespace;
+  UPLOADS?: R2Bucket;
+  RATE_LIMITER?: RateLimit;
+}
 
 // Note: The app.js file needs to be modified to:
 // 1. Export the Koa app instance (not the HTTP server)
@@ -17,7 +28,6 @@ import { lt } from 'drizzle-orm';
 
 // For now, we'll create a basic Koa app setup
 // TODO: Import from ../app.js after refactoring
-const Koa = require('koa');
 const app = new Koa();
 
 // Basic middleware
@@ -64,7 +74,7 @@ export default httpServerHandler({ port: PORT });
  * [triggers]
  * crons = ["0 0 * * *"]  # Daily at midnight
  */
-export const scheduled = async (event, env, ctx) => {
+export const scheduled: ExportedHandlerScheduledHandler<Env> = async (event, env, ctx) => {
   const db = initDB(env.DB);
 
   // Clean up expired sessions
