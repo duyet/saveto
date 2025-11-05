@@ -110,7 +110,7 @@ fi
 # Step 3: Create KV namespace for cache if needed
 print_info "Step 3: Checking KV namespace..."
 
-KV_NAME="CACHE"
+KV_NAME="saveto"
 KV_EXISTS=$(wrangler kv:namespace list | grep -c "$KV_NAME" || true)
 
 if [ "$KV_EXISTS" -eq 0 ]; then
