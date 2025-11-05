@@ -34,6 +34,7 @@
 		"bcrypt-nodejs": "0.0.3",
 		"co": "^4.6.0",
 		"co-event": "^0.1.0",
+		"drizzle-orm": "^0.30.0",
 		"handlebars-intl": "^1.1.2",
 		"highlight.js": "^11.0.0",
 		"koa": "^3.0.0",
@@ -50,8 +51,6 @@
 		"marked-sanitized": "^1.0.0",
 		"mathjs": "^15.0.0",
 		"md5": "^2.0.0",
-		"mongo-sanitize": "^1.0.0",
-		"mongoose": "^8.0.0",
 		"node-metainspector": "git+https://github.com/duyetdev/node-metainspector.git",
 		"passport-github": "^1.1.0",
 		"passport-local": "^1.0.0",
@@ -63,9 +62,11 @@
 		"snyk": "^1.41.1"
 	},
 	"devDependencies": {
+		"drizzle-kit": "^0.20.0",
 		"jsdoc": "4.0.5",
 		"nodemon": "3.1.10",
-		"uglify-js": "3.19.3"
+		"uglify-js": "3.19.3",
+		"wrangler": "^3.0.0"
 	},
 	"snyk": true
 }

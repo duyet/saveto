@@ -42,8 +42,8 @@ if [[ ! "$COMMAND" =~ ^(dev|deploy)$ ]]; then
     print_error "Invalid command: $COMMAND"
     echo ""
     echo "Usage:"
-    echo "  ./deploy-cloudflare.sh dev     - Start local development server"
-    echo "  ./deploy-cloudflare.sh deploy  - Deploy static assets to Cloudflare Pages"
+    echo "  ./deploy-cloudflare.sh dev     - Start local development (Node.js or Workers)"
+    echo "  ./deploy-cloudflare.sh deploy  - Deploy to Cloudflare Workers"
     echo ""
     exit 1
 fi
@@ -51,24 +51,35 @@ fi
 # Handle dev command
 if [ "$COMMAND" = "dev" ]; then
     echo ""
-    print_info "🚀 Starting local development server..."
-    echo ""
-    print_warning "Note: This starts the Node.js/Koa backend"
-    print_info "The app will run on http://localhost:6969"
+    print_info "🚀 Starting development server..."
     echo ""
 
-    # Check if we have the start script
-    if [ ! -f "app.js" ]; then
-        print_error "app.js not found. Cannot start dev server."
-        exit 1
+    # Check if user wants Workers dev or regular dev
+    echo "Choose development mode:"
+    echo "  1) Local Node.js server (http://localhost:6969)"
+    echo "  2) Cloudflare Workers dev (http://localhost:8787)"
+    read -p "Enter choice (1 or 2): " DEV_CHOICE
+
+    if [ "$DEV_CHOICE" = "2" ]; then
+        print_info "Starting Cloudflare Workers development server..."
+        print_warning "Make sure you've run migrations: wrangler d1 execute saveto --file=./schema.sql"
+        wrangler dev
+    else
+        print_info "Starting Node.js/Koa backend..."
+        print_info "The app will run on http://localhost:6969"
+
+        if [ ! -f "app.js" ]; then
+            print_error "app.js not found. Cannot start dev server."
+            exit 1
+        fi
+
+        npm start
     fi
 
-    # Start the development server
-    npm start
     exit 0
 fi
 
-# Handle deploy command (Pages only)
+# Handle deploy command (Workers)
 # Check if wrangler is installed
 if ! command -v wrangler &> /dev/null; then
     print_error "Wrangler CLI not found!"
@@ -88,24 +99,33 @@ fi
 print_success "Logged in to Cloudflare"
 
 echo ""
-print_info "📦 Deploying static assets to Cloudflare Pages..."
+print_info "🚀 Deploying to Cloudflare Workers..."
 echo ""
 
-# Check if public directory exists
-if [ ! -d "public" ]; then
-    print_error "No public directory found!"
-    echo "The public/ directory should contain your static assets (CSS, JS, images)"
+# Check if worker entry point exists
+if [ ! -f "src/worker.js" ]; then
+    print_error "Worker entry point not found at src/worker.js"
+    echo "Please review WORKERS_MIGRATION_GUIDE.md for setup instructions"
     exit 1
 fi
 
-print_info "Contents of public/ directory:"
-ls -lh public/ | head -10
-
+# Remind about migrations
+print_warning "Pre-deployment checklist:"
+echo "  1. Have you run database migrations?"
+echo "     wrangler d1 execute saveto --file=./schema.sql"
+echo "  2. Have you updated app.js to export the app?"
+echo "  3. Have you replaced MongoDB with D1 adapter?"
 echo ""
-print_info "Deploying to Cloudflare Pages..."
+read -p "Continue with deployment? (yes/no): " DEPLOY_CONFIRM
 
-# Deploy to Pages
-wrangler pages deploy ./public --project-name saveto --branch main
+if [ "$DEPLOY_CONFIRM" != "yes" ]; then
+    print_warning "Deployment cancelled"
+    exit 0
+fi
+
+# Deploy to Workers
+print_info "Deploying Workers..."
+wrangler deploy
 
 # Display success message
 echo ""
@@ -114,18 +134,15 @@ echo -e "${GREEN}║   Deployment Completed! 🚀         ║${NC}"
 echo -e "${GREEN}╚════════════════════════════════════╝${NC}"
 echo ""
 
-print_success "Static assets deployed successfully!"
+print_success "Koa.js app deployed to Cloudflare Workers!"
 echo ""
-print_info "📱 Check your deployment:"
-print_info "   Dashboard: https://dash.cloudflare.com/pages"
-echo ""
-print_warning "⚠️  Note about Workers:"
-echo "   This project uses Koa.js which requires Node.js runtime"
-echo "   Workers deployment is not available (Workers use V8 isolates)"
-echo "   Keep your backend (app.js) running on your existing hosting"
+print_info "📊 View your deployment:"
+print_info "   Dashboard: https://dash.cloudflare.com/workers"
+print_info "   Logs: wrangler tail"
 echo ""
 print_success "Next steps:"
-echo "  1. Visit your Pages URL to verify deployment"
-echo "  2. Configure custom domain (optional)"
-echo "  3. Your backend continues serving API requests"
+echo "  1. Test your Worker URL"
+echo "  2. Monitor logs with: wrangler tail"
+echo "  3. Configure custom domain (optional)"
+echo "  4. Review WORKERS_MIGRATION_GUIDE.md for optimization tips"
 echo ""

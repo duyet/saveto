@@ -3,7 +3,6 @@ main = "src/worker.js"
 compatibility_date = "2025-11-01"
 compatibility_flags = ["nodejs_compat"]
 
-
 # Account ID (replace with your Cloudflare account ID)
 # Find at: https://dash.cloudflare.com/?to=/:account/workers
 account_id = "YOUR_ACCOUNT_ID"
@@ -11,8 +10,9 @@ account_id = "YOUR_ACCOUNT_ID"
 # Workers configuration
 workers_dev = true
 
-# Note: This project currently uses Koa.js which needs to be adapted for Workers runtime
-# The build step is not needed until the code is refactored for Workers
+# Node.js compatibility for Koa.js
+# This enables Node.js APIs like Buffer, streams, crypto, etc.
+node_compat = true
 
 # D1 Database bindings (for all data including sessions)
 [[d1_databases]]
