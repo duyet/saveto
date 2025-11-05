@@ -1,0 +1,80 @@
+name = "saveto"
+main = "src/worker.js"
+compatibility_date = "2024-01-01"
+node_compat = true
+
+# Account ID (replace with your Cloudflare account ID)
+# Find at: https://dash.cloudflare.com/?to=/:account/workers
+account_id = "YOUR_ACCOUNT_ID"
+
+# Workers configuration
+workers_dev = true
+
+# Build configuration
+[build]
+command = "npm run build:worker"
+
+# D1 Database bindings (for all data including sessions)
+[[d1_databases]]
+binding = "DB" # Available in your Worker as env.DB
+database_name = "saveto-db"
+database_id = "YOUR_D1_DATABASE_ID" # Created with: wrangler d1 create saveto-db
+
+# Optional: KV namespace for cache only (if needed for high-performance caching)
+[[kv_namespaces]]
+binding = "CACHE"
+id = "YOUR_KV_CACHE_ID"
+preview_id = "YOUR_KV_CACHE_PREVIEW_ID"
+
+# Environment variables
+[env.production]
+name = "saveto-production"
+vars = { ENVIRONMENT = "production" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "saveto-db-production"
+database_id = "YOUR_PROD_D1_DATABASE_ID"
+
+[[env.production.kv_namespaces]]
+binding = "CACHE"
+id = "YOUR_PROD_KV_CACHE_ID"
+
+[env.staging]
+name = "saveto-staging"
+vars = { ENVIRONMENT = "staging" }
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "saveto-db-staging"
+database_id = "YOUR_STAGING_D1_DATABASE_ID"
+
+[[env.staging.kv_namespaces]]
+binding = "CACHE"
+id = "YOUR_STAGING_KV_CACHE_ID"
+
+# Static asset serving (if using Workers to serve assets)
+[site]
+bucket = "./public"
+
+# R2 bucket for user uploads (optional)
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "saveto-uploads"
+
+# Durable Objects for real-time features (optional)
+# [[durable_objects.bindings]]
+# name = "ROOM"
+# class_name = "Room"
+# script_name = "saveto"
+
+# Rate limiting
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 100, period = 60 }
+
+# Observability
+[observability]
+enabled = true

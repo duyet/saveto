@@ -1,0 +1,18 @@
+# Local development environment variables
+# Copy this file to .dev.vars and fill in your values
+# These are only used in local development with `wrangler dev`
+
+# Application
+SECRET_KEY=your-secret-key-here
+SESSION_SECRET=your-session-secret-here
+
+# GitHub OAuth (for login)
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+
+# API Keys
+GA_TRACKING_ID=your-google-analytics-id
+
+# App Configuration
+APP_NAME=Saveto
+APP_URL=http://localhost:8787

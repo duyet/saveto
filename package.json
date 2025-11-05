@@ -8,7 +8,18 @@
     "gendoc": "./node_modules/.bin/jsdoc --configure jsdoc.json ./app app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "npm run snyk-protect",
+    "cf:dev": "wrangler dev",
+    "cf:deploy": "wrangler deploy",
+    "cf:deploy:staging": "wrangler deploy --env staging",
+    "cf:deploy:production": "wrangler deploy --env production",
+    "cf:d1:create": "wrangler d1 create saveto-db",
+    "cf:d1:migrate": "wrangler d1 execute saveto-db --file=./schema.sql",
+    "cf:d1:migrate:staging": "wrangler d1 execute saveto-db-staging --env staging --file=./schema.sql",
+    "cf:d1:migrate:production": "wrangler d1 execute saveto-db-production --env production --file=./schema.sql",
+    "cf:d1:query": "wrangler d1 execute saveto-db --command",
+    "cf:kv:create": "wrangler kv:namespace create CACHE",
+    "cf:pages:deploy": "wrangler pages deploy ./public --project-name saveto"
   },
   "keywords": [
     "Quick",

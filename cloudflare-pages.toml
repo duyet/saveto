@@ -1,0 +1,56 @@
+# Cloudflare Pages Configuration
+# This file configures your Pages deployment
+# See: https://developers.cloudflare.com/pages/
+
+[build]
+command = "npm run build"
+destination = "dist"
+
+[build.environment]
+NODE_VERSION = "20"
+
+# Preview deployments
+[preview]
+watch_paths = ["src/**", "views/**", "public/**"]
+
+# Production deployment
+[production]
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables (set in Pages dashboard)
+# - SECRET_KEY
+# - GITHUB_CLIENT_ID
+# - GITHUB_CLIENT_SECRET
+# - GA_TRACKING_ID
+
+# Custom redirects and headers
+[[redirects]]
+from = "/old-url"
+to = "/new-url"
+status = 301
+
+[[headers]]
+for = "/*"
+[headers.values]
+X-Frame-Options = "DENY"
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+for = "/public/*"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "/*.css"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Content-Type = "text/css; charset=utf-8"
+
+[[headers]]
+for = "/*.js"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+Content-Type = "text/javascript; charset=utf-8"
