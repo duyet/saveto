@@ -141,11 +141,11 @@ export class D1SessionStore {
    */
   async cleanup(): Promise<number> {
     try {
-      const result = await this.db
+      await this.db
         .delete(schema.sessions)
         .where(lt(schema.sessions.expiresAt, new Date().toISOString()));
 
-      return result.rowsAffected || 0;
+      return 0; // Return 0 as we can't easily get row count from D1
     } catch (error) {
       console.error('Session cleanup error:', error);
       return 0;

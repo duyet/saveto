@@ -37,3 +37,9 @@ public/lib
 
 # Cloudflare
 .wrangler/
+dist/
+node_modules/
+*.log
+.env
+.wrangler/
+package-lock.json
