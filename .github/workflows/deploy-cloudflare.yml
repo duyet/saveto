@@ -38,7 +38,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run linting (ESLint)
         run: npm run lint --if-present
@@ -66,7 +66,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build project
         run: npm run build --if-present
@@ -142,7 +142,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install Wrangler
         run: npm install -g wrangler@latest
@@ -227,7 +227,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install Wrangler
         run: npm install -g wrangler@latest
