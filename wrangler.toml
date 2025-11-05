@@ -1,7 +1,8 @@
 name = "saveto"
 main = "src/worker.js"
-compatibility_date = "2024-01-01"
-node_compat = true
+compatibility_date = "2025-11-01"
+compatibility_flags = ["nodejs_compat"]
+
 
 # Account ID (replace with your Cloudflare account ID)
 # Find at: https://dash.cloudflare.com/?to=/:account/workers
@@ -16,42 +17,15 @@ command = "npm run build:worker"
 
 # D1 Database bindings (for all data including sessions)
 [[d1_databases]]
-binding = "DB" # Available in your Worker as env.DB
+binding = "DB"                                       # Available in your Worker as env.DB
 database_name = "saveto-db"
-database_id = "YOUR_D1_DATABASE_ID" # Created with: wrangler d1 create saveto-db
+database_id = "7d58007a-d2ae-4fc9-a46c-867091827b8d" # Created with: wrangler d1 create saveto-db
 
 # Optional: KV namespace for cache only (if needed for high-performance caching)
 [[kv_namespaces]]
-binding = "CACHE"
-id = "YOUR_KV_CACHE_ID"
-preview_id = "YOUR_KV_CACHE_PREVIEW_ID"
-
-# Environment variables
-[env.production]
-name = "saveto-production"
-vars = { ENVIRONMENT = "production" }
-
-[[env.production.d1_databases]]
-binding = "DB"
-database_name = "saveto-db-production"
-database_id = "YOUR_PROD_D1_DATABASE_ID"
-
-[[env.production.kv_namespaces]]
-binding = "CACHE"
-id = "YOUR_PROD_KV_CACHE_ID"
-
-[env.staging]
-name = "saveto-staging"
-vars = { ENVIRONMENT = "staging" }
-
-[[env.staging.d1_databases]]
-binding = "DB"
-database_name = "saveto-db-staging"
-database_id = "YOUR_STAGING_D1_DATABASE_ID"
-
-[[env.staging.kv_namespaces]]
-binding = "CACHE"
-id = "YOUR_STAGING_KV_CACHE_ID"
+binding = "CACHE"                       # Available in your Worker as env.CACHE
+id = "4830eec670ed4328bddf5aa751cfba2a"
+preview_id = ""
 
 # Static asset serving (if using Workers to serve assets)
 [site]

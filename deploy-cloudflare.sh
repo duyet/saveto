@@ -6,7 +6,7 @@
 
 set -e  # Exit on error
 
-ENVIRONMENT=${1:-staging}
+ENVIRONMENT=${1:-production}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Colors for output
@@ -69,11 +69,6 @@ print_info "Deploying to: ${ENVIRONMENT}"
 print_info "Step 1: Checking D1 database..."
 
 DB_NAME="saveto-db"
-if [ "$ENVIRONMENT" = "staging" ]; then
-    DB_NAME="saveto-db-staging"
-elif [ "$ENVIRONMENT" = "production" ]; then
-    DB_NAME="saveto-db-production"
-fi
 
 print_info "Database name: ${DB_NAME}"
 
@@ -133,9 +128,6 @@ print_info "Step 4: Deploying to Cloudflare Workers..."
 if [ "$ENVIRONMENT" = "dev" ]; then
     print_info "Starting development server..."
     wrangler dev
-elif [ "$ENVIRONMENT" = "staging" ]; then
-    wrangler deploy --env staging
-    print_success "Deployed to staging!"
 elif [ "$ENVIRONMENT" = "production" ]; then
     read -p "⚠️  Deploy to PRODUCTION? (yes/no): " CONFIRM
     if [ "$CONFIRM" = "yes" ]; then
@@ -176,8 +168,6 @@ WORKER_NAME="saveto"
 if [ "$ENVIRONMENT" != "dev" ]; then
     if [ "$ENVIRONMENT" = "production" ]; then
         WORKER_NAME="saveto-production"
-    elif [ "$ENVIRONMENT" = "staging" ]; then
-        WORKER_NAME="saveto-staging"
     fi
 
     print_info "Fetching deployment URLs..."
