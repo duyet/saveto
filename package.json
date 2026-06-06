@@ -74,7 +74,7 @@
 		"@types/node": "^20.0.0",
 		"@vitest/coverage-v8": "^1.6.0",
 		"@vitest/ui": "^1.6.0",
-		"drizzle-kit": "^0.20.0",
+		"drizzle-kit": "^0.31.0",
 		"jsdoc": "4.0.5",
 		"nodemon": "3.1.10",
 		"tsx": "^4.7.0",
