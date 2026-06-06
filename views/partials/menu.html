@@ -1,15 +1,15 @@
-<ul class="nav navbar-nav nav-pills pull-xs-right">
-    <li class="nav-item ">
-        <a class="nav-link" href="/"><i class="fa fa-home"></i> <span class="sr-only">(current)</span></a>
+<ul class="navbar-nav ms-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="/"><i class="fa-solid fa-house"></i> <span class="visually-hidden">(current)</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/trend"><i class="fa fa-line-chart" aria-hidden="true"></i> trend</a>
+        <a class="nav-link" href="/trend"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> trend</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/note"><i class="fa fa-code" aria-hidden="true"></i> snippet</a>
+        <a class="nav-link" href="/note"><i class="fa-solid fa-code" aria-hidden="true"></i> snippet</a>
     </li>
     {{#if user.username}}
-    <!-- <li class="nav-item ">
+    <!-- <li class="nav-item">
         <a class="nav-link" href="/u/{{user.username}}">my</a>
     </li> -->
     {{/if}}
@@ -20,17 +20,13 @@
             </a>
         {{else}}
             <a class="nav-link" href="/login?next=/">
-                <i class="fa fa-sign-in" aria-hidden="true"></i> login
+                <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> login
             </a>
         {{/if}}
     </li>
-
     <li class="nav-item">
         <a class="nav-link" href="/more" title="more">
-            <i class="fa fa-ellipsis-h"></i>
+            <i class="fa-solid fa-ellipsis"></i>
         </a>
-    </li>
-
-    <li class="nav-item">
     </li>
 </ul>

@@ -1,27 +1,36 @@
 <div class="row">
-	<div class="col-md-12 global-message">
+	<div class="col-12 global-message">
 	{{#unless user.username}}
-		<span class="text">please <a href="/register">register</a> or <a href="/login">login</a>, just a second.</span>
+		<div class="alert alert-info d-flex align-items-center" role="alert">
+			<i class="fa-solid fa-circle-info me-2"></i>
+			<span>Please <a href="/register" class="alert-link fw-bold">register</a> or <a href="/login" class="alert-link fw-bold">login</a> to get started.</span>
+		</div>
 	{{else}}
-		paste your link, press enter.
+		<div class="alert alert-success" role="alert">
+			<i class="fa-solid fa-link me-2"></i> Paste your link and press enter to save it.
+		</div>
 	{{/unless}}
-        <br />
-        <span class="label label-info">Update</span> New <strong>TIL</strong> at <a href="/til">/til</a>
+	<div class="alert alert-primary d-flex align-items-center" role="alert">
+		<i class="fa-solid fa-sparkles me-2"></i>
+		<span><span class="badge bg-info">Update</span> Check out our new <strong>TIL</strong> feature at <a href="/til" class="alert-link fw-bold">/til</a></span>
 	</div>
-    
+	</div>
+
     {{> tip}}
 
-    <div class="col-md-12">
+    <div class="col-12">
         {{> inputBox}}
     </div>
 </div>
 
-<div class="row">
+<div class="row mt-4">
     {{> feed}}
 
-    <div class="col-xs-12 m-t-1">
-    		<div class="text-xs-center">
-				<a class="load-more" href="javascript:;"></a>
+    <div class="col-12 mt-4">
+    		<div class="text-center">
+				<a class="load-more btn btn-outline-primary btn-lg" href="javascript:;">
+					<i class="fa-solid fa-arrows-rotate me-2"></i> Load More
+				</a>
 			</div>
     </div>
 </div>

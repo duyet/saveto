@@ -1,5 +1,20 @@
+/* Modern Trend Tags */
 .tags-trends a.tag {
 	text-decoration: none;
-	color: #00ABA9;
-	margin-right: 12px;
+	color: var(--secondary-color);
+	margin-right: 1rem;
+	padding: 0.5rem 1rem;
+	display: inline-block;
+	border-radius: var(--radius-md);
+	background-color: var(--gray-100);
+	transition: all var(--transition-base);
+	font-weight: 500;
+	box-shadow: var(--shadow-sm);
+}
+
+.tags-trends a.tag:hover {
+	color: var(--secondary-hover);
+	background-color: var(--gray-200);
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
 }

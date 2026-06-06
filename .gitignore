@@ -34,3 +34,12 @@ public/lib
 
 # Optional REPL history
 .node_repl_history
+
+# Cloudflare
+.wrangler/
+dist/
+node_modules/
+*.log
+.env
+.wrangler/
+package-lock.json

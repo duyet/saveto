@@ -1,24 +1,42 @@
+/* Modern Note Header */
 .note-header {
-	
+	padding: 1.5rem 0;
+	border-bottom: 2px solid var(--gray-200);
 }
+
 .note-header h5 {
-	/*margin-bottom: 0;*/
+	font-weight: 700;
+	color: var(--gray-900);
+	font-size: 1.5rem;
+	margin-bottom: 0.5rem;
 }
 
 .note-header .note-tools {
-	font-size: 0.8rem;
-	margin-top: 0;
+	font-size: 0.875rem;
+	margin-top: 0.5rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	flex-wrap: wrap;
 }
 
 .note-header .note-tools > * {
-	margin-right: 1em;
-
+	color: var(--gray-600);
+	transition: color var(--transition-base);
 }
 
+.note-header .note-tools > *:hover {
+	color: var(--primary-color);
+}
+
+/* Modern Note Content */
 .note-content {
-	margin-top: 20px;
+	margin-top: 1.5rem;
 	padding: 0;
-	border: 1px solid #DDD;
+	border: 2px solid var(--gray-200);
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	box-shadow: var(--shadow-sm);
 }
 
 /*.quick-note-review {
@@ -30,26 +48,34 @@
 	font-family: '';
 }
 
+/* Modern Code Editor */
 .ace-tm .ace_gutter {
-    background: #FFFFFF !important;
-    color: #333;
-    border-right: 1px solid #DEDEDE !important;
-    padding-right: 5px !important;
+    background: var(--gray-50) !important;
+    color: var(--gray-700);
+    border-right: 2px solid var(--gray-200) !important;
+    padding-right: 0.625rem !important;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
 }
 
-/* Markdown review  */
+/* Modern Markdown Preview */
 .note-markdown-preview {
 	border: 0;
-	margin-top: 25px;
+	margin-top: 1.5rem;
+	padding: 1.5rem;
+	background-color: var(--gray-50);
+	border-radius: var(--radius-lg);
 }
 
+/* Modern Note List */
 .list-all-note {
-	font-size: 13px;
+	font-size: 0.9375rem;
 }
 
 .list-all-note h4.list-group-item-heading {
-    font-size: 19px;
-    color: #ffcc00;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
 }
 
 .ace-github {

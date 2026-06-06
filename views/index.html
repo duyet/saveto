@@ -20,12 +20,12 @@
 
     {{> header_meta}}
 
-    {{css_cdn is_production 
-        '/public/lib/bootstrap/dist/css/bootstrap.min.css' 
-        '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.3/css/bootstrap.min.css'}}
-    {{css_cdn is_production 
-        '/public/lib/font-awesome/css/font-awesome.min.css' 
-        '//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'}}
+    {{css_cdn is_production
+        '/public/lib/bootstrap/dist/css/bootstrap.min.css'
+        '//cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'}}
+    {{css_cdn is_production
+        '/public/lib/font-awesome/css/font-awesome.min.css'
+        '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'}}
     <link rel="stylesheet" type="text/css" href="/public/css/app.css" />
     {{custom_css_by_page custom_css}}
 
@@ -34,14 +34,14 @@
 
 <body>
     {{#unless request.query.no_header}}
-    <div class="container-fluid color-header m-b-1" {{random_header}}>
+    <div class="container-fluid color-header mb-3" {{random_header}}>
         <header class="container header">
-            <nav class="navbar navbar-light">
-                <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#quicknavbar">
-                    <a href="/" class="menu-btn-mobile">&#9776;</a>
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="/" id="quick-logo">{{config.appName}}</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#quicknavbar" aria-controls="quicknavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-toggleable-xs" id="quicknavbar">
-                    <a class="navbar-brand" href="/" id="quick-logo">{{config.appName}}</a>
+                <div class="collapse navbar-collapse" id="quicknavbar">
                     {{> menu}}
                 </div>
             </nav>
@@ -57,9 +57,7 @@
         window.app.basepath = '{{request.origin}}';
     </script>
 
-    {{js_cdn is_production '/public/lib/jquery/dist/jquery.min.js' '//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js'}}
-    {{js_cdn is_production '/public/lib/tether/dist/js/tether.min.js' '//cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.min.js'}}
-    {{js_cdn is_production '/public/lib/bootstrap/dist/js/bootstrap.min.js' '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js'}}
+    {{js_cdn is_production '/public/lib/bootstrap/dist/js/bootstrap.bundle.min.js' '//cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'}}
 
     {{custom_script_by_page custom_script}}
     <script type="text/javascript" src="/public/js/main.js"></script>
