@@ -41,7 +41,7 @@
 		"bcrypt-nodejs": "0.0.3",
 		"co": "^4.6.0",
 		"co-event": "^0.1.0",
-		"drizzle-orm": "^0.30.0",
+		"drizzle-orm": "^0.45.2",
 		"handlebars-intl": "^1.1.2",
 		"highlight.js": "^11.0.0",
 		"koa": "^3.0.0",
